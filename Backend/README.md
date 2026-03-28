@@ -1,148 +1,162 @@
-# 👤 User API Documentation
+# 👤 User Profile & Logout API Documentation
 
-## 📌 Endpoint: Register User
+---
+
+## 📌 Endpoint: Get User Profile
 
 ### 🔗 URL
 
-http://localhost:4000/users/register
+http://localhost:4000/users/profile
 
 ### 📤 Method
 
-POST /users/register
+GET /users/profile
 
 ---
 
 ## 📖 Description
 
-This endpoint is used to **register a new user** in the system.
+This endpoint is used to **get the authenticated user's profile data**.
 
-It validates the input using `express-validator`, hashes the password, stores the user in MongoDB, and returns an authentication token along with user details.
+It requires a valid **JWT token**. The token is verified using the `authUser` middleware.
 
 ---
 
-## 📥 Request Body
+## 🔐 Authentication
 
-The request must be sent in **JSON format**:
+- Token must be sent in:
+  - **Cookies** OR
+  - **Authorization Header**
 
-```json
+### Example Header:
+
+Authorization: Bearer <your_token>
+
+---
+
+## 📤 Success Response
+
+### ✅ 200 OK
+
+````json
 {
+  "_id": "user_id",
   "fullName": {
     "firstName": "John",
     "lastName": "Doe"
   },
-  "email": "john@example.com",
-  "password": "123456"
+  "email": "john@example.com"
 }
-
-| Field              | Type   | Required | Description           |
-| ------------------ | ------ | -------- | --------------------- |
-| fullName.firstName | String | Yes      | Minimum 3 characters  |
-| fullName.lastName  | String | Yes      | Minimum 3 characters  |
-| email              | String | Yes      | Must be a valid email |
-| password           | String | Yes      | Minimum 6 characters  |
-
-📤 Success Response
-✅ 201 Created
-
-{
-  "token": "jwt_token_here",
-  "user": {
-    "_id": "user_id",
-    "fullName": {
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "email": "john@example.com"
-  }
-}
-
 ❌ Error Responses
-🔸 400 Bad Request (Validation Error)
-
+🔸 401 Unauthorized
 {
-  "errors": [
-    {
-      "msg": "Invalid Email",
-      "param": "email"
-    }
-  ]
-}
-
-
-🔸 400 Bad Request (Missing Fields)
-{
-  "message": "All fields are required"
-}
-🔸 409 Conflict (User Already Exists)
-{
-  "message": "User already exists"
+  "message": "Unauthorized"
 }
 🔸 500 Internal Server Error
 {
   "message": "Server error"
 }
 
-
-🔐 Security Notes
-Password is hashed using bcryptjs before saving
-Password field is not returned (select: false)
-JWT token is generated after successful registration
-
 🚀 Example Request (cURL)
+curl -X GET http://localhost:4000/users/profile \
+-H "Authorization: Bearer <your_token>"
+🚪 Logout User API
+📌 Endpoint: Logout User
+🔗 URL
 
-curl -X POST http://localhost:4000/users/register \
--H "Content-Type: application/json" \
--d '{
-  "fullName": {
-    "firstName": "John",
-    "lastName": "Doe"
-  },
-  "email": "john@example.com",
-  "password": "123456"
-}'
-```
+http://localhost:4000/users/logout
 
-# 🔐 User Login API Documentation
+📤 Method
 
-## 📌 Endpoint: Login User
+GET /users/logout
 
-### 🔗 URL
+📖 Description
 
-http://localhost:4000/users/login
+This endpoint is used to logout the authenticated user.
 
-### 📤 Method
-
-POST /users/login
-
----
-
-## 📖 Description
-
-This endpoint is used to **authenticate an existing user**.
-
-It verifies the user's email and password, and if valid, returns a **JWT authentication token** along with user details.
-
----
-
-## 📥 Request Body
-
-The request must be sent in **JSON format**:
-
-```json
-{
-  "email": "john@example.com",
-  "password": "123456"
-}
-
-🧾 Field Requirements
-| Field    | Type   | Required | Description           |
-| -------- | ------ | -------- | --------------------- |
-| email    | String | Yes      | Must be a valid email |
-| password | String | Yes      | Minimum 6 characters  |
-
+Clears the authentication token from cookies
+Adds the token to a blacklist to prevent reuse
+🔐 Authentication
+Requires a valid JWT token
+Token can be sent via:
+Cookies
+Authorization header
 📤 Success Response
 ✅ 200 OK
 {
+  "message": "User Logged Out"
+}
+❌ Error Responses
+🔸 401 Unauthorized
+{
+  "message": "Unauthorized"
+}
+🔸 500 Internal Server Error
+{
+  "message": "Server error"
+}
+🚀 Example Request (cURL)
+curl -X GET http://localhost:4000/users/logout \
+-H "Authorization: Bearer <your_token>"
+🔐 Security Notes
+JWT token is invalidated by storing it in a blacklist database
+Prevents reuse of old tokens after logout
+Always send token securely (HTTP-only cookies recommended)
+
+---
+
+🔥 Now your backend has **complete API docs for:**
+- ✅ Register
+- ✅ Login
+- ✅ Profile
+- ✅ Logout
+
+---
+
+If you want next level 🚀:
+- Combine all into **one professional README**
+- Add **middleware docs (auth flow diagram)**
+- Convert into **Swagger UI (real industry standard)**
+ok
+
+Great 👍 Let’s upgrade your docs into a single professional README.md (industry-level) that includes all endpoints + clean structure.
+
+👉 Just copy everything below and replace your backend/README.md with this:
+
+# 🚀 Backend API Documentation
+
+Base URL:
+http://localhost:4000
+
+---
+
+# 👤 User APIs
+
+---
+
+## 📌 1. Register User
+
+### 🔗 Endpoint
+POST /users/register
+
+### 📖 Description
+Register a new user by providing name, email, and password.
+
+---
+
+### 📥 Request Body
+
+```json
+{
+  "fullName": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "john@example.com",
+  "password": "123456"
+}
+📤 Success Response (201)
+{
   "token": "jwt_token_here",
   "user": {
     "_id": "user_id",
@@ -153,51 +167,93 @@ The request must be sent in **JSON format**:
     "email": "john@example.com"
   }
 }
+❌ Errors
+400 → Validation error
+409 → User already exists
+500 → Server error
+📌 2. Login User
+🔗 Endpoint
 
+POST /users/login
 
-❌ Error Responses
-🔸 400 Bad Request (Validation Error)
+📖 Description
+
+Authenticate user and return JWT token.
+
+📥 Request Body
 {
-  "errors": [
-    {
-      "msg": "Invalid Email",
-      "param": "email"
-    }
-  ]
-}
-
-
-🔸 401 Unauthorized (Invalid Credentials)
-{
-  "message": "Invalid email or password"
-}
-
-
-🔸 404 Not Found (User Not Found)
-{
-  "message": "User not found"
-}
-
-
-🔸 500 Internal Server Error
-{
-  "message": "Server error"
-}
-
-
-🔐 Authentication Flow
-User sends email & password
-Server checks if user exists
-Password is compared using bcryptjs
-If valid → JWT token is generated
-Token is returned to client
-
-
-🚀 Example Request (cURL)
-curl -X POST http://localhost:4000/users/login \
--H "Content-Type: application/json" \
--d '{
   "email": "john@example.com",
   "password": "123456"
-}'
-```
+}
+📤 Success Response (200)
+{
+  "token": "jwt_token_here",
+  "user": {
+    "_id": "user_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com"
+  }
+}
+❌ Errors
+400 → Validation error
+401 → Invalid credentials
+500 → Server error
+📌 3. Get User Profile
+🔗 Endpoint
+
+GET /users/profile
+
+🔐 Authentication Required
+📖 Description
+
+Returns the currently logged-in user's profile.
+
+📤 Success Response (200)
+{
+  "_id": "user_id",
+  "fullName": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "john@example.com"
+}
+❌ Errors
+401 → Unauthorized
+500 → Server error
+📌 4. Logout User
+🔗 Endpoint
+
+GET /users/logout
+
+🔐 Authentication Required
+📖 Description
+
+Logs out user by clearing token and blacklisting it.
+
+📤 Success Response (200)
+{
+  "message": "User Logged Out"
+}
+❌ Errors
+401 → Unauthorized
+500 → Server error
+🔐 Authentication
+
+Protected routes require a JWT token.
+
+तरीका 1: Authorization Header
+Authorization: Bearer <token>
+तरीका 2: Cookies
+Token stored in HTTP-only cookies
+⚙️ Validation Rules
+Email must be valid
+First name ≥ 3 characters
+Password ≥ 6 characters
+🔐 Security
+Passwords are hashed using bcrypt
+JWT used for authentication
+Tokens are blacklisted on logout
+````
