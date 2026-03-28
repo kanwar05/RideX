@@ -60,17 +60,20 @@ Authorization: Bearer <your_token>
 🚀 Example Request (cURL)
 curl -X GET http://localhost:4000/users/profile \
 -H "Authorization: Bearer <your_token>"
-🚪 Logout User API
+````
+
+---
+## 🚪 Logout User API
 📌 Endpoint: Logout User
-🔗 URL
+### 🔗 URL
 
 http://localhost:4000/users/logout
 
-📤 Method
+### 📤 Method
 
 GET /users/logout
 
-📖 Description
+## 📖 Description
 
 This endpoint is used to logout the authenticated user.
 
