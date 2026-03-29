@@ -401,3 +401,165 @@ Send the following JSON data:
 - Password is not returned in response (`select: false` in schema).
 
 ---
+
+## 📌 Captain Login
+
+### 🔗 Endpoint
+
+POST /captains/login
+
+### 📖 Description
+
+Authenticate a captain using email and password.
+
+- Checks if captain exists
+- Compares hashed password
+- Returns JWT token and captain data
+- Sets token in cookies
+
+---
+
+### 📥 Request Body
+
+```json
+{
+  "email": "john@example.com",
+  "password": "123456"
+}
+```
+
+### 📤 Success Response (200 OK)
+
+```json
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "captain_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "HR26AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "active"
+  }
+}
+```
+
+### ❌ Error Responses
+
+🔸 400 Bad Request (Validation Error)
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid email or password",
+      "param": "email"
+    }
+  ]
+}
+```
+
+🔸 401 Unauthorized
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+---
+
+## 📌 Get Captain Profile
+
+### 🔗 Endpoint
+
+GET /captains/profile
+
+🔐 Authentication Required
+
+### 📖 Description
+
+Returns the currently authenticated captain's profile.
+
+- Uses authCaptain middleware
+- Reads captain from token
+
+---
+
+### 📤 Success Response (200 OK)
+
+```json
+{
+  "captain": {
+    "_id": "captain_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "HR26AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "active"
+  }
+}
+```
+
+### ❌ Error Responses
+
+🔸 401 Unauthorized
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+---
+
+## 📌 Captain Logout
+
+### 🔗 Endpoint
+
+GET /captains/logout
+
+🔐 Authentication Required
+
+### 📖 Description
+
+Logs out the captain.
+
+- Clears cookie token
+- Stores token in blacklist database
+
+---
+
+### 📤 Success Response (200 OK)
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+### ❌ Error Responses
+
+🔸 401 Unauthorized
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+---
