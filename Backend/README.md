@@ -268,9 +268,13 @@ Token blacklisted on logout
 
 ---
 
-# 🚖 Captain Registration API
+---
 
-## 📌 Endpoint
+# 🚖 Captain API's
+
+---
+
+## 📌captain register Endpoint
 
 ```
 POST /captain/register
@@ -395,41 +399,5 @@ Send the following JSON data:
 - Password is securely hashed before storing.
 - JWT token is generated for authentication.
 - Password is not returned in response (`select: false` in schema).
-
----
-
-## ⚠️ Important Fix (Bug in Your Code)
-
-Replace this line in your controller:
-
-```js
-const token = captainModel.generateToken;
-```
-
-❌ Wrong — not calling function & wrong method name
-
-✅ Correct:
-
-```js
-const token = captain.generateAuthToken();
-```
-
----
-
-## 🛠 Tech Stack
-
-- Node.js
-- Express.js
-- MongoDB (Mongoose)
-- JWT Authentication
-- bcryptjs for password hashing
-
----
-
-## 📌 Author Notes
-
-- Ensure `JWT_SECRET` is set in `.env`
-- Always validate input before database operations
-- Use HTTPS in production for security
 
 ---
