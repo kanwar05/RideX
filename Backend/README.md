@@ -267,3 +267,169 @@ JWT used for authentication
 Token blacklisted on logout
 
 ---
+
+# 🚖 Captain Registration API
+
+## 📌 Endpoint
+
+```
+POST /captain/register
+```
+
+---
+
+## 📖 Description
+
+This endpoint is used to register a new captain (driver) in the system. It validates input data, checks for duplicate email, hashes the password, and creates a new captain record in the database.
+
+---
+
+## 🧾 Request Body
+
+Send the following JSON data:
+
+```json
+{
+  "fullName": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "john@example.com",
+  "password": "123456",
+  "vehicle": {
+    "color": "Black",
+    "plate": "HR26AB1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+---
+
+## ✅ Validation Rules
+
+| Field               | Rules                                  |
+| ------------------- | -------------------------------------- |
+| fullName.firstName  | Minimum 3 characters                   |
+| email               | Must be a valid email                  |
+| password            | Minimum 6 characters                   |
+| vehicle.color       | Minimum 3 characters                   |
+| vehicle.plate       | Minimum 3 characters                   |
+| vehicle.capacity    | Integer ≥ 1                            |
+| vehicle.vehicleType | Must be `car`, `motorcycle`, or `auto` |
+
+---
+
+## 🔄 Process Flow
+
+1. Validate request body using `express-validator`
+2. Check if captain already exists using email
+3. Hash password using `bcrypt`
+4. Create captain in database
+5. Generate JWT token
+6. Return response
+
+---
+
+## 🎯 Success Response
+
+**Status Code:** `201 Created`
+
+```json
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "65f1c9...",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "HR26AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "active"
+  }
+}
+```
+
+---
+
+## ❌ Error Responses
+
+### 1. Validation Error
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Firstname must be of at least 3 characters",
+      "param": "fullName.firstName"
+    }
+  ]
+}
+```
+
+---
+
+### 2. Captain Already Exists
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "message": "Captain already exists"
+}
+```
+
+---
+
+## 🔐 Notes
+
+- Password is securely hashed before storing.
+- JWT token is generated for authentication.
+- Password is not returned in response (`select: false` in schema).
+
+---
+
+## ⚠️ Important Fix (Bug in Your Code)
+
+Replace this line in your controller:
+
+```js
+const token = captainModel.generateToken;
+```
+
+❌ Wrong — not calling function & wrong method name
+
+✅ Correct:
+
+```js
+const token = captain.generateAuthToken();
+```
+
+---
+
+## 🛠 Tech Stack
+
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT Authentication
+- bcryptjs for password hashing
+
+---
+
+## 📌 Author Notes
+
+- Ensure `JWT_SECRET` is set in `.env`
+- Always validate input before database operations
+- Use HTTPS in production for security
+
+---
