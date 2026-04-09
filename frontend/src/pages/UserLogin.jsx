@@ -18,7 +18,12 @@ const UserLogin = () => {
     <div className="p-7 flex flex-col justify-between h-screen">
       <div className="bg-white w-full flex flex-col ">
         <div className="text-4xl text-black mb-5 font-medium">Uber</div>
-        <form onSubmit={(e) => {submitHandler(e)}} className="">
+        <form
+          onSubmit={(e) => {
+            submitHandler(e);
+          }}
+          className=""
+        >
           <div className="flex flex-col gap-2">
             <label className="text-xl font-semibold mb-2 " htmlFor="email">
               What's Your Email
@@ -27,7 +32,6 @@ const UserLogin = () => {
               className="bg-[#eeeeee] py-2 px-4 border-1 mb-3 rounded placeholder:text-base "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-
               type="email"
               id="email"
               required
@@ -58,14 +62,17 @@ const UserLogin = () => {
         <p className="text-center">
           New here?{" "}
           <Link to="/user-signup" className="text-blue-600 ">
-            Create new account
+            Register as a User
           </Link>
         </p>
       </div>
 
       <div className="">
-        <Link to="/captain-login" className="bg-[#276EF1] w-full text-center text-white text-xl  py-2 px-4 rounded-lg flex items-center justify-center mt-6">
-          Login as a captain
+        <Link
+          to="/captain-login"
+          className="bg-[#1A3263] w-full text-center text-white text-xl  py-2 px-4 rounded-lg flex items-center justify-center mt-6"
+        >
+          Login as a Captain
         </Link>
       </div>
     </div>
