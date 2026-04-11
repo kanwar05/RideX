@@ -18,7 +18,7 @@ const UserSignup = () => {
       email: email,
       password: password,
     });
-  
+
     console.log("User Data:", {
       userName: {
         firstName: firstName,
@@ -32,7 +32,7 @@ const UserSignup = () => {
     setFirstName("");
     setLastName("");
   };
-
+  
   return (
     <div className="p-7 flex flex-col justify-between h-screen">
       <div className="bg-white w-full flex flex-col ">
@@ -44,7 +44,8 @@ const UserSignup = () => {
           }}
         >
           <div className="flex flex-col gap-2">
-            <label className="text-xl font-semibold mb-2 " htmlFor="email">
+            <h1 className="text-xl font-semibold mb-2">Sign Up as a User</h1>
+            <label className="text-lg  mb-1 " htmlFor="email">
               What's Your Name
             </label>
             <div className="flex gap-4">
@@ -70,7 +71,7 @@ const UserSignup = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xl font-semibold mb-2 " htmlFor="email">
+            <label className="text-lg  mb-1 " htmlFor="email">
               What's Your Email
             </label>
             <input
@@ -84,7 +85,7 @@ const UserSignup = () => {
             />
           </div>
           <div className="flex flex-col gap-2 mt-4">
-            <label className="text-xl font-semibold mb-2 " htmlFor="password">
+            <label className="text-lg  mb-1 " htmlFor="password">
               Password
             </label>
             <input
@@ -101,23 +102,23 @@ const UserSignup = () => {
             type="submit"
             className="bg-black w-full text-center text-white text-xl mb-3 py-2 px-4 rounded-lg flex items-center justify-center mt-6"
           >
-            Login
+            Sign Up
           </button>
         </form>
         <p className="text-center">
-          New here?{" "}
-          <Link to="/user-signup" className="text-blue-600 ">
-            Register as a User
+          Already have an account?{" "}
+          <Link to="/user-login" className="text-blue-600 ">
+            Login as a User
           </Link>
         </p>
       </div>
 
       <div className="">
         <Link
-          to="/captain-login"
+          to="/captain-signup"
           className="bg-[#1A3263] w-full text-center text-white text-xl  py-2 px-4 rounded-lg flex items-center justify-center mt-6"
         >
-          Login as a Captain
+          Signup as a Captain
         </Link>
       </div>
     </div>
