@@ -7,7 +7,7 @@ import UserContext from "./context/UserContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserContext>
+    <UserContext > 
       <BrowserRouter>
         <App />
       </BrowserRouter>
