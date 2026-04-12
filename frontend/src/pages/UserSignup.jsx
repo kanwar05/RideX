@@ -20,7 +20,7 @@ const UserSignup = () => {
     });
 
     console.log("User Data:", {
-      userName: {
+      fullName: {
         firstName: firstName,
         lastName: lastName,
       },
@@ -32,7 +32,7 @@ const UserSignup = () => {
     setFirstName("");
     setLastName("");
   };
-  
+
   return (
     <div className="p-7 flex flex-col justify-between h-screen">
       <div className="bg-white w-full flex flex-col ">
