@@ -24,12 +24,12 @@ router.post(
     body("email").isEmail().withMessage("Invalid Email"),
     body("password")
       .isLength({ min: 6 })
-      .withMessage("Password must be at least of 6 characters")
+      .withMessage("Password must be at least of 6 characters"),
   ],
   userController.loginUser,
 );
 
-router.get('/profile', authUser, userController.getUserProfile);
-router.get('/logout', authUser, userController.logoutUser);
+router.get("/profile", authUser, userController.getUserProfile);
+router.get("/logout", userController.logoutUser);
 
 module.exports = router;
