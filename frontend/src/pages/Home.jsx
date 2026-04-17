@@ -103,20 +103,60 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="fixed z-10 bottom-0 bg-white ">
-        <div>
-          <img src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw" />
-          <div className="">
-            <h4>
+      <div className="fixed z-10 w-full bottom-0 bg-white px-3 py-6">
+        <h2 className="text-2xl mb-5 font-medium">Choose Vehicle</h2>
+        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+          <img
+            className="h-15"
+            src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+          />
+          <div className="w-1/2 ">
+            <h4 className="text-lg font-semibold ">
               UberGo{" "}
-              <span>
-                <i class="ri-user-3-fill"></i> 4{" "}
+              <span className="text-lg font-semibold">
+                <i className="ri-user-3-fill"></i> 4{" "}
               </span>{" "}
             </h4>
-            <h5>2 mins away</h5>
-            <p>Affordable, compact rides</p>
+            <h5 className="text-lg font-semibold">2 mins away</h5>
+            <p className="text-sm font-normal ">Affordable, compact rides</p>
           </div>
-          <h2> ₹193.57</h2>
+          <h2 className="text-xl font-medium"> ₹ 193.57</h2>
+        </div>
+
+        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+          <img
+            className="h-15"
+            src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+          />
+          <div className="w-1/2 ">
+            <h4 className="text-lg font-semibold ">
+              UberGo{" "}
+              <span className="text-lg font-semibold">
+                <i className="ri-user-3-fill"></i> 4{" "}
+              </span>{" "}
+            </h4>
+            <h5 className="text-lg font-semibold">2 mins away</h5>
+            <p className="text-sm font-normal ">Affordable, compact rides</p>
+          </div>
+          <h2 className="text-xl font-medium"> ₹ 193.57</h2>
+        </div>
+
+        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+          <img
+            className="h-15"
+            src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+          />
+          <div className="w-1/2 ">
+            <h4 className="text-lg font-semibold ">
+              UberGo{" "}
+              <span className="text-lg font-semibold">
+                <i className="ri-user-3-fill"></i> 4{" "}
+              </span>{" "}
+            </h4>
+            <h5 className="text-lg font-semibold">2 mins away</h5>
+            <p className="text-sm font-normal ">Affordable, compact rides</p>
+          </div>
+          <h2 className="text-xl font-medium"> ₹ 193.57</h2>
         </div>
       </div>
     </div>
