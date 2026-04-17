@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
+import LocationSearchPanel from "../components/LocationSearchPanel";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -18,6 +19,7 @@ const Home = () => {
     if (panelOpen) {
       gsap.to(panelRef.current, {
         height: "70%",
+        display: "block",
         duration: 0.5,
         ease: "power2.inOut",
       });
@@ -30,6 +32,7 @@ const Home = () => {
     } else {
       gsap.to(panelRef.current, {
         height: "0%",
+        display: "none",
         duration: 0.5,
         ease: "power2.inOut",
       });
@@ -42,7 +45,7 @@ const Home = () => {
   }, [panelOpen]);
 
   return (
-    <div className="h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <h1 className="text-4xl absolute font-semibold pl-5 pt-5 pb-3 ">Uber</h1>
       {/* <img className="w-20 absolute top-5 left-5"  src="https://imgs.search.brave.com/zI9sTKSL338XsQS2TphauF8YrJLaTg-O0pS8AdMBhMs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly96b25h/bG9nby5jb20vYXBp/L2Fzc2V0LXByZXZp/ZXc_dXJsPWh0dHBz/Oi8vYXNzZXRzLnpv/bmFsb2dvLmNvbS90/cmFuc3BvcnRhdGlv/bi91YmVyLmNvbS9s/b2dvLTE3NzQxMzc2/MTg2NDUtNDQyLnN2/ZyZ0aGVtZT1kYXJr/JnY9djI" /> */}
       <div className="h-screen w-full">
@@ -77,7 +80,7 @@ const Home = () => {
               onClick={() => {
                 setPanelOpen(true);
               }}
-              className="w-full bg-[#eee] h-10 rounded-sm mt-5 p-2 placeholder:text-base"
+              className="w-full bg-[#eee] h-10 rounded-sm mt-5 p-2 px-12 placeholder:text-base"
               type="text"
               placeholder="Enter your pickup location"
             />
@@ -89,13 +92,32 @@ const Home = () => {
               onClick={() => {
                 setPanelOpen(true);
               }}
-              className="w-full  bg-[#eee] h-10 rounded-sm mt-5 p-2 placeholder:text-base"
+              className="w-full  bg-[#eee] h-10 rounded-sm mt-5  px-12 p-2 placeholder:text-base"
               type="text"
               placeholder="Enter your destination"
             />
           </form>
         </div>
-        <div ref={panelRef} className="h-0 bg-red-500"></div>
+        <div ref={panelRef} className="h-0 p-5 bg-white">
+          <LocationSearchPanel />
+        </div>
+      </div>
+
+      <div className="fixed z-10 bottom-0 bg-white ">
+        <div>
+          <img src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw" />
+          <div className="">
+            <h4>
+              UberGo{" "}
+              <span>
+                <i class="ri-user-3-fill"></i> 4{" "}
+              </span>{" "}
+            </h4>
+            <h5>2 mins away</h5>
+            <p>Affordable, compact rides</p>
+          </div>
+          <h2> ₹193.57</h2>
+        </div>
       </div>
     </div>
   );
