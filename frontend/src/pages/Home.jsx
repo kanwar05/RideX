@@ -10,6 +10,8 @@ const Home = () => {
   const [panelOpen, setPanelOpen] = useState(false);
   const panelRef = useRef(null);
   const panelCloseRef = useRef(null);
+  const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
+  const vehiclePanelRef = useRef(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,6 +45,18 @@ const Home = () => {
       });
     }
   }, [panelOpen]);
+
+  useGSAP(() => {
+    if (vehiclePanelOpen) {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(0%)",
+      });
+    } else {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [vehiclePanelOpen]);
 
   return (
     <div className="h-screen relative overflow-hidden">
@@ -99,11 +113,25 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className="h-0 p-5 bg-white">
-          <LocationSearchPanel />
+          <LocationSearchPanel
+            setPanelOpen={setPanelOpen}
+            setVehiclePanelOpen={setVehiclePanelOpen}
+          />
         </div>
       </div>
 
-      <div className="fixed z-10 w-full bottom-0 bg-white px-3 py-6">
+      <div
+        ref={vehiclePanelRef}
+        className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+      >
+        <h5
+          className="w-full flex  items-center justify-center text-3xl mb-2 text-gray-600"
+          onClick={() => {
+            setVehiclePanelOpen(false);
+          }}
+        >
+          <i className="ri-arrow-down-wide-line"></i>
+        </h5>
         <h2 className="text-2xl mb-5 font-medium">Choose Vehicle</h2>
         <div className="flex  items-center justify-between p-3 mb-3 rounded-xl border active:border-2 ">
           <img
