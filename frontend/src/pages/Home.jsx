@@ -51,7 +51,7 @@ const Home = () => {
       <div className="h-screen w-full">
         <img
           className=" w-full h-[70%] object-fit"
-          src="https://imgs.search.brave.com/tx3Cw-g0Ux5mI37hmm32b_c0Du3-_Wo2We3iX4SE7ew/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMDYv/MDcxLzY3NS9zbWFs/bC90YXhpLXNlcnZp/Y2Utb25saW5lLW9u/LXNtYXJ0cGhvbmUt/dmVjdG9yLmpwZw"
+          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
         />
       </div>
 
@@ -105,7 +105,7 @@ const Home = () => {
 
       <div className="fixed z-10 w-full bottom-0 bg-white px-3 py-6">
         <h2 className="text-2xl mb-5 font-medium">Choose Vehicle</h2>
-        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+        <div className="flex  items-center justify-between p-3 mb-3 rounded-xl border active:border-2 ">
           <img
             className="h-15"
             src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
@@ -123,38 +123,38 @@ const Home = () => {
           <h2 className="text-xl font-medium"> ₹ 193.57</h2>
         </div>
 
-        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+        <div className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
           <img
             className="h-15"
-            src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1344/height=896/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy85NTM4NTEyZC1mZGUxLTRmNzMtYmQ1MS05Y2VmZjRlMjU0ZjEucG5n"
           />
           <div className="w-1/2 ">
             <h4 className="text-lg font-semibold ">
-              UberGo{" "}
+              Moto{" "}
               <span className="text-lg font-semibold">
-                <i className="ri-user-3-fill"></i> 4{" "}
+                <i className="ri-user-3-fill"></i> 1{" "}
               </span>{" "}
             </h4>
-            <h5 className="text-lg font-semibold">2 mins away</h5>
-            <p className="text-sm font-normal ">Affordable, compact rides</p>
+            <h5 className="text-lg font-semibold">3 mins away</h5>
+            <p className="text-sm font-normal ">Affordable, bike rides</p>
           </div>
-          <h2 className="text-xl font-medium"> ₹ 193.57</h2>
+          <h2 className="text-xl font-medium"> ₹ 75.57</h2>
         </div>
 
-        <div className="flex flex-row items-center justify-between p-3 mb-3 border-2 border-black rounded-xl ">
+        <div className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
           <img
             className="h-15"
-            src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=552/height=552/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9mYzEwMWZmOC04MWExLTQ2YzMtOTk1YS02N2I0YmJkMmYyYmYuanBn"
           />
           <div className="w-1/2 ">
             <h4 className="text-lg font-semibold ">
-              UberGo{" "}
+              Uber Auto{" "}
               <span className="text-lg font-semibold">
                 <i className="ri-user-3-fill"></i> 4{" "}
               </span>{" "}
             </h4>
             <h5 className="text-lg font-semibold">2 mins away</h5>
-            <p className="text-sm font-normal ">Affordable, compact rides</p>
+            <p className="text-sm font-normal ">Affordable, Auto rides</p>
           </div>
           <h2 className="text-xl font-medium"> ₹ 193.57</h2>
         </div>
