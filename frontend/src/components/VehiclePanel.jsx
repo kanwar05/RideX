@@ -12,7 +12,9 @@ const VehiclePanel = (props) => {
         <i className="ri-arrow-down-wide-line"></i>
       </h5>
       <h2 className="text-2xl mb-5 font-medium">Choose Vehicle</h2>
-      <div className="flex  items-center justify-between p-3 mb-3 rounded-xl border active:border-2 ">
+      <div onClick={() => {
+        props.setConfirmedRidePanel(true);
+      }} className="flex  items-center justify-between p-3 mb-3 rounded-xl border active:border-2 ">
         <img
           className="h-15"
           src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
@@ -30,7 +32,9 @@ const VehiclePanel = (props) => {
         <h2 className="text-xl font-medium"> ₹ 193.57</h2>
       </div>
 
-      <div className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
+      <div onClick={() => {
+        props.setConfirmedRidePanel(true);
+      }} className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
         <img
           className="h-15"
           src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1344/height=896/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy85NTM4NTEyZC1mZGUxLTRmNzMtYmQ1MS05Y2VmZjRlMjU0ZjEucG5n"
@@ -48,7 +52,9 @@ const VehiclePanel = (props) => {
         <h2 className="text-xl font-medium"> ₹ 75.57</h2>
       </div>
 
-      <div className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
+      <div onClick={() => {
+        props.setConfirmedRidePanel(true);
+      }} className="flex flex-row items-center justify-between p-3 mb-3 border active:border-2 rounded-xl ">
         <img
           className="h-15"
           src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=552/height=552/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9mYzEwMWZmOC04MWExLTQ2YzMtOTk1YS02N2I0YmJkMmYyYmYuanBn"
