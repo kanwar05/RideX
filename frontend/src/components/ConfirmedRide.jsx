@@ -11,43 +11,43 @@ const ConfirmedRide = () => {
       >
         <i className="ri-arrow-down-wide-line"></i>
       </h5>
-      <h2 className="text-2xl mb-5 font-medium">Confirm your Ride</h2>
+      <h2 className="text-3xl mb-2 font-medium">Confirm your Ride</h2>
 
-      <div className="flex flex-col items-center justify-between px-6 py-8 w-full">
+      <div className="flex flex-col items-center  justify-between px-6 py-8 w-full  ">
         <img
-          className="h-20"
-          src="https://imgs.search.brave.com/0pmDgaF29KfD8qd3f0rXJpFZ5LyX8Tk6oew0U1PT_UM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/MDQzLzI1Ni9zbWFs/bC9sdXh1cnktY2Fy/LXZhY3Rvci1kZXNp/Z24tdmVjdG9yLmpw/Zw"
+          className="h-24 mb-4"
+          src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=956/height=538/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy8yOWZiYjhiMC03NWIxLTRlMmEtODUzMy0zYTM2NGU3MDQyZmEucG5n"
         />
         <div className="flex flex-col items-start justify-start w-full mt-7 mb-5">
-          <div className="flex gap-5 items-center p-5">
-            <h3 className="text-3xl font-semibold ">
+          <div className="flex gap-5 items-center mb-5 w-full">
+            <h3 className="text-2xl font-semibold ">
+              <i className="ri-map-pin-user-line"></i>
+            </h3>
+            <div className="w-full border-b border-gray-500  p-2">
+              <h4 className="text-xl font-medium">ISBT-17</h4>
+              <p className="text-base text-gray-600">Sector-17, Chandigarh</p>
+            </div>
+          </div>
+          <div className="flex gap-5 items-center mb-5 w-full">
+            <h3 className="text-2xl font-semibold ">
               <i className="ri-map-pin-fill"></i>
             </h3>
-            <div className="">
-              <h4 className="text-lg font-medium">#1504, Govind Vihar 2</h4>
-              <p className="text-lg text-gray-600">DeraBassi, Mohali, Punjab</p>
+            <div className="w-full border-b border-gray-500  p-2">
+              <h4 className="text-xl font-medium">Rose Garden</h4>
+              <p className="text-base text-gray-600">Sector-16, Chandigarh</p>
             </div>
           </div>
-          <div className="flex gap-5 items-center p-5">
-            <h3 className="text-3xl font-semibold ">
-              <i className="ri-map-pin-5-fill"></i>
-            </h3>
-            <div className="">
-              <h4 className="text-lg font-medium">#1504, Govind Vihar 2</h4>
-              <p className="text-lg text-gray-600">DeraBassi, Mohali, Punjab</p>
-            </div>
-          </div>
-          <div className="flex gap-5 items-center p-5">
-            <h3 className="text-3xl font-semibold ">
+          <div className="flex w-full gap-5 items-center mb-8 ">
+            <h3 className="text-2xl font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
-            <div className="">
-              <h4 className="text-lg font-medium">#1504, Govind Vihar 2</h4>
-              <p className="text-lg text-gray-600">DeraBassi, Mohali, Punjab</p>
+            <div className=" w-full border-b border-gray-500  p-2 ">
+              <h4 className="text-xl font-medium">₹ 193.57</h4>
+              <p className="text-base text-gray-600">Cash Cash</p>
             </div>
           </div>
         </div>
-        <button className="bg-black w-1/2 text-white py-3 px-6 rounded-lg hover:bg-gray-800">
+        <button className="bg-black w-3/4 text-white text-xl py-3 px-6 rounded-full hover:bg-gray-800 ">
           Confirm
         </button>
       </div>
