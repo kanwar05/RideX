@@ -1,12 +1,12 @@
 import React from "react";
 
-const RidePopUp = (props) => {
+const ConfirmRidePopUp = (props) => {
   return (
     <div>
       <h5
         className="w-full flex  items-center justify-center text-3xl mb-2 text-gray-600"
         onClick={() => {
-          props.setRidePopUpPanel(false);
+          props.setConfirmRidePopUpPanel(false);
         }}
       >
         <i className="ri-arrow-down-wide-line"></i>
@@ -46,7 +46,7 @@ const RidePopUp = (props) => {
               <p className="text-base text-gray-600">Sector-16, Chandigarh</p>
             </div>
           </div>
-          {/* <div className="flex w-full gap-5 items-center mb-8 ">
+          <div className="flex w-full gap-5 items-center mb-8 ">
             <h3 className="text-2xl font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
@@ -54,26 +54,23 @@ const RidePopUp = (props) => {
               <h4 className="text-xl font-medium">₹ 193.57</h4>
               <p className="text-base text-gray-600">Cash Cash</p>
             </div>
-          </div> */}
+          </div>
         </div>
 
         <div className="w-full flex items-center justify-center flex-row gap-2">
           <button
-            onClick={() => {
-              props.setConfirmRidePopUpPanel(true);
-              props.setRidePopUpPanel(false);
-            }}
-            className="bg-black w-1/2 text-white text-xl py-3 px-6 rounded-full  "
+            onClick={() => {}}
+            className="bg-yellow-500 w-1/2 text-black text-xl py-3 px-6 rounded-full  "
           >
             Accept
           </button>
           <button
             onClick={() => {
-              props.setRidePopUpPanel(false);
+              props.setConfirmRidePopUpPanel(false);
             }}
-            className="bg-yellow-500 w-1/2 text-black text-xl py-3 px-6  rounded-full "
+            className="bg-red-600 w-1/2 text-white text-xl py-3 px-6  rounded-full "
           >
-            Ignore
+            Cancel
           </button>
         </div>
       </div>
@@ -81,4 +78,4 @@ const RidePopUp = (props) => {
   );
 };
 
-export default RidePopUp;
+export default ConfirmRidePopUp;
