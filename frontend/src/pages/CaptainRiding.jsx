@@ -1,7 +1,28 @@
-import React from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import FinishRide from "../components/FinishRide";
 
 const CaptainRiding = () => {
+  const [finishRidePanel, setFinishRidePanel] = useState(false);
+  const finishRidePanelRef = useRef(null);
+
+  useGSAP(() => {
+    if (finishRidePanel) {
+      gsap.to(finishRidePanelRef.current, {
+        transform: "translateY(0%)",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.to(finishRidePanelRef.current, {
+        transform: "translateY(100%)",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }
+  }, [finishRidePanel]);
   return (
     <div className="h-screen realtive w-screen">
       <div className="absolute px-5 py-5 flex flex-row justify-between items-start w-full">
@@ -24,7 +45,10 @@ const CaptainRiding = () => {
         />
       </div>
 
-      <div className="h-1/5 w-full bg-yellow-500 flex flex-col justify-evenly">
+      <div
+        onClick={() => setFinishRidePanel(true)}
+        className="h-1/5 w-full bg-yellow-500 flex flex-col justify-evenly"
+      >
         <h5 className="w-full flex  items-center justify-center text-3xl p-2 text-black">
           <i className="ri-arrow-up-wide-line"></i>
         </h5>
@@ -34,6 +58,13 @@ const CaptainRiding = () => {
             Complete Ride
           </button>
         </div>
+      </div>
+
+      <div
+        ref={finishRidePanelRef}
+        className="fixed z-10 w-full h-[80%] bottom-0 bg-white px-3 py-8"
+      >
+        <FinishRide setFinishRidePanel={setFinishRidePanel} />
       </div>
     </div>
   );
