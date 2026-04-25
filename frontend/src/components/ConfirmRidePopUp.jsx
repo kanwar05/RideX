@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const ConfirmRidePopUp = (props) => {
   return (
     <div>
@@ -57,21 +57,30 @@ const ConfirmRidePopUp = (props) => {
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-center flex-row gap-2">
-          <button
-            onClick={() => {}}
-            className="bg-yellow-500 w-1/2 text-black text-xl py-3 px-6 rounded-full  "
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => {
-              props.setConfirmRidePopUpPanel(false);
-            }}
-            className="bg-red-600 w-1/2 text-white text-xl py-3 px-6  rounded-full "
-          >
-            Cancel
-          </button>
+        <div className="w-full">
+          <form>
+            <input
+              className="w-full bg-[#eee] h-10 rounded-xl font-mono text-lg font-medium mt-2 mb-4 py-6 px-6 placeholder:text-lg"
+              type="text"
+              placeholder="Enter OTP"
+            />
+            <div className="w-full flex items-center justify-center flex-row gap-2">
+              <Link
+                to="/captain-riding"
+                className="bg-yellow-500 w-1/2 text-black  text-center text-xl py-3 px-6 rounded-full  "
+              >
+                Confirm
+              </Link>
+              <button
+                onClick={() => {
+                  props.setConfirmRidePopUpPanel(false);
+                }}
+                className="bg-red-600 w-1/2 text-white text-xl py-3 px-6  rounded-full "
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
