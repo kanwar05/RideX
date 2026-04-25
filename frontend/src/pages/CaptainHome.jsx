@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import CaptainDetails from "../components/CaptainDetails";
+import RidePopUp from "../components/RidePopUp";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const CaptainHome = () => {
+  const [ridePopUpPanel, setRidePopUpPanel] = useState(true);
+  const RidePopUpPanelRef = useRef(null);
+  useGSAP(() => {
+    if (ridePopUpPanel) {
+      gsap.to(RidePopUpPanelRef.current, {
+        display: "block",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.to(RidePopUpPanelRef.current, {
+        height: "0%",
+        display: "none",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }
+  }, [ridePopUpPanel]);
+
   return (
     <div className="h-screen relative w-screen">
       <div className="absolute px-5 py-5 flex flex-row justify-between items-start w-full">
@@ -29,7 +51,12 @@ const CaptainHome = () => {
         <CaptainDetails />
       </div>
 
-      <div className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"></div>
+      <div
+        ref={RidePopUpPanelRef}
+        className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+      >
+        <RidePopUp setRidePopUpPanel={setRidePopUpPanel} />
+      </div>
     </div>
   );
 };
