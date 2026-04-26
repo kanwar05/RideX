@@ -14,8 +14,8 @@ async function getCoordinatesFromAddress(address) {
     const response = await axios.get(url);
     const features = response.data.features;
     if (features && features.length > 0) {
-      const [lang, ltd] = features[0].center;
-      return { ltd, lang };
+      const [longitude, latitude] = features[0].center;
+      return { longitude, latitude };
     } else {
       throw new Error("No coordinates found for the given address.");
     }
@@ -43,8 +43,8 @@ async function getDistanceTime(origin, destination) {
     if (routes && routes.length > 0) {
       const route = routes[0];
       return {
-        distance: route.distance/1000, // in kilometers
-        duration: route.duration/3600, // in hours
+        distance: route.distance / 1000, // in kilometers
+        duration: route.duration / 60, // in minutes
       };
     } else {
       throw new Error(
@@ -74,7 +74,9 @@ async function getAutocompleteSuggestions(input) {
     const features = response.data.features;
     return features.map((feature) => feature.place_name);
   } catch (error) {
-    throw new Error("Error fetching autocomplete suggestions: " + error.message);
+    throw new Error(
+      "Error fetching autocomplete suggestions: " + error.message,
+    );
   }
 }
 

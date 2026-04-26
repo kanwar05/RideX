@@ -44,11 +44,11 @@ module.exports.getDistanceTime = async (req, res, next) => {
     const isCoord = (str) => /^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/.test(str.trim());
     if (!isCoord(origin)) {
       const coord = await mapsService.getCoordinatesFromAddress(origin);
-      originCoord = `${coord.lang},${coord.ltd}`;
+      originCoord = `${coord.longitude},${coord.latitude}`;
     }
     if (!isCoord(destination)) {
       const coord = await mapsService.getCoordinatesFromAddress(destination);
-      destinationCoord = `${coord.lang},${coord.ltd}`;
+      destinationCoord = `${coord.longitude},${coord.latitude}`;
     }
 
     const distanceTime = await mapsService.getDistanceTime(
@@ -69,7 +69,9 @@ module.exports.getAutocompleteSuggestions = async (req, res, next) => {
 
   const { input } = req.query;
   if (!input) {
-    return res.status(400).json({ message: "Input query parameter is required" });
+    return res
+      .status(400)
+      .json({ message: "Input query parameter is required" });
   }
 
   try {
