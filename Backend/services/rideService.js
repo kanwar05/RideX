@@ -1,5 +1,6 @@
 const rideModel = require("../models/rideModel.js");
 const mapsService = require("./mapsService.js");
+const crypto = require("crypto");
 
 async function getFare(pickUp, destination) {
   if (!pickUp || !destination) {
@@ -18,8 +19,6 @@ async function getFare(pickUp, destination) {
     origin,
     destinationCoordStr,
   );
-
-  console.log("DistanceTime:", distanceTime);
 
   // Fare logic (same as yours)
   const baserates = {
@@ -60,6 +59,16 @@ async function getFare(pickUp, destination) {
   return fares;
 }
 
+function getOtp(num) {
+  function generateOtp(num) {
+    const otp = crypto
+      .randomInt(Math.pow(10, num - 1), Math.pow(10, num))
+      .toString();
+    return otp;
+  }
+  return generateOtp(num);
+}
+
 module.exports.createRide = async ({
   user,
   pickUp,
@@ -76,6 +85,7 @@ module.exports.createRide = async ({
     user,
     pickUp,
     destination,
+    otp: getOtp(4),
     fare: fare[vehicleType],
   });
 
