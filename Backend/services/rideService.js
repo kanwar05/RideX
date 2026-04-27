@@ -59,6 +59,8 @@ async function getFare(pickUp, destination) {
   return fares;
 }
 
+module.exports.getFare = getFare;
+
 function getOtp(num) {
   function generateOtp(num) {
     const otp = crypto

@@ -1,296 +1,34 @@
-# 🚀 Backend API Documentation
+# 🚖 Uber Clone - Frontend API Documentation
 
-Base URL:  
-http://localhost:4000
+## 📋 Overview
 
----
+This is the frontend application for the Uber Clone project built with React + Vite. This document provides comprehensive API endpoint documentation for all backend services used by the frontend.
 
-# 👤 User APIs
-
----
-
-## 📌 1. Register User
-
-### 🔗 Endpoint
-
-POST /users/register
-
-### 📖 Description
-
-Register a new user by providing full name, email, and password.
-
-- Validates input using `express-validator`
-- Hashes password before saving
-- Returns user data and JWT token
+**Base URL:** `http://localhost:4000`
 
 ---
 
-### 📥 Request Body
+## 🔐 Authentication
 
-```json
-{
-  "fullName": {
-    "firstName": "John",
-    "lastName": "Doe"
-  },
-  "email": "john@example.com",
-  "password": "123456"
-}
+Most API endpoints require JWT authentication. The token should be sent in the request headers:
+
 ```
-
-### 📤 Success Response (201 Created)
-
-```json
-{
-  "token": "jwt_token_here",
-  "user": {
-    "_id": "user_id",
-    "fullName": {
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "email": "john@example.com"
-  }
-}
-```
-
-### ❌ Error Responses
-
-🔸 400 Bad Request (Validation Error)
-
-```json
-{
-  "errors": [
-    {
-      "msg": "Invalid Email",
-      "param": "email"
-    }
-  ]
-}
-```
-
-🔸 400 Bad Request (Missing Fields)
-
-```json
-{
-  "message": "All fields are required"
-}
-```
-
-🔸 409 Conflict
-
-```json
-{
-  "message": "User already exists"
-}
-```
-
-🔸 500 Internal Server Error
-
-```json
-{
-  "message": "Server error"
-}
-```
-
----
-
-## 📌 2. Login User
-
-### 🔗 Endpoint
-
-POST /users/login
-
-### 📖 Description
-
-Authenticate user using email and password.
-
-Checks if user exists
-Compares hashed password
-Returns JWT token
-Sets token in cookies
-
----
-
-### 📥 Request Body
-
-```json
-{
-  "email": "john@example.com",
-  "password": "123456"
-}
-```
-
-### 📤 Success Response (200 OK)
-
-```json
-{
-  "token": "jwt_token_here",
-  "user": {
-    "_id": "user_id",
-    "fullName": {
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "email": "john@example.com"
-  }
-}
-```
-
-### ❌ Error Responses
-
-🔸 400 Bad Request
-
-```json
-{
-  "errors": []
-}
-```
-
-🔸 401 Unauthorized
-
-```json
-{
-  "message": "Invalid email or password"
-}
-```
-
-🔸 500 Internal Server Error
-
-```json
-{
-  "message": "Server error"
-}
-```
-
----
-
-## 📌 3. Get User Profile
-
-### 🔗 Endpoint
-
-GET /users/profile
-
-🔐 Authentication Required
-
-### 📖 Description
-
-Returns the currently authenticated user's profile.
-
-Uses authUser middleware
-Reads user from token
-
----
-
-### 📤 Success Response (200 OK)
-
-```json
-{
-  "_id": "user_id",
-  "fullName": {
-    "firstName": "John",
-    "lastName": "Doe"
-  },
-  "email": "john@example.com"
-}
-```
-
-### ❌ Error Responses
-
-🔸 401 Unauthorized
-
-```json
-{
-  "message": "Unauthorized"
-}
-```
-
----
-
-## 📌 4. Logout User
-
-### 🔗 Endpoint
-
-GET /users/logout
-
-🔐 Authentication Required
-
-### 📖 Description
-
-Logs out the user.
-
-Clears cookie token
-Stores token in blacklist database
-
----
-
-### 📤 Success Response (200 OK)
-
-```json
-{
-  "message": "User Logged Out"
-}
-```
-
-### ❌ Error Responses
-
-🔸 401 Unauthorized
-
-```json
-{
-  "message": "Unauthorized"
-}
-```
-
-### 🔐 Authentication
-
-Protected routes require JWT token.
-
-### तरीका 1: Authorization Header
-
 Authorization: Bearer <token>
-
-### तरीका 2: Cookies
-
-Token stored in HTTP-only cookies
-
-### ⚙️ Validation Rules
-
-Email must be valid
-First name ≥ 3 characters
-Password ≥ 6 characters
-
-### 🔐 Security
-
-Password hashed using bcryptjs
-JWT used for authentication
-Token blacklisted on logout
-
----
-
----
-
-# 🚖 Captain API's
-
----
-
-## 📌captain register Endpoint
-
-```
-POST /captain/register
 ```
 
----
-
-## 📖 Description
-
-This endpoint is used to register a new captain (driver) in the system. It validates input data, checks for duplicate email, hashes the password, and creates a new captain record in the database.
+Tokens are received upon successful login/registration and should be stored in `localStorage` with the key `token`.
 
 ---
 
-## 🧾 Request Body
+# 👤 USER ENDPOINTS
 
-Send the following JSON data:
+## 1. Register User
+
+**Method:** `POST`  
+**Endpoint:** `/users/register`  
+**Authentication:** ❌ Not required
+
+### Request Body
 
 ```json
 {
@@ -299,127 +37,46 @@ Send the following JSON data:
     "lastName": "Doe"
   },
   "email": "john@example.com",
-  "password": "123456",
-  "vehicle": {
-    "color": "Black",
-    "plate": "HR26AB1234",
-    "capacity": 4,
-    "vehicleType": "car"
-  }
+  "password": "123456"
 }
 ```
 
----
+### Validation Rules
 
-## ✅ Validation Rules
+- `email`: Valid email format required
+- `firstName`: Minimum 3 characters
+- `password`: Minimum 6 characters
 
-| Field               | Rules                                  |
-| ------------------- | -------------------------------------- |
-| fullName.firstName  | Minimum 3 characters                   |
-| email               | Must be a valid email                  |
-| password            | Minimum 6 characters                   |
-| vehicle.color       | Minimum 3 characters                   |
-| vehicle.plate       | Minimum 3 characters                   |
-| vehicle.capacity    | Integer ≥ 1                            |
-| vehicle.vehicleType | Must be `car`, `motorcycle`, or `auto` |
-
----
-
-## 🔄 Process Flow
-
-1. Validate request body using `express-validator`
-2. Check if captain already exists using email
-3. Hash password using `bcrypt`
-4. Create captain in database
-5. Generate JWT token
-6. Return response
-
----
-
-## 🎯 Success Response
-
-**Status Code:** `201 Created`
+### Success Response (201)
 
 ```json
 {
-  "token": "jwt_token_here",
-  "captain": {
-    "_id": "65f1c9...",
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "user": {
+    "_id": "60d5ec49f1b2c7a4e8c3d2a1",
     "fullName": {
       "firstName": "John",
       "lastName": "Doe"
     },
-    "email": "john@example.com",
-    "vehicle": {
-      "color": "Black",
-      "plate": "HR26AB1234",
-      "capacity": 4,
-      "vehicleType": "car"
-    },
-    "status": "active"
+    "email": "john@example.com"
   }
 }
 ```
 
----
+### Error Responses
 
-## ❌ Error Responses
-
-### 1. Validation Error
-
-**Status Code:** `400 Bad Request`
-
-```json
-{
-  "errors": [
-    {
-      "msg": "Firstname must be of at least 3 characters",
-      "param": "fullName.firstName"
-    }
-  ]
-}
-```
+- **400**: Validation error or missing fields
+- **409**: User already exists
 
 ---
 
-### 2. Captain Already Exists
+## 2. Login User
 
-**Status Code:** `400 Bad Request`
+**Method:** `POST`  
+**Endpoint:** `/users/login`  
+**Authentication:** ❌ Not required
 
-```json
-{
-  "message": "Captain already exists"
-}
-```
-
----
-
-## 🔐 Notes
-
-- Password is securely hashed before storing.
-- JWT token is generated for authentication.
-- Password is not returned in response (`select: false` in schema).
-
----
-
-## 📌 Captain Login
-
-### 🔗 Endpoint
-
-POST /captains/login
-
-### 📖 Description
-
-Authenticate a captain using email and password.
-
-- Checks if captain exists
-- Compares hashed password
-- Returns JWT token and captain data
-- Sets token in cookies
-
----
-
-### 📥 Request Body
+### Request Body
 
 ```json
 {
@@ -428,123 +85,73 @@ Authenticate a captain using email and password.
 }
 ```
 
-### 📤 Success Response (200 OK)
+### Validation Rules
+
+- `email`: Valid email format required
+- `password`: Minimum 6 characters
+
+### Success Response (200)
 
 ```json
 {
-  "token": "jwt_token_here",
-  "captain": {
-    "_id": "captain_id",
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "user": {
+    "_id": "60d5ec49f1b2c7a4e8c3d2a1",
     "fullName": {
       "firstName": "John",
       "lastName": "Doe"
     },
-    "email": "john@example.com",
-    "vehicle": {
-      "color": "Black",
-      "plate": "HR26AB1234",
-      "capacity": 4,
-      "vehicleType": "car"
-    },
-    "status": "active"
+    "email": "john@example.com"
   }
 }
 ```
 
-### ❌ Error Responses
+### Error Responses
 
-🔸 400 Bad Request (Validation Error)
-
-```json
-{
-  "errors": [
-    {
-      "msg": "Invalid email or password",
-      "param": "email"
-    }
-  ]
-}
-```
-
-🔸 401 Unauthorized
-
-```json
-{
-  "message": "Invalid email or password"
-}
-```
+- **400**: Invalid email or password
+- **401**: User not found
 
 ---
 
-## 📌 Get Captain Profile
+## 3. Get User Profile
 
-### 🔗 Endpoint
+**Method:** `GET`  
+**Endpoint:** `/users/profile`  
+**Authentication:** ✅ Required
 
-GET /captains/profile
+### Headers
 
-🔐 Authentication Required
+```
+Authorization: Bearer <token>
+```
 
-### 📖 Description
-
-Returns the currently authenticated captain's profile.
-
-- Uses authCaptain middleware
-- Reads captain from token
-
----
-
-### 📤 Success Response (200 OK)
+### Success Response (200)
 
 ```json
 {
-  "captain": {
-    "_id": "captain_id",
-    "fullName": {
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "email": "john@example.com",
-    "vehicle": {
-      "color": "Black",
-      "plate": "HR26AB1234",
-      "capacity": 4,
-      "vehicleType": "car"
-    },
-    "status": "active"
-  }
+  "_id": "60d5ec49f1b2c7a4e8c3d2a1",
+  "fullName": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "john@example.com",
+  "socketId": "socket_id_123"
 }
 ```
 
-### ❌ Error Responses
+### Error Responses
 
-🔸 401 Unauthorized
-
-```json
-{
-  "message": "Unauthorized"
-}
-```
+- **401**: Unauthorized (invalid or missing token)
 
 ---
 
-## 📌 Captain Logout
+## 4. Logout User
 
-### 🔗 Endpoint
+**Method:** `GET`  
+**Endpoint:** `/users/logout`  
+**Authentication:** ❌ Not required
 
-GET /captains/logout
-
-🔐 Authentication Required
-
-### 📖 Description
-
-Logs out the captain.
-
-- Clears cookie token
-- Stores token in blacklist database
-
----
-
-### 📤 Success Response (200 OK)
+### Success Response (200)
 
 ```json
 {
@@ -552,14 +159,471 @@ Logs out the captain.
 }
 ```
 
-### ❌ Error Responses
+---
 
-🔸 401 Unauthorized
+# 🚗 CAPTAIN ENDPOINTS
+
+## 1. Register Captain
+
+**Method:** `POST`  
+**Endpoint:** `/captains/register`  
+**Authentication:** ❌ Not required
+
+### Request Body
 
 ```json
 {
-  "message": "Unauthorized"
+  "fullName": {
+    "firstName": "Jane",
+    "lastName": "Smith"
+  },
+  "email": "jane@example.com",
+  "password": "123456",
+  "vehicle": {
+    "color": "Black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
 }
 ```
 
+### Validation Rules
+
+- `firstName`: Minimum 3 characters
+- `email`: Valid email format
+- `password`: Minimum 6 characters
+- `vehicle.color`: Minimum 3 characters
+- `vehicle.plate`: Minimum 3 characters
+- `vehicle.capacity`: Minimum 1
+- `vehicle.vehicleType`: Minimum 3 characters
+
+### Success Response (201)
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "captain": {
+    "_id": "60d5ec49f1b2c7a4e8c3d2a2",
+    "fullName": {
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **409**: Captain already exists
+
 ---
+
+## 2. Login Captain
+
+**Method:** `POST`  
+**Endpoint:** `/captains/login`  
+**Authentication:** ❌ Not required
+
+### Request Body
+
+```json
+{
+  "email": "jane@example.com",
+  "password": "123456"
+}
+```
+
+### Validation Rules
+
+- `email`: Valid email format
+- `password`: Minimum 6 characters
+
+### Success Response (200)
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "captain": {
+    "_id": "60d5ec49f1b2c7a4e8c3d2a2",
+    "fullName": {
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+### Error Responses
+
+- **400**: Invalid credentials
+- **401**: Captain not found
+
+---
+
+## 3. Get Captain Profile
+
+**Method:** `GET`  
+**Endpoint:** `/captains/profile`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Success Response (200)
+
+```json
+{
+  "_id": "60d5ec49f1b2c7a4e8c3d2a2",
+  "fullName": {
+    "firstName": "Jane",
+    "lastName": "Smith"
+  },
+  "email": "jane@example.com",
+  "vehicle": {
+    "color": "Black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  },
+  "socketId": "socket_id_456"
+}
+```
+
+### Error Responses
+
+- **401**: Unauthorized
+
+---
+
+## 4. Logout Captain
+
+**Method:** `GET`  
+**Endpoint:** `/captains/logout`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Success Response (200)
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+### Error Responses
+
+- **401**: Unauthorized
+
+---
+
+# 🛣️ RIDE ENDPOINTS
+
+## 1. Create Ride
+
+**Method:** `POST`  
+**Endpoint:** `/rides/create-ride`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Request Body
+
+```json
+{
+  "pickUp": "123 Main Street, City",
+  "destination": "456 Oak Avenue, City",
+  "vehicleType": "car"
+}
+```
+
+### Validation Rules
+
+- `pickUp`: Minimum 3 characters
+- `destination`: Minimum 3 characters
+- `vehicleType`: Must be one of `car`, `auto`, or `moto`
+
+### Success Response (201)
+
+```json
+{
+  "_id": "60d5ec49f1b2c7a4e8c3d2a3",
+  "user": "60d5ec49f1b2c7a4e8c3d2a1",
+  "pickUp": "123 Main Street, City",
+  "destination": "456 Oak Avenue, City",
+  "vehicleType": "car",
+  "status": "pending",
+  "fare": 150,
+  "createdAt": "2024-04-27T10:30:00Z"
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **401**: Unauthorized
+
+---
+
+## 2. Get Fare
+
+**Method:** `GET`  
+**Endpoint:** `/rides/get-fare`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Query Parameters
+
+```
+?pickUp=123 Main Street&destination=456 Oak Avenue
+```
+
+### Validation Rules
+
+- `pickUp`: Minimum 3 characters
+- `destination`: Minimum 3 characters
+
+### Success Response (200)
+
+```json
+{
+  "fare": {
+    "car": 150,
+    "auto": 100,
+    "moto": 75
+  },
+  "distance": 5.2,
+  "time": 15
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **401**: Unauthorized
+- **404**: Unable to calculate fare
+
+---
+
+# 🗺️ MAPS ENDPOINTS
+
+## 1. Get Coordinates
+
+**Method:** `GET`  
+**Endpoint:** `/maps/get-coordinates`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Query Parameters
+
+```
+?address=123 Main Street, City
+```
+
+### Validation Rules
+
+- `address`: Minimum 3 characters, must be a string
+
+### Success Response (200)
+
+```json
+{
+  "latitude": 40.7128,
+  "longitude": -74.006,
+  "address": "123 Main Street, City"
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **401**: Unauthorized
+- **404**: Coordinates not found
+
+---
+
+## 2. Get Distance and Time
+
+**Method:** `GET`  
+**Endpoint:** `/maps/get-distance-time`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Query Parameters
+
+```
+?origin=123 Main Street&destination=456 Oak Avenue
+```
+
+### Validation Rules
+
+- `origin`: Minimum 3 characters
+- `destination`: Minimum 3 characters
+
+### Success Response (200)
+
+```json
+{
+  "distance": {
+    "text": "5.2 km",
+    "value": 5200
+  },
+  "duration": {
+    "text": "15 mins",
+    "value": 900
+  }
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **401**: Unauthorized
+- **404**: Distance and time not found
+
+---
+
+## 3. Get Autocomplete Suggestions
+
+**Method:** `GET`  
+**Endpoint:** `/maps/get-autocomplete-suggestions`  
+**Authentication:** ✅ Required
+
+### Headers
+
+```
+Authorization: Bearer <token>
+```
+
+### Query Parameters
+
+```
+?input=123 Main
+```
+
+### Validation Rules
+
+- `input`: Minimum 3 characters, must be a string
+
+### Success Response (200)
+
+```json
+{
+  "suggestions": [
+    "123 Main Street, City, State",
+    "123 Main Avenue, City, State",
+    "123 Main Boulevard, City, State"
+  ]
+}
+```
+
+### Error Responses
+
+- **400**: Validation error
+- **401**: Unauthorized
+- **404**: Autocomplete suggestions not found
+
+---
+
+## 📌 Common HTTP Status Codes
+
+| Code | Meaning                                          |
+| ---- | ------------------------------------------------ |
+| 200  | OK - Request successful                          |
+| 201  | Created - Resource created successfully          |
+| 400  | Bad Request - Invalid input or validation error  |
+| 401  | Unauthorized - Missing or invalid authentication |
+| 409  | Conflict - Resource already exists               |
+| 500  | Internal Server Error                            |
+
+---
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- Node.js (v14+)
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
+```
+
+### Running the Frontend
+
+```bash
+npm run dev
+```
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 📦 Dependencies
+
+- **React**: UI library
+- **Vite**: Build tool
+- **Axios**: HTTP client for API calls
+- **GSAP**: Animation library
+- **Tailwind CSS**: Utility-first CSS framework
+- **React Context**: State management
+
+---
+
+## 🤝 Contributing
+
+Please follow the existing code style and structure when contributing to this project.
+
+---
+
+## 📄 License
+
+This project is part of the Uber Clone tutorial series.

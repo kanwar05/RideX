@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import axios from "axios";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
@@ -22,9 +23,72 @@ const Home = () => {
   const vehicleFoundRef = useRef(null);
   const [waitingForDriver, setWaitingForDriver] = useState(false);
   const waitingForDriverRef = useRef(null);
+  const [suggestions, setSuggestions] = useState([]);
+  const [activeField, setActiveField] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
+  };
+
+  const handlePickupChange = async (e) => {
+    const value = e.target.value;
+    setPickup(value);
+    setActiveField("pickup");
+
+    if (value.length > 2) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/maps/get-autocomplete-suggestions`,
+          {
+            params: { input: value },
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        setSuggestions(response.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleDestinationChange = async (e) => {
+    const value = e.target.value;
+    setDestination(value);
+    setActiveField("destination");
+
+    if (value.length > 2) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/maps/get-autocomplete-suggestions`,
+          {
+            params: { input: value },
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        setSuggestions(response.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionSelect = (suggestion) => {
+    if (activeField === "pickup") {
+      setPickup(suggestion);
+    } else if (activeField === "destination") {
+      setDestination(suggestion);
+    }
+    setSuggestions([]);
   };
 
   useGSAP(() => {
@@ -104,6 +168,11 @@ const Home = () => {
     }
   }, [waitingForDriver]);
 
+  function findTrip() {
+    setVehiclePanelOpen(true);
+    setPanelOpen(false);
+  }
+
   return (
     <div>
       <div className="h-screen relative overflow-hidden">
@@ -137,9 +206,7 @@ const Home = () => {
             >
               <input
                 value={pickup}
-                onChange={(e) => {
-                  e.target.value;
-                }}
+                onChange={handlePickupChange}
                 onClick={() => {
                   setPanelOpen(true);
                 }}
@@ -148,10 +215,8 @@ const Home = () => {
                 placeholder="Enter your pickup location"
               />
               <input
-                value={pickup}
-                onChange={(e) => {
-                  e.target.value;
-                }}
+                value={destination}
+                onChange={handleDestinationChange}
                 onClick={() => {
                   setPanelOpen(true);
                 }}
@@ -160,11 +225,21 @@ const Home = () => {
                 placeholder="Enter your destination"
               />
             </form>
+            <div className="flex w-full items-center justify-center mt-6">
+              <button
+                onClick={findTrip}
+                className="bg-black text-white text-center text-lg font-medium rounded-full w-1/2 p-2 "
+              >
+                Find Trip
+              </button>
+            </div>
           </div>
           <div ref={panelRef} className="h-0 p-5 bg-white">
             <LocationSearchPanel
               setPanelOpen={setPanelOpen}
               setVehiclePanelOpen={setVehiclePanelOpen}
+              suggestions={suggestions}
+              onSuggestionSelect={handleSuggestionSelect}
             />
           </div>
         </div>
