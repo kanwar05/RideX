@@ -7,14 +7,15 @@ module.exports.createRide = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { userId, pickUp, destination, vehicleType } = req.body;
+  const { userId, pickup, destination, vehicleType } = req.body;
   try {
     const ride = await rideService.createRide({
       user: req.user._id,
-      pickUp,
+      pickup,
       destination,
       vehicleType,
     });
+
     return res.status(201).json(ride);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -26,12 +27,9 @@ module.exports.getFare = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { pickUp, destination } = req.query;
+  const { pickup, destination } = req.query;
   try {
-    const fare = await rideService.getFare({
-      pickUp,
-      destination,
-    });
+    const fare = await rideService.getFare(pickup, destination);
     return res.status(201).json(fare);
   } catch (error) {
     return res.status(500).json({ message: error.message });

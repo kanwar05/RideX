@@ -2,13 +2,13 @@ const rideModel = require("../models/rideModel.js");
 const mapsService = require("./mapsService.js");
 const crypto = require("crypto");
 
-async function getFare(pickUp, destination) {
-  if (!pickUp || !destination) {
+async function getFare(pickup, destination) {
+  if (!pickup || !destination) {
     throw new Error("PickUp and destination are required.");
   }
 
   // ✅ Step 1: Convert to coordinates
-  const pickupCoord = await mapsService.getCoordinatesFromAddress(pickUp);
+  const pickupCoord = await mapsService.getCoordinatesFromAddress(pickup);
   const destCoord = await mapsService.getCoordinatesFromAddress(destination);
 
   const origin = `${pickupCoord.longitude},${pickupCoord.latitude}`;
@@ -40,20 +40,23 @@ async function getFare(pickUp, destination) {
   };
 
   const fares = {
-    car:
+    car: Math.round(
       baserates.car +
-      distanceTime.distance * ratePerKm.car +
-      ratePerMinute.car * distanceTime.duration,
+        distanceTime.distance * ratePerKm.car +
+        ratePerMinute.car * distanceTime.duration,
+    ),
 
-    auto:
+    auto: Math.round(
       baserates.auto +
-      distanceTime.distance * ratePerKm.auto +
-      ratePerMinute.auto * distanceTime.duration,
+        distanceTime.distance * ratePerKm.auto +
+        ratePerMinute.auto * distanceTime.duration,
+    ),
 
-    moto:
+    moto: Math.round(
       baserates.moto +
-      distanceTime.distance * ratePerKm.moto +
-      ratePerMinute.moto * distanceTime.duration,
+        distanceTime.distance * ratePerKm.moto +
+        ratePerMinute.moto * distanceTime.duration,
+    ),
   };
 
   return fares;
@@ -73,11 +76,11 @@ function getOtp(num) {
 
 module.exports.createRide = async ({
   user,
-  pickUp,
+  pickup,
   destination,
   vehicleType,
 }) => {
-  if (!user || !pickUp || !destination || !vehicleType) {
+  if (!user || !pickup || !destination || !vehicleType) {
     throw new Error("All fields are required to create a ride.");
   }
 
@@ -85,11 +88,11 @@ module.exports.createRide = async ({
 
   const ride = new rideModel({
     user,
-    pickUp,
+    pickup,
     destination,
     otp: getOtp(4),
     fare: fare[vehicleType],
   });
-
+  await ride.save();
   return ride;
 };

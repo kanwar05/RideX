@@ -26,11 +26,11 @@ router.post(
 router.get(
   "/get-fare",
   authUser,
-  body("pickUp")
+  query("pickup")
     .isString()
     .isLength({ min: 3 })
     .withMessage("PickUp location must be at least 3 characters long"),
-  body("destination")
+  query("destination")
     .isString()
     .isLength({ min: 3 })
     .withMessage("Destination must be at least 3 characters long"),

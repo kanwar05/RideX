@@ -25,6 +25,7 @@ const Home = () => {
   const waitingForDriverRef = useRef(null);
   const [suggestions, setSuggestions] = useState([]);
   const [activeField, setActiveField] = useState("");
+  const [fare, setFare] = useState({});
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -168,9 +169,28 @@ const Home = () => {
     }
   }, [waitingForDriver]);
 
-  function findTrip() {
-    setVehiclePanelOpen(true);
-    setPanelOpen(false);
+  async function findTrip() {
+    try {
+      setVehiclePanelOpen(true);
+      setPanelOpen(false);
+
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/rides/get-fare`,
+        {
+          params: {
+            pickup,
+            destination,
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+
+      setFare(response.data);
+    } catch (error) {
+      console.error("ERROR:", error.response?.data || error.message);
+    }
   }
 
   return (
@@ -251,6 +271,7 @@ const Home = () => {
           <VehiclePanel
             setConfirmedRidePanel={setConfirmedRidePanel}
             setVehiclePanelOpen={setVehiclePanelOpen}
+            fare={fare}
           />
         </div>
 
