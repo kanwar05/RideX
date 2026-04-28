@@ -26,6 +26,7 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [activeField, setActiveField] = useState("");
   const [fare, setFare] = useState({});
+  const [vehicleType, setVehicleType] = useState(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -186,11 +187,32 @@ const Home = () => {
           },
         },
       );
-
+      console.log(response.data);
       setFare(response.data);
     } catch (error) {
       console.error("ERROR:", error.response?.data || error.message);
     }
+  }
+
+  async function createTrip() {
+    console.log(pickup, destination, vehicleType);
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/rides/create-ride`,
+      {
+        pickup,
+        destination,
+        vehicleType,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    );
+    if (!response) {
+      console.log("not response");
+    }
+    console.log(response.data);
   }
 
   return (
@@ -269,6 +291,7 @@ const Home = () => {
           className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
         >
           <VehiclePanel
+            selectVehicleType={setVehicleType}
             setConfirmedRidePanel={setConfirmedRidePanel}
             setVehiclePanelOpen={setVehiclePanelOpen}
             fare={fare}
@@ -280,6 +303,11 @@ const Home = () => {
           className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
         >
           <ConfirmedRide
+            pickup={pickup}
+            destination={destination}
+            createTrip={createTrip}
+            vehicleType={vehicleType}
+            fare={fare}
             setConfirmedRidePanel={setConfirmedRidePanel}
             setVehicleFound={setVehicleFound}
           />
@@ -289,7 +317,14 @@ const Home = () => {
           ref={vehicleFoundRef}
           className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
         >
-          <LookingForDriver setVehicleFound={setVehicleFound} />
+          <LookingForDriver
+            pickup={pickup}
+            destination={destination}
+            createTrip={createTrip}
+            vehicleType={vehicleType}
+            fare={fare}
+            setVehicleFound={setVehicleFound}
+          />
         </div>
       </div>
 

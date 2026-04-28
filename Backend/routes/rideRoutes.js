@@ -8,7 +8,7 @@ router.post(
   "/create-ride",
   authUser,
   [
-    body("pickUp")
+    body("pickup")
       .isString()
       .isLength({ min: 3 })
       .withMessage("PickUp location must be at least 3 characters long"),

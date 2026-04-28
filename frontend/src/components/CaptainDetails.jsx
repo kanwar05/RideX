@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CaptainDataContext } from "../context/CapatinContext";
 
 const CaptainDetails = () => {
+  const { captain } = useContext(CaptainDataContext);
+
   return (
     <div>
       <div className="flex items-center p-6 justify-between">
@@ -9,7 +12,9 @@ const CaptainDetails = () => {
             className="h-15 w-15 rounded-full"
             src="https://imgs.search.brave.com/vdRYk5Fef873iKhep6GE8FrjCAJQafa8F189pqmsNjo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGeHM0/Y0pNekkvMi8wLzE2/MDB3L2NhbnZhLXB1/cnBsZS1ibGFjay1h/bmQtd2hpdGUtY29v/bC1jcmVhdGl2ZS1s/aW5rZWRpbi1wcm9m/aWxlLXBpY3R1cmUt/U283clZpQ1daYnMu/anBn"
           />
-          <h1 className="text-xl font-semibold">John Doe</h1>
+          <h1 className="text-xl font-semibold">
+            {captain.fullName.firstName + " " + captain.fullName.lastName}
+          </h1>
         </div>
         <div>
           <h1 className="text-xl font-bold">₹295.20</h1>

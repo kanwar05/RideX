@@ -25,7 +25,7 @@ const LookingForDriver = (props) => {
             </h3>
             <div className="w-full border-b border-gray-500  p-2">
               <h4 className="text-xl font-medium">ISBT-17</h4>
-              <p className="text-base text-gray-600">Sector-17, Chandigarh</p>
+              <p className="text-base text-gray-600">{props.pickup}</p>
             </div>
           </div>
           <div className="flex gap-5 items-center mb-5 w-full">
@@ -34,7 +34,7 @@ const LookingForDriver = (props) => {
             </h3>
             <div className="w-full border-b border-gray-500  p-2">
               <h4 className="text-xl font-medium">Rose Garden</h4>
-              <p className="text-base text-gray-600">Sector-16, Chandigarh</p>
+              <p className="text-base text-gray-600">{props.destination}</p>
             </div>
           </div>
           <div className="flex w-full gap-5 items-center mb-8 ">
@@ -42,7 +42,9 @@ const LookingForDriver = (props) => {
               <i className="ri-hand-coin-line"></i>
             </h3>
             <div className=" w-full border-b border-gray-500  p-2 ">
-              <h4 className="text-xl font-medium">₹ 193.57</h4>
+              <h4 className="text-xl font-medium">
+                ₹{props.fare[props.vehicleType]}
+              </h4>
               <p className="text-base text-gray-600">Cash Cash</p>
             </div>
           </div>
