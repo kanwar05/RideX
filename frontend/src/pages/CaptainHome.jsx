@@ -1,15 +1,44 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CaptainDetails from "../components/CaptainDetails";
 import RidePopUp from "../components/RidePopUp";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
+import { SocketDataContext } from "../context/SocketContext";
+import { CaptainDataContext } from "../context/CapatinContext";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(true);
   const RidePopUpPanelRef = useRef(null);
   const [ConfirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false);
   const ConfirmRidePopUpPanelRef = useRef(null);
+
+  const { captain } = useContext(CaptainDataContext);
+
+  const { sendMessage, isConnected } = useContext(SocketDataContext);
+
+  useEffect(() => {
+    if (isConnected && captain?._id) {
+      sendMessage("join", {
+        userType: "captain",
+        userId: captain._id,
+      });
+    }
+    const interval = setInterval(() => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        sendMessage("update-location-captain", {
+          userId: captain._id,
+          location: {
+            ltd: latitude,
+            lng: longitude,
+          },
+        });
+      });
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [captain, isConnected, sendMessage]);
 
   useGSAP(() => {
     if (ridePopUpPanel) {

@@ -1,4 +1,5 @@
 const axios = require("axios");
+const captainModel = require("../models/captainModel");
 // Function to get coordinates (latitude and longitude) from an address using Mapbox API
 // Returns an object: { ltd, lang }
 // Usage: await getCoordinatesFromAddress('address string')
@@ -80,8 +81,20 @@ async function getAutocompleteSuggestions(input) {
   }
 }
 
+async function getCaptainsInTheRadius(ltd, lng, radius) {
+  const captains = await captainModel.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[ltd, lng], radius / 3963.2],
+      },
+    },
+  });
+  return captains;
+}
+
 module.exports = {
   getCoordinatesFromAddress,
   getDistanceTime,
   getAutocompleteSuggestions,
+  getCaptainsInTheRadius,
 };
