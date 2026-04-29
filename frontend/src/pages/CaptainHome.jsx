@@ -7,7 +7,7 @@ import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketDataContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CapatinContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import CaptainMap from "../components/CaptainMap";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -19,7 +19,6 @@ const CaptainHome = () => {
 
   const { captain } = useContext(CaptainDataContext);
   const { socket, sendMessage, isConnected } = useContext(SocketDataContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isConnected && captain?._id) {
@@ -39,7 +38,7 @@ const CaptainHome = () => {
           },
         });
       });
-    }, 10000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [captain, isConnected, sendMessage]);
@@ -141,10 +140,7 @@ const CaptainHome = () => {
         </div>
       </div>
       <div className="h-3/5 w-full">
-        <img
-          className="h-full w-full object-cover"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-        />
+        <CaptainMap ride={rideData?.ride || rideData} className="h-full" />
       </div>
 
       {/* captain detail component */}

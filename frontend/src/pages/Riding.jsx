@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SocketDataContext } from "../context/SocketContext";
+import UserMap from "../components/UserMap";
 
 const Riding = () => {
   const location = useLocation();
@@ -21,12 +22,16 @@ const Riding = () => {
   const fare = ride?.fare || "0";
 
   useEffect(() => {
-    socket?.on("ride-ended", () => {
+    const handleRideCompleted = () => {
       navigate("/home");
-    });
+    };
+
+    socket?.on("ride-ended", handleRideCompleted);
+    socket?.on("ride-completed", handleRideCompleted);
 
     return () => {
-      socket?.off("ride-ended");
+      socket?.off("ride-ended", handleRideCompleted);
+      socket?.off("ride-completed", handleRideCompleted);
     };
   }, [socket, navigate]);
 
@@ -39,9 +44,11 @@ const Riding = () => {
         <i className="text-lg font-medium ri-home-5-line"></i>
       </Link>
       <div className="h-1/2 w-full">
-        <img
-          className=" w-full h-full object-fit"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
+        <UserMap
+          pickup={ride?.pickup}
+          destination={ride?.destination}
+          ride={ride}
+          className="h-full"
         />
       </div>
       <div className="h-1/2 w-full">

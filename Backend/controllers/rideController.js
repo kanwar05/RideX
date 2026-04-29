@@ -1,7 +1,7 @@
 const rideService = require("../services/rideService");
 const { validationResult } = require("express-validator");
 const mapService = require("../services/mapsService");
-const { sendMessageToSocketId } = require("../socket");
+const { sendMessageToRideRoom, sendMessageToSocketId } = require("../socket");
 const rideModel = require("../models/rideModel");
 
 module.exports.createRide = async (req, res, next) => {
@@ -103,6 +103,7 @@ module.exports.confirm = async (req, res) => {
     const ride = await rideService.confirmRide({ rideId, captain: req.user });
 
     sendMessageToSocketId(ride.user.socketId, "ride-confirmed", ride);
+    sendMessageToSocketId(ride.user.socketId, "ride-accepted", ride);
 
     return res.status(201).json(ride);
   } catch (error) {
@@ -126,6 +127,7 @@ module.exports.startRide = async (req, res) => {
     });
 
     sendMessageToSocketId(ride.user.socketId, "ride-started", ride);
+    sendMessageToRideRoom(ride._id, "ride-started", ride);
 
     return res.status(200).json(ride);
   } catch (error) {
@@ -148,6 +150,8 @@ module.exports.endRide = async (req, res) => {
     });
 
     sendMessageToSocketId(ride.user.socketId, "ride-ended", ride);
+    sendMessageToSocketId(ride.user.socketId, "ride-completed", ride);
+    sendMessageToRideRoom(ride._id, "ride-completed", ride);
 
     return res.status(200).json(ride);
   } catch (error) {

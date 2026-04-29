@@ -25,6 +25,18 @@ const initializeSocket = (server) => {
       }
     });
 
+    socket.on("track-ride", (data) => {
+      if (data?.rideId) {
+        socket.join(`ride:${data.rideId}`);
+      }
+    });
+
+    socket.on("stop-tracking-ride", (data) => {
+      if (data?.rideId) {
+        socket.leave(`ride:${data.rideId}`);
+      }
+    });
+
     socket.on("update-location-captain", async (data) => {
       const { userId, location } = data;
 
@@ -47,10 +59,36 @@ const initializeSocket = (server) => {
 
       await captainModel.findByIdAndUpdate(userId, { location: geoLocation });
 
+      const captain = await captainModel.findById(userId).select(
+        "_id fullName vehicle location socketId",
+      );
+
+      if (captain) {
+        socket.broadcast.emit("captain-location-update", {
+          captain,
+          location: { lng, lat },
+        });
+        socket.broadcast.emit("nearby-captains-update", {
+          captains: [captain],
+        });
+      }
+
       // console.log("Captain location updated:", {
       //   userId,
       //   location: geoLocation,
       // });
+    });
+
+    socket.on("captain-location-update", (data) => {
+      socket.broadcast.emit("captain-location-update", data);
+    });
+
+    socket.on("ride-location-update", (data) => {
+      if (data?.rideId) {
+        io.to(`ride:${data.rideId}`).emit("ride-location-update", data);
+      } else {
+        socket.broadcast.emit("ride-location-update", data);
+      }
     });
 
     socket.on("disconnect", () => {
@@ -70,7 +108,14 @@ const sendMessageToSocketId = (socketId, eventName, message) => {
   }
 };
 
+const sendMessageToRideRoom = (rideId, eventName, message) => {
+  if (io && rideId) {
+    io.to(`ride:${rideId}`).emit(eventName, message);
+  }
+};
+
 module.exports = {
   initializeSocket,
   sendMessageToSocketId,
+  sendMessageToRideRoom,
 };
