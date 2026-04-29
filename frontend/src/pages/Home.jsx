@@ -11,6 +11,7 @@ import WaitingForDriver from "../components/WaitingForDriver";
 import { SocketDataContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -30,10 +31,13 @@ const Home = () => {
   const [activeField, setActiveField] = useState("");
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
+  const [ride, setRide] = useState(null);
+
+  const navigate = useNavigate();
 
   const { user } = useContext(UserDataContext);
 
-  const { sendMessage, isConnected } = useContext(SocketDataContext);
+  const { socket, sendMessage, isConnected } = useContext(SocketDataContext);
 
   useEffect(() => {
     if (isConnected && user?._id) {
@@ -43,6 +47,35 @@ const Home = () => {
       });
     }
   }, [user, isConnected, sendMessage]);
+
+  useEffect(() => {
+    socket?.on("ride-confirmed", (data) => {
+      console.log("✅ New ride request accepted:", data);
+      setRide(data);
+
+      setVehicleFound(false);
+      setWaitingForDriver(true);
+    });
+    return () => {
+      socket?.off("ride-confirmed");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on("ride-started", (data) => {
+      setWaitingForDriver(false);
+      navigate("/riding", {
+        state: { rideData: data },
+      });
+    });
+    return () => {
+      socket?.off("ride-started");
+    };
+  }, [socket, navigate]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
 
   const handlePickupChange = async (e) => {
     const value = e.target.value;
@@ -344,7 +377,10 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
       >
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitingForDriver
+          ride={ride}
+          setWaitingForDriver={setWaitingForDriver}
+        />
       </div>
     </div>
   );

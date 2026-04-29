@@ -1,12 +1,27 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FinishRide from "../components/FinishRide";
 
 const CaptainRiding = () => {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const finishRidePanelRef = useRef(null);
+  const location = useLocation();
+
+  // Extract ride data from navigation state
+  const rideData = location.state?.rideData;
+  const ride = rideData?.ride || rideData;
+  const userFullName = ride?.user?.fullName;
+  const pickup = ride?.pickup || "Unknown Pickup";
+  const destination = ride?.destination || "Unknown Destination";
+  const fare = ride?.fare || "0";
+  const userName =
+    [userFullName?.firstName, userFullName?.lastName]
+      .filter(Boolean)
+      .join(" ") || "User";
+
+  console.log("ride data", ride);
 
   useGSAP(() => {
     if (finishRidePanel) {
@@ -52,11 +67,18 @@ const CaptainRiding = () => {
         <h5 className="w-full flex  items-center justify-center text-3xl p-2 text-black">
           <i className="ri-arrow-up-wide-line"></i>
         </h5>
-        <div className="flex flex-row justify-between items-center px-8 pb-4 ">
-          <h1 className="text-xl font-semibold">4 KM away</h1>
-          <button className="bg-black  text-white text-xl py-3 px-6  rounded-full ">
-            Complete Ride
-          </button>
+        <div className="flex flex-col px-8 pb-4">
+          {/* <div className="mb-3">
+            <h3 className="text-lg font-semibold">Passenger: {userName}</h3>
+            <p className="text-sm text-gray-700">Pickup: {pickup}</p>
+            <p className="text-sm text-gray-700">Destination: {destination}</p>
+          </div> */}
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-xl font-semibold">₹{fare}</h1>
+            <button className="bg-black  text-white text-xl py-3 px-6  rounded-full ">
+              Complete Ride
+            </button>
+          </div>
         </div>
       </div>
 
@@ -64,7 +86,14 @@ const CaptainRiding = () => {
         ref={finishRidePanelRef}
         className="fixed z-10 w-full h-[80%] bottom-0 bg-white px-3 py-8"
       >
-        <FinishRide setFinishRidePanel={setFinishRidePanel} />
+        <FinishRide
+          setFinishRidePanel={setFinishRidePanel}
+          ride={ride}
+          userName={userName}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+        />
       </div>
     </div>
   );

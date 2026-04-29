@@ -1,6 +1,12 @@
 import React from "react";
 
 const RidePopUp = (props) => {
+  const { rideData, userName, confirmRide } = props;
+
+  // Extract data from rideData, with fallbacks to hardcoded values
+  const pickup = rideData?.pickup;
+  const destination = rideData?.destination;
+
   return (
     <div>
       <h5
@@ -20,11 +26,13 @@ const RidePopUp = (props) => {
               className="h-13 w-13 rounded-full"
               src="https://imgs.search.brave.com/vdRYk5Fef873iKhep6GE8FrjCAJQafa8F189pqmsNjo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGeHM0/Y0pNekkvMi8wLzE2/MDB3L2NhbnZhLXB1/cnBsZS1ibGFjay1h/bmQtd2hpdGUtY29v/bC1jcmVhdGl2ZS1s/aW5rZWRpbi1wcm9m/aWxlLXBpY3R1cmUt/U283clZpQ1daYnMu/anBn"
             />
-            <h1 className="text-xl font-semibold">John Doe</h1>
+            <h1 className="text-xl font-semibold">
+              {userName?.firstName + " " + userName?.lastName}
+            </h1>
           </div>
           <div>
             <h1 className="text-2xl font-semibold">2.2KM</h1>
-            <h4 className="text-lg ">₹ 70.57</h4>
+            <h4 className="text-lg ">₹{rideData?.ride.fare}</h4>
           </div>
         </div>
         <div className="flex flex-col items-start justify-start w-full mt-7 mb-5">
@@ -33,8 +41,8 @@ const RidePopUp = (props) => {
               <i className="ri-map-pin-user-line"></i>
             </h3>
             <div className="w-full border-b border-gray-500  p-2">
-              <h4 className="text-xl font-medium">ISBT-17</h4>
-              <p className="text-base text-gray-600">Sector-17, Chandigarh</p>
+              <h4 className="text-xl font-medium">{pickup}</h4>
+              <p className="text-base text-gray-600">Pickup Location</p>
             </div>
           </div>
           <div className="flex gap-5 items-center mb-5 w-full">
@@ -42,8 +50,8 @@ const RidePopUp = (props) => {
               <i className="ri-map-pin-fill"></i>
             </h3>
             <div className="w-full border-b border-gray-500  p-2">
-              <h4 className="text-xl font-medium">Rose Garden</h4>
-              <p className="text-base text-gray-600">Sector-16, Chandigarh</p>
+              <h4 className="text-xl font-medium">{destination}</h4>
+              <p className="text-base text-gray-600">Destination</p>
             </div>
           </div>
           {/* <div className="flex w-full gap-5 items-center mb-8 ">
@@ -59,9 +67,12 @@ const RidePopUp = (props) => {
 
         <div className="w-full flex items-center justify-center flex-row gap-2">
           <button
-            onClick={() => {
-              props.setConfirmRidePopUpPanel(true);
-              props.setRidePopUpPanel(false);
+            onClick={async () => {
+              const confirmed = await confirmRide();
+              if (confirmed) {
+                props.setConfirmRidePopUpPanel(true);
+                props.setRidePopUpPanel(false);
+              }
             }}
             className="bg-black w-1/2 text-white text-xl py-3 px-6 rounded-full  "
           >

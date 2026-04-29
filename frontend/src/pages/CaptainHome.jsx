@@ -6,16 +6,20 @@ import gsap from "gsap";
 import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketDataContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CapatinContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CaptainHome = () => {
-  const [ridePopUpPanel, setRidePopUpPanel] = useState(true);
+  const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
   const RidePopUpPanelRef = useRef(null);
   const [ConfirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false);
   const ConfirmRidePopUpPanelRef = useRef(null);
+  const [rideData, setRideData] = useState(null);
+  const [userName, setUserName] = useState(null);
 
   const { captain } = useContext(CaptainDataContext);
-
-  const { sendMessage, isConnected } = useContext(SocketDataContext);
+  const { socket, sendMessage, isConnected } = useContext(SocketDataContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isConnected && captain?._id) {
@@ -30,7 +34,7 @@ const CaptainHome = () => {
         sendMessage("update-location-captain", {
           userId: captain._id,
           location: {
-            ltd: latitude,
+            lat: latitude,
             lng: longitude,
           },
         });
@@ -40,10 +44,56 @@ const CaptainHome = () => {
     return () => clearInterval(interval);
   }, [captain, isConnected, sendMessage]);
 
+  useEffect(() => {
+    socket?.on("new-ride", (data) => {
+      console.log("✅ New ride request received:", data);
+      setRideData(data);
+      setRidePopUpPanel(true);
+      setUserName(data.ride.user.fullName);
+      // Show the ride popup
+    });
+
+    return () => {
+      socket?.off("new-ride");
+    };
+  }, [socket]);
+
+  async function confirmRide() {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No authentication token found");
+        return false;
+      }
+
+      const rideId = rideData?.ride?._id || rideData?._id;
+      if (!rideId) {
+        console.error("No ride id found in ride data:", rideData);
+        return false;
+      }
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/rides/confirm`,
+        { rideId },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      console.log("Ride confirmed:", response.data);
+      return true;
+    } catch (error) {
+      console.error(
+        "Error confirming ride:",
+        error.response?.data || error.message,
+      );
+      return false;
+    }
+  }
+
   useGSAP(() => {
     if (ridePopUpPanel) {
       gsap.to(RidePopUpPanelRef.current, {
         display: "block",
+        height: "70%",
         duration: 0.5,
         ease: "power2.inOut",
       });
@@ -110,15 +160,19 @@ const CaptainHome = () => {
         <RidePopUp
           setRidePopUpPanel={setRidePopUpPanel}
           setConfirmRidePopUpPanel={setConfirmRidePopUpPanel}
+          rideData={rideData}
+          userName={userName}
+          confirmRide={confirmRide}
         />
       </div>
 
-      {/* confirm ride pop up component */}
       <div
         ref={ConfirmRidePopUpPanelRef}
-        className="fixed z-10 h-screen w-full bottom-0 bg-white px-3 py-8"
+        className="fixed z-10 w-full h-screen bottom-0 bg-white px-3 py-8"
       >
         <ConfirmRidePopUp
+          rideData={rideData}
+          userName={userName}
           setConfirmRidePopUpPanel={setConfirmRidePopUpPanel}
           setRidePopUpPanel={setRidePopUpPanel}
         />

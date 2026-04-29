@@ -28,16 +28,29 @@ const initializeSocket = (server) => {
     socket.on("update-location-captain", async (data) => {
       const { userId, location } = data;
 
+      // Support both old format (ltd) and new format (lat)
+      const lat = location?.lat !== undefined ? location.lat : location?.ltd;
+      const lng = location?.lng;
+
       // Validate location data
-      if (!location || !location.ltd || !location.lng) {
+      if (!location || typeof lat !== "number" || typeof lng !== "number") {
         console.error("Invalid location data received:", data);
         socket.emit("error", { message: "Invalid location data" });
         return;
       }
 
-      await captainModel.findByIdAndUpdate(userId, { location });
+      // Convert to GeoJSON format
+      const geoLocation = {
+        type: "Point",
+        coordinates: [lng, lat], // [longitude, latitude]
+      };
 
-      console.log("Captain location updated:", { userId, location });
+      await captainModel.findByIdAndUpdate(userId, { location: geoLocation });
+
+      // console.log("Captain location updated:", {
+      //   userId,
+      //   location: geoLocation,
+      // });
     });
 
     socket.on("disconnect", () => {
@@ -50,6 +63,7 @@ const initializeSocket = (server) => {
 
 const sendMessageToSocketId = (socketId, eventName, message) => {
   if (io) {
+    console.log(`📤 Sending "${eventName}" to socket ${socketId}`);
     io.to(socketId).emit(eventName, message);
   } else {
     console.log("Socket.io not initialized");

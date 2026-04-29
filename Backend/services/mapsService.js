@@ -1,7 +1,7 @@
 const axios = require("axios");
 const captainModel = require("../models/captainModel");
 // Function to get coordinates (latitude and longitude) from an address using Mapbox API
-// Returns an object: { ltd, lang }
+// Returns an object: { latitude, longitude }
 // Usage: await getCoordinatesFromAddress('address string')
 const MAPBOX_API_KEY = process.env.MAPBOX_API_KEY;
 
@@ -80,16 +80,33 @@ async function getAutocompleteSuggestions(input) {
     );
   }
 }
+async function getCaptainsInTheRadius(lat, lng, radius) {
+  try {
+    // Ensure 2dsphere index exists
+    await captainModel.collection
+      .createIndex({ location: "2dsphere" })
+      .catch(() => {});
 
-async function getCaptainsInTheRadius(ltd, lng, radius) {
-  const captains = await captainModel.find({
-    location: {
-      $geoWithin: {
-        $centerSphere: [[ltd, lng], radius / 3963.2],
+    const captains = await captainModel.find(
+      {
+        location: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: [lng, lat],
+            },
+            $maxDistance: radius, // in meters
+          },
+        },
       },
-    },
-  });
-  return captains;
+      "socketId location _id", // Select these fields
+    );
+
+    return captains;
+  } catch (error) {
+    console.error("Geospatial query error:", error.message);
+    return [];
+  }
 }
 
 module.exports = {

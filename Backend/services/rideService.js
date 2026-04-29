@@ -96,3 +96,99 @@ module.exports.createRide = async ({
   await ride.save();
   return ride;
 };
+
+module.exports.confirmRide = async ({ rideId, captain }) => {
+  if (!rideId) {
+    throw new Error("rideId not exist");
+  }
+
+  await rideModel.findOneAndUpdate(
+    { _id: rideId },
+    {
+      status: "accepted",
+      captain: captain._id,
+    },
+  );
+
+  const ride = await rideModel
+    .findOne({
+      _id: rideId,
+    })
+    .populate("user")
+    .populate("captain")
+    .select("+otp");
+
+  if (!ride) {
+    throw new Error("ride not found");
+  }
+  return ride;
+};
+
+module.exports.startRide = async ({ rideId, otp, captain }) => {
+  if (!rideId || !otp) {
+    throw new Error("rideId and otp does not exist");
+  }
+
+  const ride = await rideModel
+    .findOne({
+      _id: rideId,
+    })
+    .populate("user")
+    .populate("captain")
+    .select("+otp");
+
+  if (!ride) {
+    throw new Error("ride not found");
+  }
+
+  if (ride.status !== "accepted") {
+    throw new Error("ride not accepted");
+  }
+
+  if (ride.otp !== otp) {
+    throw new Error("otp not valid");
+  }
+
+  await rideModel.findOneAndUpdate(
+    { _id: rideId },
+    {
+      status: "ongoing",
+    },
+  );
+
+  return ride;
+};
+
+module.exports.endRide = async ({ rideId, captain }) => {
+  if (!rideId) {
+    throw new Error("rideId does not exist");
+  }
+
+  const ride = await rideModel
+    .findOne({
+      _id: rideId,
+      captain: captain._id,
+    })
+    .populate("user")
+    .populate("captain")
+    .select("+otp");
+
+  if (!ride) {
+    throw new Error("ride not found");
+  }
+
+  if (ride.status !== "ongoing") {
+    throw new Error("ride not ongoing");
+  }
+
+  const completedRide = await rideModel
+    .findOneAndUpdate(
+      { _id: rideId },
+      { status: "completed" },
+      { new: true },
+    )
+    .populate("user")
+    .populate("captain");
+
+  return completedRide;
+};
