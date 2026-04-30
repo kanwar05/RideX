@@ -9,7 +9,13 @@ import {
 import { SocketDataContext } from "../context/SocketContext";
 import { SOCKET_EVENTS } from "../services/socket";
 
-const UserMap = ({ pickup, destination, ride, className = "" }) => {
+const UserMap = ({
+  pickup,
+  pickupCoordinates,
+  destination,
+  ride,
+  className = "",
+}) => {
   const { socket } = useContext(SocketDataContext);
   const [userLocation, setUserLocation] = useState(null);
   const [pickupLocation, setPickupLocation] = useState(null);
@@ -25,9 +31,19 @@ const UserMap = ({ pickup, destination, ride, className = "" }) => {
   }, []);
 
   useEffect(() => {
-    if (!pickup) return;
-    geocodeAddress(pickup).then(setPickupLocation).catch(() => {});
-  }, [pickup]);
+    if (toLngLat(pickupCoordinates) || !pickup) return undefined;
+
+    let cancelled = false;
+    geocodeAddress(pickup)
+      .then((coordinates) => {
+        if (!cancelled) setPickupLocation({ address: pickup, coordinates });
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pickup, pickupCoordinates]);
 
   useEffect(() => {
     if (!destination) return;
@@ -35,13 +51,13 @@ const UserMap = ({ pickup, destination, ride, className = "" }) => {
   }, [destination]);
 
   useEffect(() => {
-    const origin = pickupLocation || userLocation;
+    const origin = toLngLat(pickupCoordinates) || pickupLocation?.coordinates || userLocation;
     if (!origin || !destinationLocation) return;
 
     getMapboxRoute(origin, destinationLocation)
       .then(setRoute)
       .catch((error) => console.warn("Unable to draw route:", error));
-  }, [pickupLocation, userLocation, destinationLocation]);
+  }, [pickupCoordinates, pickupLocation, userLocation, destinationLocation]);
 
   useEffect(() => {
     if (!socket) return undefined;
@@ -100,11 +116,11 @@ const UserMap = ({ pickup, destination, ride, className = "" }) => {
         label: "You",
         position: userLocation,
       },
-      pickupLocation && {
+      (toLngLat(pickupCoordinates) || pickupLocation?.coordinates) && {
         id: "pickup",
         type: "pickup",
         label: "Pickup",
-        position: pickupLocation,
+        position: toLngLat(pickupCoordinates) || pickupLocation.coordinates,
       },
       destinationLocation && {
         id: "destination",
@@ -129,6 +145,7 @@ const UserMap = ({ pickup, destination, ride, className = "" }) => {
   }, [
     nearbyCaptains,
     userLocation,
+    pickupCoordinates,
     pickupLocation,
     destinationLocation,
     trackedCaptain,

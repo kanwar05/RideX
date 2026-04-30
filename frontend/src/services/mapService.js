@@ -91,6 +91,45 @@ export function getCurrentPosition() {
   });
 }
 
+export async function reverseGeocodeCoordinates(location) {
+  const coordinates = toLngLat(location);
+
+  if (!coordinates || !MAPBOX_TOKEN) {
+    throw new Error("Unable to reverse geocode this location");
+  }
+
+  const response = await axios.get(
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.join(
+      ",",
+    )}.json`,
+    {
+      params: {
+        access_token: MAPBOX_TOKEN,
+        types: "address,poi,place,locality,neighborhood",
+      },
+    },
+  );
+
+  const feature = response.data.features?.[0];
+  if (!feature?.place_name) {
+    throw new Error("No readable address found for this location");
+  }
+
+  return feature.place_name;
+}
+
+export async function getCurrentLocation() {
+  const coordinates = await getCurrentPosition();
+  const address = await reverseGeocodeCoordinates(coordinates);
+
+  return {
+    address,
+    coordinates,
+    longitude: coordinates[0],
+    latitude: coordinates[1],
+  };
+}
+
 export function watchCurrentPosition(onPosition, onError) {
   if (!navigator.geolocation) return null;
 

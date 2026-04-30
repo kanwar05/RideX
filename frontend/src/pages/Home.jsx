@@ -9,13 +9,16 @@ import ConfirmedRide from "../components/ConfirmedRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
 import UserMap from "../components/UserMap";
+import PickupInput from "../components/PickupInput";
 import { SocketDataContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCurrentLocation } from "../services/mapService";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
+  const [pickupCoordinates, setPickupCoordinates] = useState(null);
   const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
   const panelRef = useRef(null);
@@ -33,6 +36,8 @@ const Home = () => {
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
   const [ride, setRide] = useState(null);
+  const [currentLocationLoading, setCurrentLocationLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -78,9 +83,20 @@ const Home = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    if (!toastMessage) return undefined;
+
+    const timeoutId = setTimeout(() => {
+      setToastMessage("");
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [toastMessage]);
+
   const handlePickupChange = async (e) => {
     const value = e.target.value;
     setPickup(value);
+    setPickupCoordinates(null);
     setActiveField("pickup");
 
     if (value.length > 2) {
@@ -133,10 +149,50 @@ const Home = () => {
   const handleSuggestionSelect = (suggestion) => {
     if (activeField === "pickup") {
       setPickup(suggestion);
+      setPickupCoordinates(null);
     } else if (activeField === "destination") {
       setDestination(suggestion);
     }
     setSuggestions([]);
+  };
+
+  const showToast = (message) => {
+    setToastMessage(message);
+  };
+
+  const getLocationErrorMessage = (error) => {
+    if (error?.code === 1) return "Location permission denied";
+    if (error?.code === 2) return "GPS unavailable. Please try again.";
+    if (error?.code === 3) return "Location request timed out. Please try again.";
+
+    return error?.message || "Unable to fetch current location";
+  };
+
+  const handleUseCurrentLocation = async () => {
+    if (currentLocationLoading) return;
+
+    setCurrentLocationLoading(true);
+    setActiveField("pickup");
+    setPanelOpen(false);
+
+    try {
+      const currentLocation = await getCurrentLocation();
+      setPickup(currentLocation.address);
+      setPickupCoordinates(currentLocation.coordinates);
+      setSuggestions([]);
+    } catch (error) {
+      console.error("Unable to use current location:", error);
+
+      if (error?.message?.includes("reverse geocode")) {
+        showToast("Could not convert your location into an address");
+      } else if (error?.message?.includes("readable address")) {
+        showToast("No address found for your current location");
+      } else {
+        showToast(getLocationErrorMessage(error));
+      }
+    } finally {
+      setCurrentLocationLoading(false);
+    }
   };
 
   useGSAP(() => {
@@ -271,6 +327,7 @@ const Home = () => {
         <div className="h-screen w-full">
           <UserMap
             pickup={pickup}
+            pickupCoordinates={pickupCoordinates}
             destination={destination}
             ride={ride}
             className="h-[70%]"
@@ -294,15 +351,14 @@ const Home = () => {
                 submitHandler(e);
               }}
             >
-              <input
+              <PickupInput
                 value={pickup}
                 onChange={handlePickupChange}
-                onClick={() => {
+                onFocus={() => {
                   setPanelOpen(true);
                 }}
-                className="w-full bg-[#eee] h-10 rounded-sm mt-5 p-2 px-12 placeholder:text-base"
-                type="text"
-                placeholder="Enter your pickup location"
+                onUseCurrentLocation={handleUseCurrentLocation}
+                loading={currentLocationLoading}
               />
               <input
                 value={destination}
@@ -333,6 +389,12 @@ const Home = () => {
             />
           </div>
         </div>
+
+        {toastMessage && (
+          <div className="fixed left-1/2 top-5 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-xl bg-black px-4 py-3 text-center text-sm font-semibold text-white shadow-2xl">
+            {toastMessage}
+          </div>
+        )}
 
         <div
           ref={vehiclePanelRef}
