@@ -6,7 +6,7 @@ const Splash = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => navigate("/intro"), 2500);
+    setTimeout(() => navigate("/intro-slide"), 2500);
   }, []);
 
   return (
