@@ -13,11 +13,13 @@ import CaptainProtectWrap from "./pages/CaptainProtectWrap";
 import CaptainLogout from "./pages/CaptainLogout";
 import Riding from "./pages/Riding";
 import CaptainRiding from "./pages/CaptainRiding";
+import Splash from "./pages/Splash";
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Start />} />
+      <Route path="/" element={<Splash />} />
+      {/* <Route path="/" element={<Start />} />
       <Route path="/user-login" element={<UserLogin />} />
       <Route path="/user-signup" element={<UserSignup />} />
       <Route path="/user-logout" element={<UserLogout />} />
@@ -41,7 +43,7 @@ const App = () => {
             <CaptainHome />
           </CaptainProtectWrap>
         }
-      />
+      /> */}
     </Routes>
   );
 };
