@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import slide1 from "../assets/rideximg/slide1.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const IntroSlide = () => {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   const slide = [
     {
@@ -38,7 +40,11 @@ const IntroSlide = () => {
   ];
 
   const next = () => {
-    if (index < slide.length - 1) setIndex(index + 1);
+    if (index < slide.length - 1) {
+      setIndex(index + 1);
+    } else {
+      navigate("/user-login");
+    }
   };
 
   return (
@@ -62,7 +68,15 @@ const IntroSlide = () => {
             <p className="text-xl font-normal text-gray-600">
               {slide[index].des2}
             </p>
-            <button className="w-100 h-10 bg-black text-white px-8 rounded-xl mt-8 ">
+            <button
+              onClick={next}
+              className="w-100 h-10 bg-black text-xl font-semibold text-white px-8 rounded-xl mt-8  "
+              style={
+                index === slide.length - 1
+                  ? { backgroundColor: "yellowgreen" }
+                  : { backgroundColor: "black" }
+              }
+            >
               {index === slide.length - 1 ? "GetStarted" : "Next"}
             </button>
           </div>
@@ -84,7 +98,15 @@ const IntroSlide = () => {
           <p className="text-lg font-normal text-gray-600">
             {slide[index].des2}
           </p>
-          <button className="w-70 h-10 bg-black text-white px-8 rounded-xl mt-8 ">
+          <button
+            onClick={next}
+            className="w-70 h-13 bg-black text-xl font-semibold text-white px-8 rounded-xl mt-8 "
+            style={
+              index === slide.length - 1
+                ? { backgroundColor: "yellowgreen" }
+                : { backgroundColor: "black" }
+            }
+          >
             {index === slide.length - 1 ? "GetStarted" : "Next"}
           </button>
         </div>
