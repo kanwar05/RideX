@@ -12,17 +12,17 @@ const LocationSearchPanel = (props) => {
               props.onSuggestionSelect(location);
               
             }}
-            className="flex flex-row border-2 border-gray-100 p-3 rounded-xl active:border-black items-center justify-start gap-4 my-4"
+            className="flex flex-row h-20 overflow-hidden bg-slate-800 border-1 border-white/10 p-3 rounded-xl active:border-black items-center justify-start gap-4 my-4"
             key={index}
           >
-            <h2 className="h-10 w-14 bg-[#eee] flex items-center justify-center rounded-xl ">
-              <i className="ri-map-pin-fill "></i>
+            <h2 className="flex items-center justify-center rounded-xl ">
+              <i className="ri-map-pin-fill text-xl text-lime-500/70"></i>
             </h2>
-            <h4 className="text-lg font-medium ">{location}</h4>
+            <h4 className="text-lg py-1 font-medium text-white/70 ">{location}</h4>
           </div>
         ))
       ) : (
-        <p className="text-gray-500 p-3">Start typing to see suggestions</p>
+        <p className="text-white/50 p-3">Start typing to see suggestions</p>
       )}
     </div>
   );

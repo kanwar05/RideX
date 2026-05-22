@@ -9,13 +9,13 @@ const PickupInput = ({
 }) => {
   return (
     <div className="mt-5">
-      <div className="relative">
-        <i className="ri-map-pin-user-fill pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg text-gray-500"></i>
+      <div className="flex flex-row gap-4 items-center w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+        <i className="ri-map-pin-user-fill pointer-events-none  text-lg text-lime-500"></i>
         <input
           value={value}
           onChange={onChange}
           onClick={onFocus}
-          className="h-11 w-full rounded-lg bg-[#eee] px-12 text-[15px] font-medium text-black outline-none placeholder:text-base placeholder:font-normal focus:bg-white focus:ring-2 focus:ring-black"
+          className="w-full outline-none placeholder:text-base"
           type="text"
           placeholder="Enter your pickup location"
         />
@@ -25,7 +25,7 @@ const PickupInput = ({
         type="button"
         onClick={onUseCurrentLocation}
         disabled={loading}
-        className=" flex absolute right-6 top-19 h-11 w-11 items-center justify-center gap-3  px-4 text-sm font-semibold text-black  transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
+        className=" flex absolute right-6 top-19 h-11 w-11 items-center justify-center gap-3  px-4 text-sm font-semibold text-lime-500  transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-lime-500/50"
       >
         {loading ? (
           <span className="h-4 w-4 animate-spin rounded-full "></span>

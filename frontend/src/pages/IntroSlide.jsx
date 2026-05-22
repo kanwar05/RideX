@@ -48,8 +48,8 @@ const IntroSlide = () => {
   };
 
   return (
-    <div className="relative h-screen w-screen flex flex-col items-center justify-center md:flex-row p-6">
-      <div className="relative w-screen h-screen  flex flex-col md:flex-row md:gap-3  ">
+    <div className="relative h-screen w-screen flex flex-col items-center justify-center  p-6">
+      <div className="relative   flex flex-col  ">
         <div className="flex flex-col h-1/5  items-center justify-end md:justify-center  md:h-full md:w-1/2  ">
           <h1 className="text-5xl md:text-7xl font-bold">
             Ride <span className=" text-lime-400">X</span>{" "}
@@ -77,17 +77,17 @@ const IntroSlide = () => {
                   : { backgroundColor: "black" }
               }
             >
-              {index === slide.length - 1 ? "GetStarted" : "Next"}
+              {index === slide.length - 1 ? "Get Started" : "Next"}
             </button>
           </div>
         </div>
         <div className=" flex flex-col items-center justify-center h-2/5  md:h-full md:w-1/2 md:right-0 p-4   ">
           <img
-            className="h-full h-full border-2 border-lime-600 rounded-xl w-screen md:h-3/4 md:w-full "
+            className="h-full rounded-xl w-screen md:h-3/4 md:w-full "
             src={slide1}
           />
         </div>
-        <div className="absolute bottom-0 md:hidden w-full h-2/5 flex flex-col items-center justify-center  ">
+        <div className="absolute bottom-0 md:hidden w-full h-2/5 flex flex-col items-center justify-center p-6  ">
           <h1 className="text-3xl font-bold  ">{slide[index].title}</h1>
           <h1 className="text-3xl text-lime-400 font-bold mb-2">
             {slide[index].titleh}
@@ -100,14 +100,14 @@ const IntroSlide = () => {
           </p>
           <button
             onClick={next}
-            className="w-70 h-13 bg-black text-xl font-semibold text-white px-8 rounded-xl mt-8 "
+            className="w-full h-13 bg-black text-2xl font-semibold text-white px-8 rounded-xl mt-8 "
             style={
               index === slide.length - 1
-                ? { backgroundColor: "yellowgreen" }
+                ? { backgroundColor: "chartreuse" }
                 : { backgroundColor: "black" }
             }
           >
-            {index === slide.length - 1 ? "GetStarted" : "Next"}
+            {index === slide.length - 1 ? "Get Started" : "Next"}
           </button>
         </div>
       </div>

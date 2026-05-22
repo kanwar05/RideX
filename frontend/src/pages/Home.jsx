@@ -15,6 +15,7 @@ import { UserDataContext } from "../context/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCurrentLocation } from "../services/mapService";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -34,7 +35,7 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [activeField, setActiveField] = useState("");
   const [fare, setFare] = useState({});
-  const [vehicleType, setVehicleType] = useState(null);
+  const [vehicleType, setVehicleType] = useState("");
   const [ride, setRide] = useState(null);
   const [currentLocationLoading, setCurrentLocationLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -163,7 +164,8 @@ const Home = () => {
   const getLocationErrorMessage = (error) => {
     if (error?.code === 1) return "Location permission denied";
     if (error?.code === 2) return "GPS unavailable. Please try again.";
-    if (error?.code === 3) return "Location request timed out. Please try again.";
+    if (error?.code === 3)
+      return "Location request timed out. Please try again.";
 
     return error?.message || "Unable to fetch current location";
   };
@@ -228,10 +230,12 @@ const Home = () => {
     if (vehiclePanelOpen) {
       gsap.to(vehiclePanelRef.current, {
         transform: "translateY(0%)",
+        height: "60%",
       });
     } else {
       gsap.to(vehiclePanelRef.current, {
         transform: "translateY(100%)",
+        height: "0%",
       });
     }
   }, [vehiclePanelOpen]);
@@ -252,10 +256,12 @@ const Home = () => {
     if (vehicleFound) {
       gsap.to(vehicleFoundRef.current, {
         transform: "translateY(0%)",
+        display: "block",
       });
     } else {
       gsap.to(vehicleFoundRef.current, {
         transform: "translateY(100%)",
+        display: "none",
       });
     }
   }, [vehicleFound]);
@@ -319,12 +325,12 @@ const Home = () => {
 
   return (
     <div>
-      <div className="h-screen relative overflow-hidden">
-        <h1 className="text-4xl absolute font-semibold pl-5 pt-5 pb-3 ">
-          Uber
-        </h1>
-        {/* <img className="w-20 absolute top-5 left-5"  src="https://imgs.search.brave.com/zI9sTKSL338XsQS2TphauF8YrJLaTg-O0pS8AdMBhMs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly96b25h/bG9nby5jb20vYXBp/L2Fzc2V0LXByZXZp/ZXc_dXJsPWh0dHBz/Oi8vYXNzZXRzLnpv/bmFsb2dvLmNvbS90/cmFuc3BvcnRhdGlv/bi91YmVyLmNvbS9s/b2dvLTE3NzQxMzc2/MTg2NDUtNDQyLnN2/ZyZ0aGVtZT1kYXJr/JnY9djI" /> */}
-        <div className="h-screen w-full">
+      <div className="h-screen relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
+        <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+          <Navbar />
+        </div>
+
+        <div className=" h-[60%] w-full">
           <UserMap
             pickup={pickup}
             pickupCoordinates={pickupCoordinates}
@@ -334,22 +340,25 @@ const Home = () => {
           />
         </div>
 
-        <div className="w-full flex flex-col justify-end h-screen absolute top-0 ">
-          <div className="h-[30%] p-5 bg-white relative ">
+        <div className="w-full z-10 flex flex-col justify-end h-screen absolute top-0 ">
+          <div className=" p-4 bg-slate-900 text-white relative ">
             <h5
               ref={panelCloseRef}
               onClick={() => {
                 setPanelOpen(false);
               }}
-              className="absolute opacity-0 right-6 top-6 text-2xl"
+              className="absolute opacity-0 right-6 top-6 text-lime-500 text-2xl"
             >
               <i className="ri-arrow-down-wide-line"></i>
             </h5>
-            <h1 className="text-3xl font-semibold ">Let's make a Trip</h1>
+            <h1 className="text-2xl font-semibold text-lime-500">
+              Let's make a Trip
+            </h1>
             <form
               onSubmit={(e) => {
                 submitHandler(e);
               }}
+              className="flex flex-col w-full gap-6"
             >
               <PickupInput
                 value={pickup}
@@ -360,27 +369,31 @@ const Home = () => {
                 onUseCurrentLocation={handleUseCurrentLocation}
                 loading={currentLocationLoading}
               />
-              <input
-                value={destination}
-                onChange={handleDestinationChange}
-                onClick={() => {
-                  setPanelOpen(true);
-                }}
-                className="w-full  bg-[#eee] h-10 rounded-sm mt-5  px-12 p-2 placeholder:text-base"
-                type="text"
-                placeholder="Enter your destination"
-              />
+              <div className="flex flex-row gap-4 items-center w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+                <i className="pointer-events-none  text-lg text-lime-500 ri-map-pin-line"></i>
+                <input
+                  value={destination}
+                  onChange={handleDestinationChange}
+                  onClick={() => {
+                    setPanelOpen(true);
+                  }}
+                  className="outline-none w-full placeholder:text-base"
+                  type="text"
+                  placeholder="Enter your destination"
+                />
+              </div>
             </form>
-            <div className="flex w-full items-center justify-center mt-6">
+            <div className="flex w-full items-center justify-center mt-4">
               <button
                 onClick={findTrip}
-                className="bg-black text-white text-center text-lg font-medium rounded-full w-1/2 p-2 "
+                className="w-full bg-lime-500 text-black font-semibold backdrop-blur py-3 px-4 rounded-xl "
               >
                 Find Trip
               </button>
             </div>
           </div>
-          <div ref={panelRef} className="h-0 p-5 bg-white">
+
+          <div ref={panelRef} className=" p-4 bg-slate-900 text-white">
             <LocationSearchPanel
               setPanelOpen={setPanelOpen}
               setVehiclePanelOpen={setVehiclePanelOpen}
@@ -398,7 +411,7 @@ const Home = () => {
 
         <div
           ref={vehiclePanelRef}
-          className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+          className="fixed z-10 w-full bottom-0 bg-slate-900 text-white/80 p-3 rounded-t-xl"
         >
           <VehiclePanel
             selectVehicleType={setVehicleType}
@@ -410,7 +423,7 @@ const Home = () => {
 
         <div
           ref={confirmRidePanelRef}
-          className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+          className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl "
         >
           <ConfirmedRide
             pickup={pickup}
@@ -425,7 +438,7 @@ const Home = () => {
 
         <div
           ref={vehicleFoundRef}
-          className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+          className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl p-4"
         >
           <LookingForDriver
             pickup={pickup}
@@ -440,7 +453,7 @@ const Home = () => {
 
       <div
         ref={waitingForDriverRef}
-        className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+        className="fixed z-10 w-full bottom-0 bg-white bg-slate-900 rounded-t-xl p-4"
       >
         <WaitingForDriver
           ride={ride}

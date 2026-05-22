@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "../context/UserContext";
+import Navbar from "../components/Navbar";
+import { FcGoogle } from "react-icons/fc";
 
 const UserSignup = () => {
   const [email, setEmail] = useState("");
@@ -43,93 +45,118 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="p-7 flex flex-col justify-between h-screen">
-      <div className="bg-white w-full flex flex-col ">
-        <div className="text-4xl text-black mb-5 font-medium">Uber</div>
+    <div className="min-h-screen text-white flex flex-col justify-between bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] overflow-hidden relative p-6 box-border">
+      <Navbar />
+
+      <div className="relative z-10 w-full max-w-[380px]">
         <form
-          className=""
           onSubmit={(e) => {
             submitHandler(e);
           }}
+          className="flex flex-col items-center justify-center bg-slate-900/70 p-4 py-6 rounded-xl backdrop-blur-sm border border-white/20 shadow-[0_0_40px_rgba(0,0,0,0.6)] overflow-hidden"
         >
-          <div className="flex flex-col gap-2">
-            <h1 className="text-xl font-semibold mb-2">Sign Up as a User</h1>
-            <label className="text-lg  mb-1 " htmlFor="email">
-              What's Your Name
-            </label>
-            <div className="flex gap-4">
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 mb-3 rounded placeholder:text-base "
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                type="text"
-                id="firstName"
-                required
-                placeholder="First Name"
-              />
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 mb-3 rounded placeholder:text-base "
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-                id="lastName"
-                required
-                placeholder="Last Name"
-              />
-            </div>
+          <h2 className="text-center text-white  text-2xl font-semibold">
+            Create Account
+          </h2>
+          <p className="text-sm mb-10  text-lime-500/70">
+            Sign up to get started
+          </p>
+
+          <label
+            htmlFor="firstname"
+            className="self-start text-lg text-gray-200 p-2 "
+          >
+            Firstname
+          </label>
+          <div className="flex flex-row gap-2 w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-2">
+            <i className="text-xl text-lime-500/70 font-medium ri-user-3-line"></i>
+            <input
+              className="outline-none placeholder:text-base w-full "
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              type="text"
+              id="firstname"
+              required
+              placeholder="Rohan"
+            />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-lg  mb-1 " htmlFor="email">
-              What's Your Email
-            </label>
+          <label
+            htmlFor="lastname"
+            className="self-start text-lg text-gray-200 p-2 "
+          >
+            Lastname
+          </label>
+          <div className="flex flex-row gap-2 w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-2">
+            <i className="text-xl text-lime-500/70 font-medium ri-user-3-line"></i>
             <input
-              className="bg-[#eeeeee] py-2 px-4 border-1 mb-3 rounded placeholder:text-base "
+              className="outline-none placeholder:text-base w-full "
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              type="text"
+              id="lastname"
+              required
+              placeholder="Sharma"
+            />
+          </div>
+
+          <label
+            htmlFor="email"
+            className="self-start text-lg text-gray-200 p-2 "
+          >
+            E-mail
+          </label>
+          <div className="flex flex-row gap-2 w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-2">
+            <i className="text-xl text-lime-500/70 font-medium ri-mail-open-line"></i>
+            <input
+              className="outline-none placeholder:text-base w-full "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               id="email"
               required
-              placeholder="email@example.com"
+              placeholder="abc@example.com"
             />
           </div>
-          <div className="flex flex-col gap-2 mt-4">
-            <label className="text-lg  mb-1 " htmlFor="password">
-              Password
-            </label>
+
+          <label
+            htmlFor="password"
+            className="self-start text-lg text-gray-200 p-2 "
+          >
+            Password
+          </label>
+          <div className="flex flex-row gap-2 w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-2">
+            <i className="text-xl text-lime-500/70 font-medium ri-lock-2-line"></i>
             <input
-              className="bg-[#eeeeee] py-2 px-4 border-1 mb-3 rounded placeholder:text-base"
+              className="outline-none placeholder:text-base w-full "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               id="password"
               required
-              placeholder="Enter your password"
+              placeholder="********"
             />
           </div>
+
           <button
             type="submit"
-            className="bg-black w-full text-center text-white text-xl mb-3 py-2 px-4 rounded-lg flex items-center justify-center mt-6"
+            className="w-full bg-lime-500 text-black font-semibold backdrop-blur py-3 px-4 rounded-xl mt-8 "
           >
-            Sign Up
+            Login
+          </button>
+
+          <button className="w-full bg-slate-700 text-white/80 font-semibold py-2 px-4 rounded-xl mt-4 flex items-center justify-center gap-3 ">
+            <FcGoogle className="h-8 w-8" /> <span>Continue with Google</span>
           </button>
         </form>
-        <p className="text-center">
-          Already have an account?{" "}
-          <Link to="/user-login" className="text-blue-600 ">
-            Login as a User
-          </Link>
-        </p>
       </div>
 
-      <div className="">
-        <Link
-          to="/captain-signup"
-          className="bg-[#1A3263] w-full text-center text-white text-xl  py-2 px-4 rounded-lg flex items-center justify-center mt-6"
-        >
-          Signup as a Captain
+      <p className="text-center mt-4 text-slate-400 text-sm mb-4 ">
+        Already have an account?{" "}
+        <Link to="/user-login" className="text-lime-500 hover:underline">
+          Login
         </Link>
-      </div>
+      </p>
     </div>
   );
 };
