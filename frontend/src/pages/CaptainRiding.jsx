@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FinishRide from "../components/FinishRide";
 import CaptainMap from "../components/CaptainMap";
+import Navbar from "../components/Navbar";
 
 const CaptainRiding = () => {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
@@ -40,40 +41,31 @@ const CaptainRiding = () => {
     }
   }, [finishRidePanel]);
   return (
-    <div className="h-screen realtive w-screen">
-      <div className="absolute px-5 py-5 flex flex-row justify-between items-start w-full">
-        <div>
-          <h1 className="text-4xl  font-semibold  ">Uber </h1>
-          <span>
-            <i className="text-4xl  font-bold  ri-arrow-right-long-line"></i>
-          </span>
-        </div>
-        <div className="bg-gray-100 p-2 rounded-full h-10 w-10 flex items-center justify-center">
-          <Link to="/captain-logout">
-            <i className="text-xl  font-medium  ri-logout-box-r-line"></i>
-          </Link>
-        </div>
+    <div className="h-screen w-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
+      <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+        <Navbar />
       </div>
-      <div className="h-4/5 w-full">
+
+      <div className="h-[60%] w-full">
         <CaptainMap ride={ride} destinationMode className="h-full" />
       </div>
 
       <div
         onClick={() => setFinishRidePanel(true)}
-        className="h-1/5 w-full bg-yellow-500 flex flex-col justify-evenly"
+        className="h-[40%] w-full flex flex-col items-center p-4  "
       >
-        <h5 className="w-full flex  items-center justify-center text-3xl p-2 text-black">
+        <h5 className="w-full flex  items-center justify-center text-3xl  text-lime-500">
           <i className="ri-arrow-up-wide-line"></i>
         </h5>
-        <div className="flex flex-col px-8 pb-4">
-          {/* <div className="mb-3">
-            <h3 className="text-lg font-semibold">Passenger: {userName}</h3>
-            <p className="text-sm text-gray-700">Pickup: {pickup}</p>
-            <p className="text-sm text-gray-700">Destination: {destination}</p>
-          </div> */}
+        <div className="flex w-full flex-col px-8 pb-4">
+          <div className="mb-3 bg-slate-800/50  p-3 rounded-lg w-full">
+            <h3 className="text-lg text-lime-500 ">Passenger: <span className="text-white/80">{userName}</span> </h3>
+            <p className="text-lg text-lime-500">Pickup: <span className="text-white/80">{pickup}</span></p>
+            <p className="text-lg text-lime-500">Destination: <span className="text-white/80">{destination}</span></p>
+          </div>
           <div className="flex flex-row justify-between items-center">
-            <h1 className="text-xl font-semibold">₹{fare}</h1>
-            <button className="bg-black  text-white text-xl py-3 px-6  rounded-full ">
+            <h1 className="text-lg text-white/80 font-semibold">₹{fare}</h1>
+            <button className="bg-lime-500  text-black text-lg py-3 px-6  rounded-full ">
               Complete Ride
             </button>
           </div>
@@ -82,7 +74,7 @@ const CaptainRiding = () => {
 
       <div
         ref={finishRidePanelRef}
-        className="fixed z-10 w-full h-[80%] bottom-0 bg-white px-3 py-8"
+        className="fixed z-10 w-full h-[80%] bottom-0 bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] p-4"
       >
         <FinishRide
           setFinishRidePanel={setFinishRidePanel}

@@ -326,8 +326,16 @@ const Home = () => {
   return (
     <div>
       <div className="h-screen relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
-        <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+        <div className="flex flex-row items-center justify-between bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
           <Navbar />
+          <div
+            onClick={() => {
+              navigate("/user-logout");
+            }}
+            className="bg-lime-500 rounded p-1"
+          >
+            <i className=" text-xl pr-2 text-black ri-logout-circle-line"></i>
+          </div>
         </div>
 
         <div className=" h-[60%] w-full">
@@ -340,8 +348,8 @@ const Home = () => {
           />
         </div>
 
-        <div className="w-full z-10 flex flex-col justify-end h-screen absolute top-0 ">
-          <div className=" p-4 bg-slate-900 text-white relative ">
+        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0  "  >
+          <div className=" p-4 bg-slate-900 text-white relative  ">
             <h5
               ref={panelCloseRef}
               onClick={() => {
@@ -453,10 +461,11 @@ const Home = () => {
 
       <div
         ref={waitingForDriverRef}
-        className="fixed z-10 w-full bottom-0 bg-white bg-slate-900 rounded-t-xl p-4"
+        className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl "
       >
         <WaitingForDriver
           ride={ride}
+          vehicleType={vehicleType}
           setWaitingForDriver={setWaitingForDriver}
         />
       </div>

@@ -8,6 +8,7 @@ import { SocketDataContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CapatinContext";
 import axios from "axios";
 import CaptainMap from "../components/CaptainMap";
+import Navbar from "../components/Navbar";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -124,34 +125,27 @@ const CaptainHome = () => {
     }
   }, [ConfirmRidePopUpPanel]);
 
+  
+
   return (
-    <div className="h-screen relative w-screen">
-      <div className="absolute px-5 py-5 flex flex-row justify-between items-start w-full">
-        <div>
-          <h1 className="text-4xl  font-semibold  ">Uber </h1>
-          <span>
-            <i className="text-4xl  font-bold  ri-arrow-right-long-line"></i>
-          </span>
-        </div>
-        <div className="bg-gray-100 p-2 rounded-full h-10 w-10 flex items-center justify-center">
-          <span>
-            <i className="text-xl  font-medium  ri-logout-box-r-line"></i>
-          </span>
-        </div>
+    <div className="h-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
+      <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+        <Navbar  />
       </div>
-      <div className="h-3/5 w-full">
-        <CaptainMap ride={rideData?.ride || rideData} className="h-full" />
+
+      <div className=" h-[60%] w-full">
+        <CaptainMap ride={rideData?.ride || rideData} className="h-[70%]" />
       </div>
 
       {/* captain detail component */}
-      <div className="flex flex-col p-4 w-full h-2/5 gap-5">
+      <div className="flex flex-col p-4 w-full h-[40%] rounded-t-2xl  ">
         <CaptainDetails />
       </div>
 
       {/* ride pop up component */}
       <div
         ref={RidePopUpPanelRef}
-        className="fixed z-10 w-full bottom-0 bg-white px-3 py-8"
+        className="fixed z-10 w-full bottom-0 bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] p-3 rounded-t-2xl"
       >
         <RidePopUp
           setRidePopUpPanel={setRidePopUpPanel}
@@ -164,7 +158,7 @@ const CaptainHome = () => {
 
       <div
         ref={ConfirmRidePopUpPanelRef}
-        className="fixed z-10 w-full h-screen bottom-0 bg-white px-3 py-8"
+        className="fixed z-10 w-full bottom-0 bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] p-3 rounded-t-2xl"
       >
         <ConfirmRidePopUp
           rideData={rideData}
