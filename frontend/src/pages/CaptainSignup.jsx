@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CaptainDataContext } from "../context/CapatinContext";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 const CaptainSignup = () => {
   const [email, setEmail] = useState("");
@@ -13,180 +13,337 @@ const CaptainSignup = () => {
   const [vehiclePlate, setVehiclePlate] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const { captain, setCaptain } = useContext(CaptainDataContext);
+  const { setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const captainData = {
-      fullName: {
-        firstName: firstName,
-        lastName: lastName,
-      },
-      email: email,
-      password: password,
-      vehicle: {
-        vehicleType: vehicleType,
-        color: vehicleColor,
-        plate: vehiclePlate,
-        capacity: vehicleCapacity,
-      },
-    };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/captains/register`,
-      captainData,
-    );
+    setLoading(true);
+    setError("");
 
-    if (response.status === 201) {
-      const data = response.data;
-      setCaptain(data.captain);
-      localStorage.setItem("token", data.token);
-      navigate("/captain-home");
+    try {
+      const captainData = {
+        fullName: {
+          firstName,
+          lastName,
+        },
+        email,
+        password,
+        vehicle: {
+          vehicleType,
+          color: vehicleColor,
+          plate: vehiclePlate,
+          capacity: vehicleCapacity,
+        },
+      };
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/captains/register`,
+        captainData,
+      );
+
+      if (response.status === 201) {
+        const data = response.data;
+
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+
+        navigate("/captain-home");
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Signup failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setVehicleColor("");
+      setVehiclePlate("");
+      setVehicleCapacity("");
+      setVehicleType("");
     }
-
-    setEmail("");
-    setPassword("");
-    setFirstName("");
-    setLastName("");
-    setVehicleColor("");
-    setVehiclePlate("");
-    setVehicleCapacity("");
-    setVehicleType("");
   };
 
   return (
-    <div className="p-7 flex flex-col justify-between h-screen">
-      <div className="bg-white w-full flex flex-col ">
-        <div className="text-4xl text-black mb-5 font-medium">Uber</div>
-        <form
-          className=""
-          onSubmit={(e) => {
-            submitHandler(e);
-          }}
-        >
-          <div className="flex flex-col mb-2 gap-2">
-            <h1 className="text-xl font-semibold mb-2">Sign Up as a Captain</h1>
-            <label className="text-lg mb-1 " htmlFor="email">
-              What's Your Name
-            </label>
-            <div className="flex gap-4">
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 rounded placeholder:text-base "
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                type="text"
-                id="firstName"
-                required
-                placeholder="First Name"
-              />
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 rounded placeholder:text-base "
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-                id="lastName"
-                required
-                placeholder="Last Name"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-lg mb-1 " htmlFor="email">
-              What's Your Email
-            </label>
-            <input
-              className="bg-[#eeeeee] py-2 px-4 border-1 rounded placeholder:text-base "
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              id="email"
-              required
-              placeholder="email@example.com"
-            />
-          </div>
-          <div className="flex flex-col gap-2 mt-4 ">
-            <label className="text-lg mb-1" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="bg-[#eeeeee] py-2 px-4 border-1 rounded placeholder:text-base"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              id="password"
-              required
-              placeholder="Enter your password"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2 mt-4">
-            <label className="text-lg mb-1">Vehicle Information</label>
-            <div className="flex gap-4">
-              <select
-                className="bg-[#eeeeee]  w-1/2 py-2 px-4 border-1 rounded placeholder:text-base"
-                value={vehicleType}
-                onChange={(e) => setVehicleType(e.target.value)}
-                required
-              >
-                <option value="">Vehicle Type</option>
-                <option value="car">Car</option>
-                <option value="moto">Moto</option>
-                <option value="auto">Auto</option>
-              </select>
-
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 rounded placeholder:text-base"
-                value={vehicleColor}
-                onChange={(e) => setVehicleColor(e.target.value)}
-                type="text"
-                placeholder="Vehicle Color"
-                required
-              />
-            </div>
-            <div className="flex gap-4">
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 rounded placeholder:text-base"
-                value={vehiclePlate}
-                onChange={(e) => setVehiclePlate(e.target.value)}
-                type="text"
-                placeholder="Vehicle Plate"
-                required
-              />
-              <input
-                className="bg-[#eeeeee] w-1/2 py-2 px-4 border-1 rounded placeholder:text-base"
-                value={vehicleCapacity}
-                onChange={(e) => setVehicleCapacity(e.target.value)}
-                type="number"
-                placeholder="Vehicle Capacity"
-                required
-              />
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="bg-black w-full text-center text-white text-xl mb-3 py-2 px-4 rounded-lg flex items-center justify-center mt-6"
-          >
-            Sign Up
-          </button>
-        </form>
-        <p className="text-center">
-          Already have an account?{" "}
-          <Link to="/captain-login" className="text-blue-600 ">
-            Login as a captiain
-          </Link>
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950 flex flex-col">
+      {/* Navbar */}
+      <div className="safe-area-inset sticky top-0 z-40 bg-dark-950/80 backdrop-blur-sm border-b border-dark-700">
+        <Navbar />
       </div>
 
-      <div className="">
-        <Link
-          to="/user-login"
-          className="bg-[#1A3263] w-full text-center text-white text-xl  py-2 px-4 rounded-lg flex items-center justify-center mt-6"
-        >
-          Login as a User
-        </Link>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 sm:px-6 md:px-8 py-8 md:py-0">
+        {/* Left Side */}
+        <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center pr-8">
+          <div className="text-center space-y-4 mb-8">
+            <h1 className="text-5xl font-bold text-white">Become a Driver</h1>
+
+            <p className="text-xl text-text-secondary">
+              Start earning with flexible schedules
+            </p>
+          </div>
+        </div>
+
+        {/* Signup Form */}
+        <div className="w-full md:w-1/2 max-w-md">
+          <form onSubmit={submitHandler} className="space-y-5">
+            {/* Mobile Header */}
+            <div className="md:hidden text-center mb-8">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                Join as Captain
+              </h2>
+
+              <p className="text-text-secondary">Create your driver account</p>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 flex items-start gap-3">
+                <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
+
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
+
+            {/* Full Name */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-text-primary">
+                Full Name
+              </label>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative flex items-center">
+                  <i className="ri-user-3-line absolute left-4 text-lg text-primary"></i>
+
+                  <input
+                    className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    type="text"
+                    required
+                    placeholder="First name"
+                  />
+                </div>
+
+                <div className="relative flex items-center">
+                  <i className="ri-user-3-line absolute left-4 text-lg text-primary"></i>
+
+                  <input
+                    className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    type="text"
+                    required
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-text-primary">
+                Email Address
+              </label>
+
+              <div className="relative flex items-center">
+                <i className="ri-mail-open-line absolute left-4 text-lg text-primary"></i>
+
+                <input
+                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-text-primary">
+                Password
+              </label>
+
+              <div className="relative flex items-center">
+                <i className="ri-lock-2-line absolute left-4 text-lg text-primary"></i>
+
+                <input
+                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <p className="text-xs text-text-muted">
+                Must be at least 6 characters
+              </p>
+            </div>
+
+            {/* Vehicle Section */}
+            <div className="pt-4 space-y-4">
+              <h3 className="text-lg font-semibold text-white">
+                Vehicle Information
+              </h3>
+
+              {/* Vehicle Type */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-text-primary">
+                  Vehicle Type
+                </label>
+
+                <select
+                  className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                  value={vehicleType}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                  required
+                >
+                  <option value="">Select vehicle type</option>
+                  <option value="car">Car</option>
+                  <option value="moto">Motorcycle</option>
+                  <option value="auto">Auto Rickshaw</option>
+                </select>
+              </div>
+
+              {/* Color + Plate */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-text-primary">
+                    Color
+                  </label>
+
+                  <input
+                    className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                    value={vehicleColor}
+                    onChange={(e) => setVehicleColor(e.target.value)}
+                    type="text"
+                    placeholder="e.g., White"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-text-primary">
+                    Plate Number
+                  </label>
+
+                  <input
+                    className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth uppercase"
+                    value={vehiclePlate}
+                    onChange={(e) => setVehiclePlate(e.target.value)}
+                    type="text"
+                    placeholder="AB12CD1234"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Capacity */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-text-primary">
+                  Passenger Capacity
+                </label>
+
+                <select
+                  className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                  value={vehicleCapacity}
+                  onChange={(e) => setVehicleCapacity(e.target.value)}
+                  required
+                >
+                  <option value="">Select capacity</option>
+                  <option value="1">1 Passenger</option>
+                  <option value="4">4 Passengers</option>
+                  <option value="5">5 Passengers</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Terms */}
+            <div className="flex items-start gap-3 py-2">
+              <input
+                type="checkbox"
+                id="agreement"
+                required
+                className="w-5 h-5 mt-1 accent-primary rounded"
+              />
+
+              <label
+                htmlFor="agreement"
+                className="text-xs sm:text-sm text-text-secondary"
+              >
+                I agree to the{" "}
+                <a href="#" className="text-primary hover:text-primary-dark">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="#" className="text-primary hover:text-primary-dark">
+                  Privacy Policy
+                </a>
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-primary w-full py-3 text-base font-semibold disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+            >
+              {loading ? (
+                <>
+                  <i className="ri-loader-4-line animate-spin"></i>
+                  Creating Account...
+                </>
+              ) : (
+                <>
+                  <span>Create Captain Account</span>
+                  <i className="ri-arrow-right-line"></i>
+                </>
+              )}
+            </button>
+
+            {/* Login */}
+            <p className="text-center text-text-secondary text-sm">
+              Already have an account?{" "}
+              <Link
+                to="/captain-login"
+                className="text-primary hover:text-primary-dark font-semibold transition-smooth"
+              >
+                Sign In
+              </Link>
+            </p>
+
+            {/* Divider */}
+            <div className="relative flex items-center gap-4 py-4">
+              <div className="flex-1 h-px bg-dark-700"></div>
+
+              <span className="text-xs text-text-muted uppercase font-semibold">
+                Or
+              </span>
+
+              <div className="flex-1 h-px bg-dark-700"></div>
+            </div>
+
+            {/* Rider Signup */}
+            <Link
+              to="/user-signup"
+              className="btn btn-secondary w-full py-3 text-base font-semibold flex items-center justify-center"
+            >
+              Sign up as a Rider instead
+            </Link>
+          </form>
+        </div>
       </div>
     </div>
   );

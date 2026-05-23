@@ -3,19 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ props }) => {
   const navigate = useNavigate();
+
   return (
-    <div className="">
-      <div className="flex flex-row w-full items-center justify-between cursor-pointer  ">
-        <div className=" flex  flex-col  ">
-          <h1 className="text-4xl  font-bold">
-            Ride<span className=" text-lime-500">X</span>{" "}
+    <nav className="px-4 sm:px-6 lg:px-8 py-4 safe-area-inset">
+      <div className="flex items-center justify-between max-w-7xl mx-auto">
+        {/* Logo */}
+        <div
+          className="flex items-center gap-2 cursor-pointer transition-smooth hover:opacity-80"
+          onClick={() => navigate("/")}
+        >
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+            Ride<span className="text-primary">X</span>
           </h1>
         </div>
-        <div className="  ">
-         
+
+        {/* Right Section */}
+        <div className="flex items-center gap-4 sm:gap-6">
+          {/* Menu can be added here for future expansion */}
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

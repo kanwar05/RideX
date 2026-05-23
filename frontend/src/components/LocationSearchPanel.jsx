@@ -4,25 +4,32 @@ const LocationSearchPanel = (props) => {
   const locations = props.suggestions || [];
 
   return (
-    <div>
+    <div className="space-y-2">
       {locations.length > 0 ? (
         locations.map((location, index) => (
           <div
             onClick={() => {
               props.onSuggestionSelect(location);
-              
             }}
-            className="flex flex-row h-20 overflow-hidden bg-slate-800 border-1 border-white/10 p-3 rounded-xl active:border-black items-center justify-start gap-4 my-4"
+            className="flex items-center gap-3 p-4 bg-dark-800 hover:bg-dark-700 border border-dark-700 rounded-lg cursor-pointer transition-smooth active:scale-95"
             key={index}
           >
-            <h2 className="flex items-center justify-center rounded-xl ">
-              <i className="ri-map-pin-fill text-xl text-lime-500/70"></i>
-            </h2>
-            <h4 className="text-lg py-1 font-medium text-white/70 ">{location}</h4>
+            <i className="ri-map-pin-fill text-lg text-primary flex-shrink-0"></i>
+            <div className="flex-1 min-w-0">
+              <p className="text-text-primary font-medium truncate">
+                {location}
+              </p>
+            </div>
+            <i className="ri-arrow-right-s-line text-lg text-text-muted flex-shrink-0"></i>
           </div>
         ))
       ) : (
-        <p className="text-white/50 p-3">Start typing to see suggestions</p>
+        <div className="p-8 text-center">
+          <i className="ri-search-line text-4xl text-text-muted/50 block mb-3"></i>
+          <p className="text-text-muted text-sm">
+            Start typing to see location suggestions
+          </p>
+        </div>
       )}
     </div>
   );

@@ -1,1 +1,407 @@
 @import "tailwindcss";
+
+/* ========== Global Styles ========== */
+:root {
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --dark-bg: #030712;
+  --dark-surface: #111827;
+  --dark-surface-light: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #6b7280;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  line-height: 1.6;
+}
+
+/* ========== Typography ========== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  letter-spacing: -0.5px;
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
+h2 {
+  font-size: 1.875rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.125rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.25rem;
+  }
+  h3 {
+    font-size: 1.875rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+  h5 {
+    font-size: 1.25rem;
+  }
+  h6 {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3.75rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+}
+
+/* ========== Forms ========== */
+input,
+textarea,
+select {
+  transition: all 0.3s ease-in-out;
+  /* Remove default browser styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  color: var(--text-primary);
+  transition: all 0.3s ease-in-out;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ========== Buttons ========== */
+button,
+.btn {
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  gap: 0.5rem;
+  focus: outline none;
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #030712;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  background-color: #1f2937;
+  color: var(--text-primary);
+  border: 1px solid #374151;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-secondary:hover {
+  background-color: #111827;
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background-color: #1f2937;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* ========== Cards ========== */
+.card {
+  background-color: #1f2937;
+  border-radius: 0.75rem;
+  border: 1px solid #374151;
+  padding: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  border-color: #4b5563;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-compact {
+  padding: 1rem;
+}
+
+.card-lg {
+  padding: 2rem;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #111827;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #4b5563;
+}
+
+/* ========== Utilities ========== */
+.glass {
+  background-color: rgba(31, 41, 55, 0.5);
+  backdrop-filter: blur(1rem);
+  border: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+.gradient-primary {
+  background: linear-gradient(
+    to bottom right,
+    rgba(34, 197, 94, 0.2),
+    rgba(34, 197, 94, 0.05)
+  );
+}
+
+.gradient-dark {
+  background: linear-gradient(to bottom right, #1f2937, #030712);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--primary), #4ade80);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rounded-radius {
+  border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) / 2)));
+}
+
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ========== Responsive Utilities ========== */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.125rem;
+  }
+
+  body {
+    font-size: 0.875rem;
+  }
+}
+
+/* ========== Loading Animation ========== */
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+.skeleton {
+  background-color: #1f2937;
+  border-radius: 0.5rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ========== Accessibility ========== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========== Dark Mode (Already Default) ========== */
+/* Color scheme for OS level dark mode detection */
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary: #16a34a;
+    --primary-dark: #15803d;
+    --dark-bg: #ffffff;
+    --dark-surface: #f9fafb;
+    --dark-surface-light: #f3f4f6;
+    --text-primary: #030712;
+    --text-secondary: #374151;
+    --text-muted: #9ca3af;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #030712;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    background-color: #ffffff;
+    border-color: #e5e7eb;
+    color: #030712;
+  }
+
+  .card {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+  }
+
+  .glass {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(229, 231, 235, 0.3);
+  }
+}

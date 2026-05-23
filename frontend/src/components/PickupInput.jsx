@@ -8,16 +8,16 @@ const PickupInput = ({
   loading = false,
 }) => {
   return (
-    <div className="mt-5">
-      <div className="flex flex-row gap-4 items-center w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)]">
-        <i className="ri-map-pin-user-fill pointer-events-none  text-lg text-lime-500"></i>
+    <div className="relative">
+      <div className="flex items-center gap-3 w-full px-4 py-3 sm:py-4 bg-dark-800 border border-dark-700 rounded-lg focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-smooth">
+        <i className="ri-map-pin-user-fill text-lg text-primary flex-shrink-0"></i>
         <input
           value={value}
           onChange={onChange}
           onClick={onFocus}
-          className="w-full outline-none placeholder:text-base"
+          className="w-full bg-transparent outline-none placeholder-text-muted text-text-primary text-base sm:text-lg"
           type="text"
-          placeholder="Enter your pickup location"
+          placeholder="Where are you?"
         />
       </div>
 
@@ -25,14 +25,14 @@ const PickupInput = ({
         type="button"
         onClick={onUseCurrentLocation}
         disabled={loading}
-        className=" flex absolute right-6 top-19 h-11 w-11 items-center justify-center gap-3  px-4 text-sm font-semibold text-lime-500  transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-lime-500/50"
+        className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center bg-primary hover:bg-primary-dark text-dark-950 rounded-lg transition-smooth active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
+        title={loading ? "Getting your location..." : "Use current location"}
       >
         {loading ? (
-          <span className="h-4 w-4 animate-spin rounded-full "></span>
+          <i className="ri-loader-4-line animate-spin text-lg"></i>
         ) : (
           <i className="ri-crosshair-2-fill text-lg"></i>
         )}
-        {/* <span>{loading ? "Fetching current location..." : "Use Current Location"}</span> */}
       </button>
     </div>
   );
