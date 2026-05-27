@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FinishRide from "../components/FinishRide";
 import CaptainMap from "../components/CaptainMap";
-import Navbar from "../components/Navbar";
+import PremiumNavbar from "../components/PremiumNavbar";
 
 const CaptainRiding = () => {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
@@ -43,7 +43,7 @@ const CaptainRiding = () => {
   return (
     <div className="h-screen w-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
       <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
-        <Navbar />
+        <PremiumNavbar userType="captain" />
       </div>
 
       <div className="h-[60%] w-full">
@@ -59,9 +59,15 @@ const CaptainRiding = () => {
         </h5>
         <div className="flex w-full flex-col px-8 pb-4">
           <div className="mb-3 bg-slate-800/50  p-3 rounded-lg w-full">
-            <h3 className="text-lg text-lime-500 ">Passenger: <span className="text-white/80">{userName}</span> </h3>
-            <p className="text-lg text-lime-500">Pickup: <span className="text-white/80">{pickup}</span></p>
-            <p className="text-lg text-lime-500">Destination: <span className="text-white/80">{destination}</span></p>
+            <h3 className="text-lg text-lime-500 ">
+              Passenger: <span className="text-white/80">{userName}</span>{" "}
+            </h3>
+            <p className="text-lg text-lime-500">
+              Pickup: <span className="text-white/80">{pickup}</span>
+            </p>
+            <p className="text-lg text-lime-500">
+              Destination: <span className="text-white/80">{destination}</span>
+            </p>
           </div>
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-lg text-white/80 font-semibold">₹{fare}</h1>

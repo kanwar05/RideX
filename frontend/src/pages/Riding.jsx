@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SocketDataContext } from "../context/SocketContext";
 import UserMap from "../components/UserMap";
-import Navbar from "../components/Navbar";
+import PremiumNavbar from "../components/PremiumNavbar";
 
 const Riding = () => {
   const location = useLocation();
@@ -39,7 +39,7 @@ const Riding = () => {
   return (
     <div className="h-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
       <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
-        <Navbar />
+        <PremiumNavbar />
       </div>
       {/* <Link
         to="/home"
@@ -64,7 +64,9 @@ const Riding = () => {
             />
           </div>
           <div className="flex flex-col text-white/80 justify-end items-end">
-            <h1 className="text-lg text-lime-500 font-semibold">{captainName}</h1>
+            <h1 className="text-lg text-lime-500 font-semibold">
+              {captainName}
+            </h1>
             <h1 className="text-sm font-semibold">{captain?.vehicle?.plate}</h1>
             <h4 className="text-sm ">{vehicleName}</h4>
           </div>

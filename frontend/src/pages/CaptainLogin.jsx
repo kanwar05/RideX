@@ -2,14 +2,22 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CaptainDataContext } from "../context/CapatinContext";
 import { FcGoogle } from "react-icons/fc";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from "axios";
-import Navbar from "../components/Navbar";
+import PremiumNavbar from "../components/PremiumNavbar";
+import {
+  PremiumCard,
+  PremiumInput,
+  LoadingSpinner,
+  Toast,
+} from "../components/PremiumComponents";
 
 const CaptainLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const { captain, setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
@@ -30,7 +38,8 @@ const CaptainLogin = () => {
         const data = response.data;
         setCaptain(data.captain);
         localStorage.setItem("token", data.token);
-        navigate("/captain-home");
+        setShowToast(true);
+        setTimeout(() => navigate("/captain-home"), 1200);
       }
     } catch (error) {
       setError(
@@ -47,7 +56,7 @@ const CaptainLogin = () => {
     <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950 flex flex-col">
       {/* Navbar */}
       <div className="safe-area-inset sticky top-0 z-40 bg-dark-950/80 backdrop-blur-sm border-b border-dark-700">
-        <Navbar />
+        <PremiumNavbar userType="captain" />
       </div>
 
       {/* Main Content */}
@@ -64,16 +73,14 @@ const CaptainLogin = () => {
 
         {/* Right Side - Login Form */}
         <div className="w-full md:w-1/2 max-w-md">
-          <form onSubmit={submitHandler} className="space-y-6">
-            {/* Header */}
-            <div className="md:hidden text-center mb-8">
+          <PremiumCard className="space-y-6">
+            <div className="md:hidden text-center mb-2">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
                 Captain Sign In
               </h2>
               <p className="text-text-secondary">Start earning with RideX</p>
             </div>
 
-            {/* Error Message */}
             {error && (
               <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 flex items-start gap-3">
                 <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
@@ -81,120 +88,86 @@ const CaptainLogin = () => {
               </div>
             )}
 
-            {/* Email Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-text-primary"
-              >
-                Email Address
-              </label>
-              <div className="relative flex items-center">
-                <i className="ri-mail-open-line absolute left-4 text-lg text-primary"></i>
-                <input
-                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  id="email"
-                  required
-                  placeholder="you@example.com"
-                />
-              </div>
-            </div>
+            <form onSubmit={submitHandler} className="space-y-4">
+              <PremiumInput
+                label="Email Address"
+                placeholder="you@example.com"
+                icon={FaEnvelope}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                required
+              />
 
-            {/* Password Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-text-primary"
-              >
-                Password
-              </label>
-              <div className="relative flex items-center">
-                <i className="ri-lock-2-line absolute left-4 text-lg text-primary"></i>
-                <input
-                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  id="password"
-                  required
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
+              <PremiumInput
+                label="Password"
+                placeholder="••••••••"
+                icon={FaLock}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                required
+              />
 
-            {/* Forgot Password */}
-            <div className="text-right">
+              <div className="text-right">
+                <button
+                  type="button"
+                  className="text-sm text-primary hover:text-primary-dark transition-smooth"
+                >
+                  Forgot password?
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full rounded-lg py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <LoadingSpinner size="sm" />
+                ) : (
+                  <span>Sign In as Captain</span>
+                )}
+              </button>
+
+              <div className="relative flex items-center gap-4 py-4">
+                <div className="flex-1 h-px bg-dark-700"></div>
+                <span className="text-xs text-text-muted uppercase font-semibold">
+                  Or
+                </span>
+                <div className="flex-1 h-px bg-dark-700"></div>
+              </div>
+
               <button
                 type="button"
-                className="text-sm text-primary hover:text-primary-dark transition-smooth"
+                className="w-full rounded-lg py-3 bg-slate-800 text-white flex items-center justify-center gap-2"
               >
-                Forgot password?
+                <FcGoogle className="text-2xl" />
+                <span>Continue with Google</span>
               </button>
-            </div>
 
-            {/* Login Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary w-full py-3 text-base font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <>
-                  <i className="ri-loader-4-line animate-spin"></i>
-                  Signing in...
-                </>
-              ) : (
-                <>
-                  <span>Sign In as Captain</span>
-                  <i className="ri-arrow-right-line"></i>
-                </>
-              )}
-            </button>
+              <p className="text-center text-text-secondary text-sm">
+                Don't have an account?{" "}
+                <Link
+                  to="/captain-signup"
+                  className="text-primary hover:text-primary-dark font-semibold transition-smooth"
+                >
+                  Sign up
+                </Link>
+              </p>
+            </form>
 
-            {/* Divider */}
-            <div className="relative flex items-center gap-4 py-4">
-              <div className="flex-1 h-px bg-dark-700"></div>
-              <span className="text-xs text-text-muted uppercase font-semibold">
-                Or
-              </span>
-              <div className="flex-1 h-px bg-dark-700"></div>
-            </div>
-
-            {/* Google Login */}
-            <button
-              type="button"
-              className="btn btn-secondary w-full py-3 gap-2 text-base font-semibold"
-            >
-              <FcGoogle className="text-2xl" />
-              <span>Continue with Google</span>
-            </button>
-
-            {/* Signup Link */}
-            <p className="text-center text-text-secondary text-sm">
-              Don't have an account?{" "}
-              <Link
-                to="/captain-signup"
-                className="text-primary hover:text-primary-dark font-semibold transition-smooth"
-              >
-                Sign up
-              </Link>
+            <p className="text-center text-text-muted text-xs mt-2 md:mt-6">
+              By signing in, you agree to our{" "}
+              <a href="#" className="text-primary hover:text-primary-dark">
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-primary hover:text-primary-dark">
+                Privacy Policy
+              </a>
             </p>
-          </form>
-
-          {/* Terms */}
-          <p className="text-center text-text-muted text-xs mt-8 md:mt-6">
-            By signing in, you agree to our{" "}
-            <a href="#" className="text-primary hover:text-primary-dark">
-              Terms of Service
-            </a>{" "}
-            and{" "}
-            <a href="#" className="text-primary hover:text-primary-dark">
-              Privacy Policy
-            </a>
-          </p>
+          </PremiumCard>
         </div>
       </div>
     </div>

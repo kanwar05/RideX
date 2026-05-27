@@ -5,7 +5,7 @@ const Navbar = ({ props }) => {
   const navigate = useNavigate();
 
   return (
-    <nav className="px-4 sm:px-6 lg:px-8 py-4 safe-area-inset">
+    <nav className="p-2 sm:px-6 lg:px-8  safe-area-inset">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo */}
         <div
@@ -13,7 +13,7 @@ const Navbar = ({ props }) => {
           onClick={() => navigate("/")}
         >
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
-            Ride<span className="text-primary">X</span>
+            Ride<span className="primary">X</span>
           </h1>
         </div>
 

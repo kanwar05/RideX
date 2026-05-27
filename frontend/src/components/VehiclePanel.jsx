@@ -1,4 +1,5 @@
 import React from "react";
+import { PremiumCard } from "./PremiumComponents";
 
 const VehiclePanel = (props) => {
   const vehicles = [
@@ -56,46 +57,50 @@ const VehiclePanel = (props) => {
       {/* Vehicles List */}
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-3">
         {vehicles.map((vehicle) => (
-          <div
+          <PremiumCard
             key={vehicle.id}
+            className="cursor-pointer p-4"
             onClick={() => {
               props.setConfirmedRidePanel(true);
               props.selectVehicleType(vehicle.id);
               props.setVehiclePanelOpen(false);
             }}
-            className="flex items-center gap-3 sm:gap-4 p-4 bg-dark-800 hover:bg-dark-700 border border-dark-700 rounded-lg cursor-pointer transition-smooth active:scale-95"
+            role="button"
+            tabIndex={0}
           >
-            {/* Vehicle Image */}
-            <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-dark-900 rounded-lg">
-              <img
-                src={vehicle.image}
-                alt={vehicle.name}
-                className="w-full h-full object-contain p-2"
-              />
-            </div>
+            {/* Vehicle Row */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-lg overflow-hidden">
+                <img
+                  src={vehicle.image}
+                  alt={vehicle.name}
+                  className="w-full h-full object-contain p-2"
+                />
+              </div>
 
-            {/* Vehicle Info */}
-            <div className="flex-1 min-w-0">
-              <h4 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
-                {vehicle.name}
-                <span className="text-xs sm:text-sm font-normal text-text-muted bg-dark-900 px-2 py-1 rounded">
-                  <i className={`${vehicle.icon} mr-1`}></i>
-                  {vehicle.seats}
-                </span>
-              </h4>
-              <p className="text-sm text-text-muted mb-1">{vehicle.eta} away</p>
-              <p className="text-xs sm:text-sm text-text-muted">
-                {vehicle.description}
-              </p>
-            </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
+                  {vehicle.name}
+                  <span className="text-xs sm:text-sm font-normal text-text-muted px-2 py-1 rounded">
+                    <i className={`${vehicle.icon} mr-1`}></i>
+                    {vehicle.seats}
+                  </span>
+                </h4>
+                <p className="text-sm text-text-muted mb-1">
+                  {vehicle.eta} away
+                </p>
+                <p className="text-xs sm:text-sm text-text-muted">
+                  {vehicle.description}
+                </p>
+              </div>
 
-            {/* Price */}
-            <div className="flex-shrink-0 text-right">
-              <h3 className="text-lg sm:text-xl font-bold text-primary">
-                ₹ {vehicle.fare}
-              </h3>
+              <div className="flex-shrink-0 text-right">
+                <h3 className="text-lg sm:text-xl font-bold text-primary">
+                  ₹ {vehicle.fare}
+                </h3>
+              </div>
             </div>
-          </div>
+          </PremiumCard>
         ))}
       </div>
 

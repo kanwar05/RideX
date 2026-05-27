@@ -15,7 +15,8 @@ import { UserDataContext } from "../context/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCurrentLocation } from "../services/mapService";
-import Navbar from "../components/Navbar";
+import PremiumNavbar from "../components/PremiumNavbar";
+import { Toast, PremiumCard } from "../components/PremiumComponents";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -325,18 +326,17 @@ const Home = () => {
 
   return (
     <div>
-      <div className="h-screen relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
-        <div className="flex flex-row items-center justify-between bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
-          <Navbar />
-          <div
-            onClick={() => {
-              navigate("/user-logout");
-            }}
-            className="bg-lime-500 rounded p-1"
-          >
-            <i className=" text-xl pr-2 text-black ri-logout-circle-line"></i>
-          </div>
-        </div>
+      <PremiumNavbar userType="user" />
+
+      <div className="h-screen relative bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950">
+        {/* Logout Button */}
+        <button
+          onClick={() => navigate("/user-logout")}
+          className="fixed top-24 right-4 z-30 p-3 rounded-lg glass-lg hover-lift text-red-400 hover:text-red-300 transition-all"
+          title="Logout"
+        >
+          <i className="ri-logout-circle-line text-xl"></i>
+        </button>
 
         <div className=" h-[60%] w-full">
           <UserMap
@@ -348,7 +348,7 @@ const Home = () => {
           />
         </div>
 
-        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0  "  >
+        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0  ">
           <div className=" p-4 bg-slate-900 text-white relative  ">
             <h5
               ref={panelCloseRef}

@@ -1,4 +1,13 @@
 import React from "react";
+import { PremiumInput } from "./PremiumComponents";
+
+const MapPinIcon = ({ size = 18 }) => (
+  <i className="ri-map-pin-user-fill" style={{ fontSize: size }} />
+);
+
+const CrosshairIcon = ({ size = 18 }) => (
+  <i className="ri-crosshair-2-fill" style={{ fontSize: size }} />
+);
 
 const PickupInput = ({
   value,
@@ -9,17 +18,13 @@ const PickupInput = ({
 }) => {
   return (
     <div className="relative">
-      <div className="flex items-center gap-3 w-full px-4 py-3 sm:py-4 bg-dark-800 border border-dark-700 rounded-lg focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-smooth">
-        <i className="ri-map-pin-user-fill text-lg text-primary flex-shrink-0"></i>
-        <input
-          value={value}
-          onChange={onChange}
-          onClick={onFocus}
-          className="w-full bg-transparent outline-none placeholder-text-muted text-text-primary text-base sm:text-lg"
-          type="text"
-          placeholder="Where are you?"
-        />
-      </div>
+      <PremiumInput
+        value={value}
+        onChange={onChange}
+        onClick={onFocus}
+        placeholder="Where are you?"
+        icon={MapPinIcon}
+      />
 
       <button
         type="button"
@@ -31,7 +36,7 @@ const PickupInput = ({
         {loading ? (
           <i className="ri-loader-4-line animate-spin text-lg"></i>
         ) : (
-          <i className="ri-crosshair-2-fill text-lg"></i>
+          <CrosshairIcon />
         )}
       </button>
     </div>

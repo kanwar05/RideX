@@ -8,7 +8,7 @@ import { SocketDataContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CapatinContext";
 import axios from "axios";
 import CaptainMap from "../components/CaptainMap";
-import Navbar from "../components/Navbar";
+import PremiumNavbar from "../components/PremiumNavbar";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -125,12 +125,10 @@ const CaptainHome = () => {
     }
   }, [ConfirmRidePopUpPanel]);
 
-  
-
   return (
     <div className="h-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
       <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
-        <Navbar  />
+        <PremiumNavbar userType="captain" />
       </div>
 
       <div className=" h-[60%] w-full">

@@ -1,4 +1,5 @@
 import React from "react";
+import { PremiumCard } from "./PremiumComponents";
 
 const LookingForDriver = (props) => {
   const vehicleImages = {
@@ -29,31 +30,29 @@ const LookingForDriver = (props) => {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-6">
-        {/* Vehicle Image */}
-        <div className="flex justify-center py-4 bg-dark-800 rounded-lg">
+        <PremiumCard className="flex justify-center py-4">
           <img
             className="h-24 sm:h-32 object-contain"
             src={vehicleImages[props.vehicleType]}
             alt={props.vehicleType}
           />
-        </div>
+        </PremiumCard>
 
-        {/* Loading Indicator */}
         <div className="flex justify-center py-6">
           <div className="space-y-4 text-center">
             <div className="flex gap-2 justify-center">
               <div
                 className="w-3 h-3 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: "0s" }}
-              ></div>
+              />
               <div
                 className="w-3 h-3 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: "0.2s" }}
-              ></div>
+              />
               <div
                 className="w-3 h-3 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: "0.4s" }}
-              ></div>
+              />
             </div>
             <p className="text-text-muted text-sm">
               Driver will arrive in 2-3 minutes
@@ -61,9 +60,7 @@ const LookingForDriver = (props) => {
           </div>
         </div>
 
-        {/* Ride Details */}
         <div className="space-y-4">
-          {/* Pickup Location */}
           <div className="flex gap-4 items-start">
             <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
               <i className="ri-map-pin-user-line text-lg"></i>
@@ -76,12 +73,10 @@ const LookingForDriver = (props) => {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="pl-4 ml-0">
             <div className="w-0.5 h-6 bg-dark-700"></div>
           </div>
 
-          {/* Destination */}
           <div className="flex gap-4 items-start">
             <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
               <i className="ri-map-pin-fill text-lg"></i>
@@ -95,24 +90,21 @@ const LookingForDriver = (props) => {
           </div>
         </div>
 
-        {/* Fare Card */}
-        <div className="bg-dark-800 rounded-lg p-4 sm:p-6">
+        <PremiumCard className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-text-muted">Fare estimate</span>
             <span className="text-2xl sm:text-3xl font-bold text-primary">
               ₹{props.fare[props.vehicleType]}
             </span>
           </div>
-        </div>
+        </PremiumCard>
       </div>
 
       {/* Footer */}
       <div className="px-4 sm:px-6 py-4 bg-dark-800 border-t border-dark-700">
         <button
-          onClick={() => {
-            props.setVehicleFound(false);
-          }}
-          className="btn btn-secondary w-full py-3 text-base font-semibold"
+          onClick={() => props.setVehicleFound(false)}
+          className="w-full rounded-lg py-3 bg-slate-800 text-white font-semibold"
         >
           Cancel Search
         </button>

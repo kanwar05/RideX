@@ -1,4 +1,5 @@
 import React from "react";
+import { PremiumCard } from "./PremiumComponents";
 
 const LocationSearchPanel = (props) => {
   const locations = props.suggestions || [];
@@ -7,21 +8,23 @@ const LocationSearchPanel = (props) => {
     <div className="space-y-2">
       {locations.length > 0 ? (
         locations.map((location, index) => (
-          <div
-            onClick={() => {
-              props.onSuggestionSelect(location);
-            }}
-            className="flex items-center gap-3 p-4 bg-dark-800 hover:bg-dark-700 border border-dark-700 rounded-lg cursor-pointer transition-smooth active:scale-95"
+          <PremiumCard
             key={index}
+            className="cursor-pointer p-3"
+            onClick={() => props.onSuggestionSelect(location)}
+            role="button"
+            tabIndex={0}
           >
-            <i className="ri-map-pin-fill text-lg text-primary flex-shrink-0"></i>
-            <div className="flex-1 min-w-0">
-              <p className="text-text-primary font-medium truncate">
-                {location}
-              </p>
+            <div className="flex items-center gap-3">
+              <i className="ri-map-pin-fill text-lg text-primary flex-shrink-0"></i>
+              <div className="flex-1 min-w-0">
+                <p className="text-text-primary font-medium truncate">
+                  {location}
+                </p>
+              </div>
+              <i className="ri-arrow-right-s-line text-lg text-text-muted flex-shrink-0"></i>
             </div>
-            <i className="ri-arrow-right-s-line text-lg text-text-muted flex-shrink-0"></i>
-          </div>
+          </PremiumCard>
         ))
       ) : (
         <div className="p-8 text-center">

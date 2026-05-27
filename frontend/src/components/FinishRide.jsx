@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PremiumCard } from "./PremiumComponents";
 
 const FinishRide = (props) => {
   const { ride, userName, pickup, destination, fare } = props;
@@ -43,61 +44,63 @@ const FinishRide = (props) => {
         Finish this Ride
       </h2>
 
-      <div className="flex flex-col items-center  justify-between px-6 py-8 w-full  ">
-        <div className="flex items-center justify-between bg-slate-800 w-full border border-white/10 p-4 rounded-xl ">
-          <div className="flex flex-row items-center space-x-3">
+      <PremiumCard className="p-6 space-y-6">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center space-x-3">
             <img
               className="h-13 w-13 rounded-full"
-              src="https://imgs.search.brave.com/vdRYk5Fef873iKhep6GE8FrjCAJQafa8F189pqmsNjo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGeHM0/Y0pNekkvMi8wLzE2/MDB3L2NhbnZhLXB1/cnBsZS1ibGFjay1h/bmQtd2hpdGUtY29v/bC1jcmVhdGl2ZS1s/aW5rZWRpbi1wcm9m/aWxlLXBpY3R1cmUt/U283clZpQ1daYnMu/anBn"
+              src="https://imgs.search.brave.com/vdRYk5Fef873iKhep6GE8FrjCAJQafa8F189pqmsNjo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGeHM0/Y0pNekkvMi8wLzE2/MDB3L2NhbnZhLXB1/cnBsZS1ibGFjay1h/bmQtd2hpdGUtY29v/bC1jcmVhdGl2ZS1s/aW5nZWRpbi1wcm9m/aWxlLXBpY3R1cmUt/U283clZpQ1daYnMu/anBn"
             />
             <h1 className="text-lg text-white/80 font-semibold">{userName}</h1>
           </div>
           <div>
             <h1 className="text-lg text-lime-500 font-semibold">
-              2.2<span className="text-sm text-white/80"> KM</span>{" "}
+              2.2<span className="text-sm text-white/80"> KM</span>
             </h1>
           </div>
         </div>
-        <div className="flex flex-col items-start justify-start w-full mt-7 mb-5">
-          <div className="flex gap-5 items-center mb-5 w-full">
+
+        <div className="flex flex-col items-start w-full">
+          <div className="flex gap-5 items-center mb-4 w-full">
             <h3 className="text-xl text-lime-500 font-semibold ">
               <i className="ri-map-pin-user-line"></i>
             </h3>
-            <div className="w-full border-b border-lime-500  p-2">
+            <div className="w-full border-b border-lime-500 p-2">
               <p className="text-base text-lime-500">Pickup</p>
               <h4 className="text-lg font-normal text-white/80">{pickup}</h4>
             </div>
           </div>
-          <div className="flex gap-5 items-center mb-5 w-full">
+          <div className="flex gap-5 items-center mb-4 w-full">
             <h3 className="text-2xl text-lime-500 font-semibold ">
               <i className="ri-map-pin-fill"></i>
             </h3>
-            <div className="w-full border-b border-lime-500  p-2">
+            <div className="w-full border-b border-lime-500 p-2">
               <p className="text-base text-lime-500">Destination</p>
-              <h4 className="text-lg font-normal text-white/80">{destination}</h4>
+              <h4 className="text-lg font-normal text-white/80">
+                {destination}
+              </h4>
             </div>
           </div>
           <div className="flex w-full gap-5 items-center mb-8 ">
             <h3 className="text-2xl text-lime-500 font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
-            <div className=" w-full border-b border-lime-500  p-2 ">
+            <div className=" w-full border-b border-lime-500 p-2 ">
               <h4 className="text-lg text-white/80 font-medium">₹{fare}</h4>
               <p className="text-base text-lime-500">Cash Cash</p>
             </div>
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-center ">
-          {" "}
+        <div className="w-full flex items-center justify-center">
           <button
             onClick={finishRide}
-            className="bg-lime-500 w-3/4 text-black text-xl py-3 px-6  rounded-full "
+            className="w-3/4 rounded-lg py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold"
           >
             Finish Ride
           </button>
         </div>
-      </div>
+      </PremiumCard>
     </div>
   );
 };

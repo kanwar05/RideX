@@ -2,8 +2,15 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "../context/UserContext";
-import Navbar from "../components/Navbar";
 import { FcGoogle } from "react-icons/fc";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import PremiumNavbar from "../components/PremiumNavbar";
+import {
+  PremiumCard,
+  PremiumInput,
+  Toast,
+  LoadingSpinner,
+} from "../components/PremiumComponents";
 
 const UserSignup = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +19,7 @@ const UserSignup = () => {
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserDataContext);
@@ -40,7 +48,8 @@ const UserSignup = () => {
         const data = response.data;
         setUser(data.user);
         localStorage.setItem("token", data.token);
-        navigate("/home");
+        setShowToast(true);
+        setTimeout(() => navigate("/home"), 1500);
       }
     } catch (err) {
       setError(
@@ -56,208 +65,178 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950 flex flex-col">
-      {/* Navbar */}
-      <div className="safe-area-inset sticky top-0 z-40 bg-dark-950/80 backdrop-blur-sm border-b border-dark-700">
-        <Navbar />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950">
+      <PremiumNavbar userType="user" />
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 sm:px-6 md:px-8 py-8 md:py-0">
-        {/* Left Side - Desktop Hero */}
-        <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center pr-8">
-          <div className="text-center space-y-4 mb-8">
-            <h1 className="text-5xl font-bold text-white">Join RideX</h1>
-            <p className="text-xl text-text-secondary">
-              Create an account and start booking rides today
-            </p>
+      <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 safe-area-bottom">
+        <div className="w-full max-w-md">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold mb-2">
+              Ride<span className="text-gradient-animated">X</span>
+            </h1>
+            <p className="text-text-muted">Join millions of riders</p>
           </div>
-        </div>
 
-        {/* Right Side - Signup Form */}
-        <div className="w-full md:w-1/2 max-w-md">
-          <form onSubmit={submitHandler} className="space-y-5">
-            {/* Header */}
-            <div className="md:hidden text-center mb-8">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                Create Account
-              </h2>
-              <p className="text-text-secondary">Join millions of riders</p>
-            </div>
+          {/* Signup Card */}
+          <PremiumCard className="space-y-6">
+            <h2 className="text-2xl font-bold text-center">Create Account</h2>
 
-            {/* Error Message */}
+            {/* Error Toast */}
             {error && (
-              <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 flex items-start gap-3">
+              <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 flex items-start gap-3 animate-slide-up">
                 <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
                 <p className="text-red-400 text-sm">{error}</p>
               </div>
             )}
 
-            {/* Name Fields */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label
-                  htmlFor="firstname"
-                  className="block text-sm font-medium text-text-primary"
-                >
-                  First Name
-                </label>
-                <div className="relative flex items-center">
-                  <i className="ri-user-3-line absolute left-4 text-lg text-primary"></i>
-                  <input
-                    className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+            <form onSubmit={submitHandler} className="space-y-4">
+              {/* Name Fields */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-2">
+                    First Name
+                  </label>
+                  <PremiumInput
+                    type="text"
+                    placeholder="John"
+                    icon={FaUser}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    type="text"
-                    id="firstname"
                     required
-                    placeholder="John"
                   />
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label
-                  htmlFor="lastname"
-                  className="block text-sm font-medium text-text-primary"
-                >
-                  Last Name
-                </label>
-                <div className="relative flex items-center">
-                  <i className="ri-user-3-line absolute left-4 text-lg text-primary"></i>
-                  <input
-                    className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-2">
+                    Last Name
+                  </label>
+                  <PremiumInput
+                    type="text"
+                    placeholder="Doe"
+                    icon={FaUser}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    type="text"
-                    id="lastname"
                     required
-                    placeholder="Doe"
                   />
                 </div>
               </div>
-            </div>
 
-            {/* Email Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-text-primary"
-              >
-                Email Address
-              </label>
-              <div className="relative flex items-center">
-                <i className="ri-mail-open-line absolute left-4 text-lg text-primary"></i>
-                <input
-                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+              {/* Email Field */}
+              <div>
+                <label className="block text-sm font-medium text-text-muted mb-2">
+                  Email
+                </label>
+                <PremiumInput
+                  type="email"
+                  placeholder="your@email.com"
+                  icon={FaEnvelope}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  id="email"
                   required
-                  placeholder="you@example.com"
                 />
               </div>
-            </div>
 
-            {/* Password Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-text-primary"
-              >
-                Password
-              </label>
-              <div className="relative flex items-center">
-                <i className="ri-lock-2-line absolute left-4 text-lg text-primary"></i>
-                <input
-                  className="w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-smooth"
+              {/* Password Field */}
+              <div>
+                <label className="block text-sm font-medium text-text-muted mb-2">
+                  Password
+                </label>
+                <PremiumInput
+                  type="password"
+                  placeholder="••••••••"
+                  icon={FaLock}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  id="password"
                   required
-                  placeholder="••••••••"
                 />
+                <p className="text-xs text-text-muted mt-2">
+                  Must be at least 6 characters
+                </p>
               </div>
-              <p className="text-xs text-text-muted">
-                Must be at least 6 characters
-              </p>
-            </div>
 
-            {/* Agreement */}
-            <div className="flex items-start gap-3 py-2">
-              <input
-                type="checkbox"
-                id="agreement"
-                required
-                className="w-5 h-5 mt-1 accent-primary rounded"
-              />
-              <label
-                htmlFor="agreement"
-                className="text-xs sm:text-sm text-text-secondary"
+              {/* Terms Agreement */}
+              <div className="flex items-start gap-3 py-2">
+                <input
+                  type="checkbox"
+                  id="agreement"
+                  required
+                  className="w-4 h-4 mt-1 accent-primary rounded cursor-pointer"
+                />
+                <label
+                  htmlFor="agreement"
+                  className="text-xs sm:text-sm text-text-muted"
+                >
+                  I agree to the{" "}
+                  <a href="#" className="text-primary hover:underline">
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" className="text-primary hover:underline">
+                    Privacy Policy
+                  </a>
+                </label>
+              </div>
+
+              {/* Signup Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                I agree to the{" "}
-                <a href="#" className="text-primary hover:text-primary-dark">
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a href="#" className="text-primary hover:text-primary-dark">
-                  Privacy Policy
-                </a>
-              </label>
-            </div>
+                {loading ? (
+                  <>
+                    <LoadingSpinner size="sm" />
+                    <span>Creating Account...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Create Account</span>
+                    <i className="ri-arrow-right-line"></i>
+                  </>
+                )}
+              </button>
+            </form>
 
-            {/* Signup Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary w-full py-3 text-base font-semibold disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-            >
-              {loading ? (
-                <>
-                  <i className="ri-loader-4-line animate-spin"></i>
-                  Creating Account...
-                </>
-              ) : (
-                <>
-                  <span>Create Account</span>
-                  <i className="ri-arrow-right-line"></i>
-                </>
-              )}
-            </button>
-
-            {/* Divider */}
-            <div className="relative flex items-center gap-4 py-4">
-              <div className="flex-1 h-px bg-dark-700"></div>
-              <span className="text-xs text-text-muted uppercase font-semibold">
-                Or
-              </span>
-              <div className="flex-1 h-px bg-dark-700"></div>
-            </div>
+            <div className="divider-subtle"></div>
 
             {/* Google Signup */}
             <button
               type="button"
-              className="btn btn-secondary w-full py-3 gap-2 text-base font-semibold"
+              className="w-full py-3 rounded-lg glass-lg hover-lift font-medium transition-all flex items-center justify-center gap-3"
             >
-              <FcGoogle className="text-2xl" />
+              <FcGoogle className="text-xl" />
               <span>Sign up with Google</span>
             </button>
 
             {/* Login Link */}
-            <p className="text-center text-text-secondary text-sm">
+            <p className="text-center text-text-muted text-sm">
               Already have an account?{" "}
               <Link
                 to="/user-login"
-                className="text-primary hover:text-primary-dark font-semibold transition-smooth"
+                className="text-primary hover:underline font-medium"
               >
                 Sign in
               </Link>
             </p>
-          </form>
+          </PremiumCard>
+
+          {/* Footer */}
+          <p className="text-center text-text-muted text-xs mt-6">
+            By signing up, you agree to our Terms of Service and Privacy Policy
+          </p>
         </div>
       </div>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <Toast
+          message="Account created! Redirecting..."
+          type="success"
+          autoClose={false}
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </div>
   );
 };
