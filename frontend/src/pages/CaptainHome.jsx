@@ -143,7 +143,7 @@ const CaptainHome = () => {
   }, [ConfirmRidePopUpPanel]);
 
   return (
-    <div className="h-screen  relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)]  ">
+    <div className="h-screen relative bg-slate-950 text-white">
       <div className=" ">
         <PremiumNavbar userType="captain" />
       </div>
@@ -153,14 +153,14 @@ const CaptainHome = () => {
       </div>
 
       {/* captain detail component */}
-      <div className="flex flex-col p-4 w-full h-[40%] rounded-t-2xl  ">
+      <div className="flex flex-col p-4 w-full h-[40%] rounded-t-3xl bg-slate-950 border-t border-slate-800">
         <CaptainDetails />
       </div>
 
       {/* ride pop up component */}
       <div
         ref={RidePopUpPanelRef}
-        className="fixed z-10 w-full bottom-0  bg-black rounded-t-2xl"
+        className="fixed z-10 w-full bottom-0 bg-slate-950 rounded-t-3xl"
       >
         <RidePopUp
           setRidePopUpPanel={setRidePopUpPanel}
@@ -173,7 +173,7 @@ const CaptainHome = () => {
 
       <div
         ref={ConfirmRidePopUpPanelRef}
-        className="fixed z-10 w-full bottom-0 bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] p-3 rounded-t-2xl"
+        className="fixed z-10 w-full bottom-0 bg-slate-950 p-3 rounded-t-3xl"
       >
         <ConfirmRidePopUp
           rideData={rideData}

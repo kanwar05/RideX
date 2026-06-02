@@ -26,8 +26,10 @@ export const PremiumCard = ({
   accent = false,
 }) => (
   <div
-    className={`premium-card ${hover ? "hover-lift" : ""} ${
-      accent ? "glow-border" : ""
+    className={`rounded-2xl border border-slate-700/70 bg-slate-900/90 p-5 text-slate-100 shadow-xl shadow-black/20 backdrop-blur-sm transition duration-200 ${
+      hover ? "hover:-translate-y-0.5 hover:border-indigo-400/60 hover:shadow-2xl hover:shadow-indigo-950/30" : ""
+    } ${
+      accent ? "ring-2 ring-indigo-400/50" : ""
     } ${className}`}
   >
     {children}
@@ -56,16 +58,16 @@ export const RideCard = ({ vehicle, fare, isSelected, onClick }) => (
         />
         <div>
           <h3 className="font-bold text-lg">{vehicle.name}</h3>
-          <p className="text-sm text-text-muted">{vehicle.description}</p>
+          <p className="text-sm text-slate-400">{vehicle.description}</p>
         </div>
       </div>
       <div className="text-right">
-        <p className="text-2xl font-bold text-primary">${fare}</p>
-        <p className="text-xs text-text-muted">~{vehicle.eta} mins</p>
+        <p className="text-2xl font-bold text-indigo-300">${fare}</p>
+        <p className="text-xs text-slate-400">~{vehicle.eta} mins</p>
       </div>
     </div>
     {isSelected && (
-      <div className="pt-4 border-t border-border flex items-center gap-2 text-primary">
+      <div className="pt-4 border-t border-slate-700 flex items-center gap-2 text-indigo-300">
         <FaCheckCircle />
         <span className="text-sm font-medium">Selected</span>
       </div>
@@ -99,7 +101,7 @@ export const DriverInfoCard = ({ driver, onMessage, onCall }) => (
                 ></i>
               ))}
             </div>
-            <span className="text-sm text-gradient-animated text-text-muted">
+            <span className="text-sm text-slate-400">
               ({driver.trips} trips)
             </span>
           </div>
@@ -111,11 +113,11 @@ export const DriverInfoCard = ({ driver, onMessage, onCall }) => (
     <div className="grid grid-cols-2 gap-3 mb-6">
       <div className="p-3 rounded-lg bg-surface-hover">
         <p className="text-xs text-white mb-1">Vehicle</p>
-        <p className="font-medium text-gradient-animated text-sm">{driver.vehicle}</p>
+        <p className="font-medium text-white text-sm">{driver.vehicle}</p>
       </div>
       <div className="p-3 rounded-lg bg-surface-hover">
         <p className="text-xs text-white mb-1">Plate</p>
-        <p className="font-medium text-gradient-animated text-sm">{driver.plate}</p>
+        <p className="font-medium text-white text-sm">{driver.plate}</p>
       </div>
     </div>
 
@@ -146,26 +148,26 @@ export const FareEstimateCard = ({ from, to, fare, breakdown, onConfirm }) => (
   <PremiumCard className="space-y-4">
     <div className="flex justify-between items-center">
       <h3 className="font-bold text-xl">Fare Estimate</h3>
-      <span className="text-sm text-text-muted">Cash • Card</span>
+      <span className="text-sm text-slate-400">Cash • Card</span>
     </div>
 
     <div className="space-y-3">
       <div className="flex items-start gap-3">
         <div className="mt-1">
-          <i className="ri-map-pin-2-fill text-primary"></i>
+          <i className="ri-map-pin-2-fill text-indigo-300"></i>
         </div>
         <div className="text-sm">
-          <p className="text-text-muted">From</p>
+          <p className="text-slate-400">From</p>
           <p className="font-medium">{from}</p>
         </div>
       </div>
-      <div className="px-0 py-2 border-l-2 border-primary/30 ml-2 h-8"></div>
+      <div className="px-0 py-2 border-l-2 border-indigo-400/30 ml-2 h-8"></div>
       <div className="flex items-start gap-3">
         <div className="mt-1">
-          <i className="ri-map-pin-fill text-secondary"></i>
+          <i className="ri-map-pin-fill text-emerald-300"></i>
         </div>
         <div className="text-sm">
-          <p className="text-text-muted">To</p>
+          <p className="text-slate-400">To</p>
           <p className="font-medium">{to}</p>
         </div>
       </div>
@@ -173,11 +175,11 @@ export const FareEstimateCard = ({ from, to, fare, breakdown, onConfirm }) => (
 
     {breakdown && (
       <>
-        <div className="divider-gradient"></div>
+        <div className="h-px bg-slate-700"></div>
         <div className="space-y-2 text-sm">
           {breakdown.map((item, i) => (
             <div key={i} className="flex justify-between">
-              <span className="text-text-muted">{item.label}</span>
+              <span className="text-slate-400">{item.label}</span>
               <span className="font-medium">${item.amount}</span>
             </div>
           ))}
@@ -187,14 +189,14 @@ export const FareEstimateCard = ({ from, to, fare, breakdown, onConfirm }) => (
 
     <div className="pt-4 border-t border-border">
       <div className="flex justify-between items-center mb-4">
-        <span className="text-text-muted">Total</span>
-        <span className="text-3xl font-bold text-gradient-animated">
+        <span className="text-slate-400">Total</span>
+        <span className="text-3xl font-bold text-indigo-300">
           ${fare}
         </span>
       </div>
       <button
         onClick={onConfirm}
-        className="w-full py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-bold hover-lift transition-all"
+        className="w-full rounded-xl bg-indigo-600 px-5 py-3 text-white font-bold transition hover:bg-indigo-500 active:scale-[0.99]"
       >
         Confirm & Book
       </button>
@@ -214,9 +216,9 @@ export const PremiumInput = React.forwardRef(
     const [filled, setFilled] = useState(false);
 
     return (
-      <div className="relative premium-input  w-full group flex flex-row gap-4 items-center">
+      <div className="relative w-full group flex flex-row gap-3 items-center rounded-xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-white shadow-sm transition focus-within:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-400/20">
         {Icon && (
-          <div className="primary ">
+          <div className="text-indigo-300">
             <Icon size={18} />
           </div>
         )}
@@ -224,7 +226,7 @@ export const PremiumInput = React.forwardRef(
           ref={ref}
           type="text"
           placeholder={placeholder}
-          className={`bg-transparent outline-none text-white/70 text-start w-full   ${
+          className={`w-full bg-transparent text-start text-sm text-white placeholder:text-slate-500 outline-none   ${
             error ? "border-red-500 focus:border-red-400" : ""
           } ${success ? "border-green-500 focus:border-green-400" : ""}`}
           onFocus={() => setFocused(true)}
@@ -236,8 +238,8 @@ export const PremiumInput = React.forwardRef(
           <label
             className={`absolute left-4 ${Icon ? "left-12" : "left-4"} top-1/2 transform -translate-y-1/2 transition-all duration-300 pointer-events-none origin-left ${
               focused || filled
-                ? "scale-75 -translate-y-6 text-primary"
-                : "text-text-muted"
+                ? "scale-75 -translate-y-6 text-indigo-300"
+                : "text-slate-500"
             }`}
           >
             {label}
@@ -294,9 +296,9 @@ export const Toast = ({
     },
     info: {
       icon: FaInfoCircle,
-      bg: "bg-primary/20",
-      border: "border-primary/30",
-      text: "text-primary",
+      bg: "bg-indigo-500/20",
+      border: "border-indigo-500/30",
+      text: "text-indigo-300",
     },
     warning: {
       icon: FaExclamationCircle,
@@ -310,15 +312,15 @@ export const Toast = ({
   const Icon = config.icon;
 
   return (
-    <div className="toast-enter fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50">
       <div
-        className={`toast-base ${config.bg} border ${config.border} flex items-center gap-3 max-w-sm`}
+        className={`${config.bg} border ${config.border} flex items-center gap-3 max-w-sm rounded-xl px-4 py-3 text-white shadow-2xl shadow-black/30 backdrop-blur-sm`}
       >
         <Icon className={`text-xl ${config.text}`} />
         <span className="flex-1 text-sm text-white">{message}</span>
         <button
           onClick={onClose}
-          className="text-text-muted hover:text-text-main transition-colors"
+          className="text-slate-400 hover:text-white transition-colors"
         >
           <FaTimes />
         </button>
@@ -357,9 +359,9 @@ export const LoadingSpinner = ({ size = "md", fullScreen = false }) => {
 
   const spinner = (
     <div className={`${sizeClasses[size]} relative`}>
-      <div className="absolute inset-0 border-2 border-transparent border-t-primary border-r-secondary rounded-full animate-spin" />
+      <div className="absolute inset-0 border-2 border-transparent border-t-indigo-400 border-r-emerald-400 rounded-full animate-spin" />
       <div
-        className="absolute inset-2 border-2 border-transparent border-t-accent border-r-primary rounded-full animate-spin"
+        className="absolute inset-2 border-2 border-transparent border-t-amber-300 border-r-indigo-400 rounded-full animate-spin"
         style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
       />
     </div>
@@ -382,20 +384,20 @@ export const LoadingSpinner = ({ size = "md", fullScreen = false }) => {
  * - Active indicators
  */
 export const Tabs = ({ tabs, activeTab, onChange }) => (
-  <div className="flex gap-1 p-1 rounded-lg glass-sm w-full mb-6">
+  <div className="flex gap-1 p-1 rounded-xl border border-slate-700 bg-slate-900 w-full mb-6">
     {tabs.map((tab) => (
       <button
         key={tab.id}
         onClick={() => onChange(tab.id)}
         className={`flex-1 py-2 px-4 rounded-md font-medium transition-all duration-300 relative ${
           activeTab === tab.id
-            ? "text-white"
-            : "text-text-muted hover:text-text-main"
+            ? "bg-slate-800 text-white"
+            : "text-slate-400 hover:text-white"
         }`}
       >
         {tab.label}
         {activeTab === tab.id && (
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full" />
+          <div className="absolute bottom-0 left-3 right-3 h-0.5 bg-indigo-400 rounded-full" />
         )}
       </button>
     ))}
@@ -414,7 +416,7 @@ export const Timeline = ({ events }) => (
         <div className="relative flex flex-col items-center">
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              event.completed ? "bg-green-500/20" : "bg-primary/20"
+              event.completed ? "bg-green-500/20" : "bg-indigo-500/20"
             }`}
           >
             {event.icon && typeof event.icon === "function"
@@ -422,12 +424,12 @@ export const Timeline = ({ events }) => (
               : null}
           </div>
           {i < events.length - 1 && (
-            <div className="w-0.5 h-12 bg-border mt-2"></div>
+            <div className="w-0.5 h-12 bg-slate-700 mt-2"></div>
           )}
         </div>
         <div className="pt-1 pb-4">
           <p className="font-medium text-sm">{event.title}</p>
-          <p className="text-xs text-text-muted mt-1">{event.timestamp}</p>
+          <p className="text-xs text-slate-400 mt-1">{event.timestamp}</p>
         </div>
       </div>
     ))}

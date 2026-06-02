@@ -38,18 +38,18 @@ const VehiclePanel = (props) => {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col bg-dark-900 rounded-t-3xl max-h-[90vh] overflow-hidden flex-col">
+    <div className="h-full w-full flex flex-col rounded-t-3xl bg-slate-950 text-white max-h-[90vh] overflow-hidden">
       {/* Handle Bar */}
       <div className="flex items-center justify-center pt-3 pb-2">
-        <div className="w-12 h-1 bg-dark-600 rounded-full"></div>
+        <div className="w-12 h-1 bg-slate-700 rounded-full"></div>
       </div>
 
       {/* Header */}
-      <div className="px-4 sm:px-6 pb-4 border-b border-dark-700">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gradient-animated">
+      <div className="px-4 sm:px-6 pb-4 border-b border-slate-800">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
           Choose a vehicle
         </h2>
-        <p className="text-text-muted text-sm mt-1">
+        <p className="text-slate-400 text-sm mt-1">
           Select your preferred ride type
         </p>
       </div>
@@ -66,7 +66,7 @@ const VehiclePanel = (props) => {
           >
             <PremiumCard
               key={vehicle.id}
-              className="cursor-pointer p-4"
+              className="cursor-pointer p-4 hover:bg-slate-800"
               role="button"
               tabIndex={0}
             >
@@ -83,21 +83,21 @@ const VehiclePanel = (props) => {
                 <div className="flex-1 min-w-0">
                   <h4 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
                     {vehicle.name}
-                    <span className="text-xs sm:text-sm font-normal text-text-muted px-2 py-1 rounded">
+                    <span className="text-xs sm:text-sm font-normal text-slate-400 px-2 py-1 rounded-lg bg-slate-800">
                       <i className={`${vehicle.icon} mr-1`}></i>
                       {vehicle.seats}
                     </span>
                   </h4>
-                  <p className="text-sm text-text-muted mb-1">
+                  <p className="text-sm text-slate-400 mb-1">
                     {vehicle.eta} away
                   </p>
-                  <p className="text-xs sm:text-sm text-text-muted">
+                  <p className="text-xs sm:text-sm text-slate-500">
                     {vehicle.description}
                   </p>
                 </div>
 
                 <div className="flex-shrink-0 text-right">
-                  <h3 className="text-lg sm:text-xl font-bold text-primary">
+                  <h3 className="text-lg sm:text-xl font-bold text-emerald-300">
                     ₹ {vehicle.fare}
                   </h3>
                 </div>
@@ -108,8 +108,8 @@ const VehiclePanel = (props) => {
       </div>
 
       {/* Footer Info */}
-      <div className="px-4 sm:px-6 py-4 bg-dark-800 border-t border-dark-700 text-center">
-        <p className="text-xs text-gradient-animated">
+      <div className="px-4 sm:px-6 py-4 bg-slate-900 border-t border-slate-800 text-center">
+        <p className="text-xs text-slate-400">
           Prices may vary based on demand and distance
         </p>
       </div>

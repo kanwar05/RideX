@@ -331,12 +331,12 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen bg-slate-950 text-white">
       <div className="">
         <PremiumNavbar userType="user" />
       </div>
 
-      <div className="h-screen bg-dark-950 relative  ">
+      <div className="h-screen bg-slate-950 relative">
         {/* Logout Button */}
         {/* <button
           onClick={() => navigate("/user-logout")}
@@ -356,18 +356,18 @@ const Home = () => {
           />
         </div>
 
-        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0 bg-dark-950 transition-all duration-300  ">
-          <div className=" p-4  relative  transition-all duration-300">
+        <div className="w-full z-10 flex flex-col justify-end absolute bottom-0 bg-slate-950/95 border-t border-slate-800 shadow-2xl shadow-black/40 transition-all duration-300">
+          <div className="p-4 relative transition-all duration-300">
             <h5
               ref={panelCloseRef}
               onClick={() => {
                 setPanelOpen(false);
               }}
-              className="absolute opacity-0 right-6 top-6 text-gradient-animated text-2xl"
+              className="absolute opacity-0 right-6 top-6 text-slate-300 text-2xl"
             >
               <i className="ri-arrow-down-wide-line"></i>
             </h5>
-            <h1 className="text-2xl font-semibold text-gradient-animated mb-6">
+            <h1 className="text-2xl font-semibold text-white mb-6">
               Let's make a Trip
             </h1>
             <form
@@ -401,14 +401,14 @@ const Home = () => {
             <div className="flex w-full items-center justify-center mt-4">
               <button
                 onClick={findTrip}
-                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 Find Trip
               </button>
             </div>
           </div>
 
-          <div ref={panelRef} className=" p-4 text-white">
+          <div ref={panelRef} className="p-4 text-white">
             <LocationSearchPanel
               setPanelOpen={setPanelOpen}
               setVehiclePanelOpen={setVehiclePanelOpen}
@@ -426,7 +426,7 @@ const Home = () => {
 
         <div
           ref={vehiclePanelRef}
-          className="fixed z-10 w-full bottom-0  text-white/80 rounded-t-xl"
+            className="fixed z-10 w-full bottom-0 text-white rounded-t-xl"
         >
           <VehiclePanel
             selectVehicleType={setVehicleType}
@@ -467,7 +467,7 @@ const Home = () => {
 
         <div
           ref={waitingForDriverRef}
-          className="fixed z-10 w-full bottom-0 bg-black rounded-t-xl "
+            className="fixed z-10 w-full bottom-0 bg-slate-950 rounded-t-xl"
         >
           <WaitingForDriver
             ride={ride}

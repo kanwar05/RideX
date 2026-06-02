@@ -98,16 +98,16 @@ const EnhancedBookingFlow = ({ onComplete }) => {
               onClick={() => handleStepChange(step.id)}
               className={`flex flex-col items-center gap-2 transition-all duration-300 ${
                 currentStep === step.id
-                  ? "text-primary scale-110"
-                  : "text-text-muted opacity-50"
+                  ? "text-indigo-300 scale-110"
+                  : "text-slate-500 opacity-50"
               }`}
               disabled={i > steps.findIndex((s) => s.id === currentStep)}
             >
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                   currentStep === step.id
-                    ? "bg-gradient-to-br from-primary to-secondary shadow-glow-md"
-                    : "bg-surface-hover"
+                    ? "bg-indigo-600 shadow-lg shadow-indigo-950/30"
+                    : "bg-slate-800"
                 }`}
               >
                 <i className={`${step.icon} text-lg`}></i>
@@ -116,9 +116,9 @@ const EnhancedBookingFlow = ({ onComplete }) => {
             </button>
           ))}
         </div>
-        <div className="h-1 bg-surface-hover rounded-full overflow-hidden">
+        <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300"
+            className="h-full bg-indigo-500 transition-all duration-300"
             style={{
               width: `${((steps.findIndex((s) => s.id === currentStep) + 1) / steps.length) * 100}%`,
             }}
@@ -130,13 +130,13 @@ const EnhancedBookingFlow = ({ onComplete }) => {
       <div className="min-h-96">
         {/* Step 1: Location Input */}
         {currentStep === "location" && (
-          <div className="space-y-4 animate-slide-up">
+          <div className="space-y-4">
             <h2 className="text-2xl font-bold mb-6">Where are you going?</h2>
 
             <PremiumCard>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-text-muted mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Pickup Location
                   </label>
                   <PremiumInput
@@ -148,7 +148,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-text-muted mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Destination
                   </label>
                   <PremiumInput
@@ -162,7 +162,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                 <button
                   onClick={() => handleStepChange("vehicle")}
                   disabled={!pickup || !destination}
-                  className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   Continue
                   <FaChevronRight />
@@ -172,7 +172,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
 
             {/* Quick Suggestions */}
             <div className="space-y-2">
-              <p className="text-sm text-text-muted font-medium">
+              <p className="text-sm text-slate-400 font-medium">
                 Saved Places
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -190,17 +190,17 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                 ].map((place) => (
                   <button
                     key={place.label}
-                    className="p-3 rounded-lg glass-sm hover-lift text-left transition-all"
+                    className="p-3 rounded-xl border border-slate-700 bg-slate-900 text-left transition hover:bg-slate-800"
                     onClick={() => {
                       setDestination(place.address);
                       handleStepChange("vehicle");
                     }}
                   >
                     <i
-                      className={`${place.icon} text-primary text-lg mb-2`}
+                      className={`${place.icon} text-indigo-300 text-lg mb-2`}
                     ></i>
                     <p className="font-medium text-sm">{place.label}</p>
-                    <p className="text-xs text-text-muted mt-1">
+                    <p className="text-xs text-slate-400 mt-1">
                       {place.address}
                     </p>
                   </button>
@@ -212,7 +212,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
 
         {/* Step 2: Vehicle Selection */}
         {currentStep === "vehicle" && (
-          <div className="space-y-4 animate-slide-up">
+          <div className="space-y-4">
             <h2 className="text-2xl font-bold mb-6">Choose a ride</h2>
 
             <div className="space-y-3">
@@ -230,14 +230,14 @@ const EnhancedBookingFlow = ({ onComplete }) => {
             <div className="grid grid-cols-2 gap-3 pt-4">
               <button
                 onClick={() => handleStepChange("location")}
-                className="py-3 rounded-lg glass-lg hover-lift font-medium transition-all"
+                className="py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800"
               >
                 Back
               </button>
               <button
                 onClick={() => handleStepChange("confirm")}
                 disabled={!selectedVehicle}
-                className="py-3 rounded-lg btn-premium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="py-3 rounded-xl bg-indigo-600 font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>
@@ -247,28 +247,28 @@ const EnhancedBookingFlow = ({ onComplete }) => {
 
         {/* Step 3: Confirm Booking */}
         {currentStep === "confirm" && (
-          <div className="space-y-4 animate-slide-up">
+          <div className="space-y-4">
             <h2 className="text-2xl font-bold mb-6">Review your ride</h2>
 
             {/* Route Summary */}
             <PremiumCard>
               <div className="flex items-start gap-4">
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <i className="ri-map-pin-2-fill text-primary"></i>
+                  <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                    <i className="ri-map-pin-2-fill text-indigo-300"></i>
                   </div>
-                  <div className="w-0.5 h-16 bg-primary/20"></div>
-                  <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                    <i className="ri-map-pin-fill text-secondary"></i>
+                  <div className="w-0.5 h-16 bg-indigo-500/20"></div>
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                    <i className="ri-map-pin-fill text-emerald-300"></i>
                   </div>
                 </div>
                 <div className="flex-1 pt-1">
                   <div>
-                    <p className="text-xs text-text-muted">Pickup</p>
+                    <p className="text-xs text-slate-400">Pickup</p>
                     <p className="font-medium">{pickup}</p>
                   </div>
                   <div className="mt-12">
-                    <p className="text-xs text-text-muted">Destination</p>
+                    <p className="text-xs text-slate-400">Destination</p>
                     <p className="font-medium">{destination}</p>
                   </div>
                 </div>
@@ -286,12 +286,12 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                   />
                   <div>
                     <p className="font-bold">{selectedVehicle.name}</p>
-                    <p className="text-sm text-text-muted">
+                    <p className="text-sm text-slate-400">
                       {selectedVehicle.description}
                     </p>
                   </div>
                 </div>
-                <p className="text-2xl font-bold text-primary">
+                <p className="text-2xl font-bold text-indigo-300">
                   ${selectedVehicle.fare}
                 </p>
               </div>
@@ -299,7 +299,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
 
             {/* Payment Method */}
             <PremiumCard>
-              <label className="block text-sm font-medium text-text-muted mb-3">
+              <label className="block text-sm font-medium text-slate-300 mb-3">
                 Payment Method
               </label>
               <Tabs
@@ -317,7 +317,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
             <div className="grid grid-cols-2 gap-3 pt-4">
               <button
                 onClick={() => handleStepChange("vehicle")}
-                className="py-3 rounded-lg glass-lg hover-lift font-medium transition-all"
+                className="py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800"
               >
                 Back
               </button>
@@ -330,7 +330,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                   }, 1500);
                 }}
                 disabled={isLoading}
-                className="py-3 rounded-lg btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="py-3 rounded-xl bg-indigo-600 font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? <LoadingSpinner size="sm" /> : "Book Now"}
               </button>
@@ -340,13 +340,13 @@ const EnhancedBookingFlow = ({ onComplete }) => {
 
         {/* Step 4: Ride Booked - Finding Driver */}
         {currentStep === "ride" && (
-          <div className="space-y-6 animate-slide-up">
+          <div className="space-y-6">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center mx-auto mb-4 shadow-glow-lg">
+              <div className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-950/30">
                 <i className="ri-check-line text-3xl text-white"></i>
               </div>
               <h2 className="text-2xl font-bold mb-2">Ride Booked!</h2>
-              <p className="text-text-muted">Finding a driver near you...</p>
+              <p className="text-slate-400">Finding a driver near you...</p>
             </div>
 
             {/* Finding Driver Animation */}
@@ -355,7 +355,7 @@ const EnhancedBookingFlow = ({ onComplete }) => {
                 <div className="relative w-24 h-24">
                   <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping" />
                   <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-pulse" />
-                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow-md">
+                  <div className="absolute inset-4 rounded-full bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-950/30">
                     <i className="ri-car-line text-3xl text-white"></i>
                   </div>
                 </div>
@@ -363,34 +363,34 @@ const EnhancedBookingFlow = ({ onComplete }) => {
               <p className="font-medium text-lg mb-2">
                 Searching for drivers...
               </p>
-              <p className="text-sm text-text-muted">3 drivers nearby</p>
+              <p className="text-sm text-slate-400">3 drivers nearby</p>
             </PremiumCard>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-3">
               <PremiumCard className="text-center py-4">
-                <div className="text-2xl font-bold text-primary mb-1">
+                <div className="text-2xl font-bold text-indigo-300 mb-1">
                   4 min
                 </div>
-                <p className="text-xs text-text-muted">Estimated pickup</p>
+                <p className="text-xs text-slate-400">Estimated pickup</p>
               </PremiumCard>
               <PremiumCard className="text-center py-4">
-                <div className="text-2xl font-bold text-secondary mb-1">
+                <div className="text-2xl font-bold text-emerald-300 mb-1">
                   $18.50
                 </div>
-                <p className="text-xs text-text-muted">Total fare</p>
+                <p className="text-xs text-slate-400">Total fare</p>
               </PremiumCard>
               <PremiumCard className="text-center py-4">
-                <div className="text-2xl font-bold text-accent mb-1">
+                <div className="text-2xl font-bold text-amber-300 mb-1">
                   12 min
                 </div>
-                <p className="text-xs text-text-muted">Est. travel time</p>
+                <p className="text-xs text-slate-400">Est. travel time</p>
               </PremiumCard>
             </div>
 
             <button
               onClick={() => onComplete && onComplete()}
-              className="w-full py-3 rounded-lg glass-lg hover-lift font-medium transition-all"
+              className="w-full py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800"
             >
               Continue
             </button>

@@ -53,16 +53,16 @@ const ConfirmRidePopUp = (props) => {
   };
 
   return (
-    <div>
+    <div className="bg-slate-950 text-white rounded-t-3xl">
       <h5
-        className="w-full flex  items-center justify-center text-3xl mb-2 text-gradient-animated "
+        className="w-full flex  items-center justify-center text-3xl mb-2 text-slate-300 "
         onClick={() => {
           props.setConfirmRidePopUpPanel(false);
         }}
       >
         <i className="ri-arrow-down-wide-line"></i>
       </h5>
-      <h2 className="text-2xl text-gradient-animated mb-2 text-gradient-animated font-medium ">
+      <h2 className="text-2xl text-white mb-3 font-semibold ">
         Let's Confirm Your Ride
       </h2>
 
@@ -73,13 +73,13 @@ const ConfirmRidePopUp = (props) => {
               className="h-12 w-12 rounded-full"
               src="https://imgs.search.brave.com/vdRYk5Fef873iKhep6GE8FrjCAJQafa8F189pqmsNjo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGeHM0/Y0pNekkvMi8wLzE2/MDB3L2NhbnZhLXB1/cnBsZS1ibGFjay1h/bmQtd2hpdGUtY29v/bC1jcmVhdGl2ZS1s/aW5rZWRpbi1wcm9m/aWxlLXBpY3R1cmUt/U283clZpQ1daYnMu/anBn"
             />
-            <h1 className="text-lg text-white/80 font-semibold">
+            <h1 className="text-lg text-white font-semibold">
               {userName?.firstName + " " + userName?.lastName}
             </h1>
           </div>
           <div className="text-right">
             <h1 className="text-lg text-white/80 ">2.2 KM</h1>
-            <h4 className="text-lg text-gradient-animated">
+            <h4 className="text-lg text-emerald-300">
               ₹{rideData?.ride?.fare}
             </h4>
           </div>
@@ -87,33 +87,33 @@ const ConfirmRidePopUp = (props) => {
 
         <div className="flex flex-col items-start w-full">
           <div className="flex gap-5 items-center mb-4 w-full">
-            <h3 className="text-xl text-gradient-animated font-semibold ">
+            <h3 className="text-xl text-indigo-300 font-semibold ">
               <i className="ri-map-pin-user-line"></i>
             </h3>
-            <div className="w-full border-b border-white/20 p-2">
-              <h4 className="text-xl text-gradient-animated font-medium">
+            <div className="w-full border-b border-slate-700 p-2">
+              <h4 className="text-xl text-indigo-200 font-medium">
                 Pick Up
               </h4>
               <p className="text-base text-white/80">{rideData?.pickup}</p>
             </div>
           </div>
           <div className="flex gap-5 items-center mb-4 w-full">
-            <h3 className="text-xl text-gradient-animated font-semibold ">
+            <h3 className="text-xl text-emerald-300 font-semibold ">
               <i className="ri-map-pin-fill"></i>
             </h3>
-            <div className="w-full border-b border-white/20 p-2">
-              <h4 className="text-xl text-gradient-animated font-medium">
+            <div className="w-full border-b border-slate-700 p-2">
+              <h4 className="text-xl text-emerald-200 font-medium">
                 Destination
               </h4>
               <p className="text-base text-white/80">{rideData?.destination}</p>
             </div>
           </div>
           <div className="flex w-full gap-5 items-center mb-8 ">
-            <h3 className="text-xl text-gradient-animated font-semibold ">
+            <h3 className="text-xl text-emerald-300 font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
-            <div className=" w-full border-b border-white/20 p-2 ">
-              <h4 className="text-xl text-gradient-animated font-medium">
+            <div className=" w-full border-b border-slate-700 p-2 ">
+              <h4 className="text-xl text-emerald-300 font-medium">
                 ₹{rideData?.ride?.fare}
               </h4>
               <p className="text-base text-gray-200">Cash Cash</p>
@@ -131,7 +131,7 @@ const ConfirmRidePopUp = (props) => {
             <div className="w-full flex items-center justify-center flex-row gap-2 mt-4">
               <button
                 type="submit"
-                className="w-1/2 rounded-lg py-3 btn-premium text-white font-semibold"
+                className="w-1/2 rounded-xl py-3 bg-indigo-600 text-white font-semibold transition hover:bg-indigo-500"
               >
                 Confirm
               </button>
@@ -140,7 +140,7 @@ const ConfirmRidePopUp = (props) => {
                 onClick={() => {
                   props.setConfirmRidePopUpPanel(false);
                 }}
-                className="w-1/2 rounded-lg py-3 bg-red-800 text-white font-semibold"
+                className="w-1/2 rounded-xl py-3 bg-red-600 text-white font-semibold transition hover:bg-red-500"
               >
                 Cancel
               </button>

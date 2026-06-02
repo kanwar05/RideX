@@ -24,21 +24,21 @@ const PremiumHeroSection = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
+    <div className="relative min-h-screen bg-slate-950 overflow-hidden text-white">
       {/* Animated Background Gradients */}
       <div className="absolute inset-0">
         {/* Primary gradient orb */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-600/20 to-transparent rounded-full blur-3xl opacity-60 animate-pulse" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl opacity-60 animate-pulse" />
 
         {/* Secondary gradient orb */}
         <div
-          className="absolute top-1/3 right-0 w-80 h-80 bg-gradient-to-br from-purple-600/20 to-transparent rounded-full blur-3xl opacity-50 animate-pulse"
+          className="absolute top-1/3 right-0 w-80 h-80 bg-emerald-600/10 rounded-full blur-3xl opacity-50 animate-pulse"
           style={{ animationDelay: "1s" }}
         />
 
         {/* Accent gradient orb */}
         <div
-          className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-t from-cyan-600/15 to-transparent rounded-full blur-3xl opacity-40 animate-pulse"
+          className="absolute bottom-0 left-1/2 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl opacity-40 animate-pulse"
           style={{ animationDelay: "2s" }}
         />
 
@@ -47,15 +47,15 @@ const PremiumHeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 safe-area-top">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-slide-up">
+          <div className="space-y-8">
             {/* Badge */}
             <div className="inline-block">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-cyan-500/30 backdrop-blur-sm">
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-cyan-300">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-700">
+                <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-slate-200">
                   Premium Ride Experience
                 </span>
               </div>
@@ -66,7 +66,7 @@ const PremiumHeroSection = () => {
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-white">
                 <span>Your Journey,</span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                <span className="text-indigo-300">
                   Elevated
                 </span>
               </h1>
@@ -81,7 +81,7 @@ const PremiumHeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
                 to="/user-login"
-                className="group flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold text-lg hover:from-blue-600 hover:to-cyan-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/50"
+                className="group flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 text-white font-semibold text-lg transition hover:bg-indigo-500 active:scale-[0.99] shadow-lg shadow-indigo-950/30"
               >
                 <span>Get Started as Rider</span>
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -89,7 +89,7 @@ const PremiumHeroSection = () => {
 
               <Link
                 to="/captain-login"
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-purple-500 text-purple-300 font-semibold text-lg hover:bg-purple-500/10 hover:text-purple-200 transition-all transform hover:scale-105 backdrop-blur-sm"
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 font-semibold text-lg hover:bg-slate-800 transition active:scale-[0.99]"
               >
                 <span>Drive with RideX</span>
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -99,19 +99,19 @@ const PremiumHeroSection = () => {
             {/* Stats */}
             <div className="pt-8 border-t border-gray-700 grid grid-cols-3 gap-6">
               <div className="space-y-2">
-                <p className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <p className="text-3xl font-bold text-indigo-300">
                   50K+
                 </p>
                 <p className="text-sm text-gray-400">Active Drivers</p>
               </div>
               <div className="space-y-2">
-                <p className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                <p className="text-3xl font-bold text-emerald-300">
                   1M+
                 </p>
                 <p className="text-sm text-gray-400">Rides Completed</p>
               </div>
               <div className="space-y-2">
-                <p className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <p className="text-3xl font-bold text-amber-300">
                   4.9★
                 </p>
                 <p className="text-sm text-gray-400">Average Rating</p>
@@ -123,7 +123,7 @@ const PremiumHeroSection = () => {
           <div className="hidden lg:flex items-center justify-center relative h-[600px]">
             {/* Floating Ride Card 1 */}
             <div
-              className="absolute w-80 rounded-2xl bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-xl p-6 shadow-2xl hover:shadow-blue-500/20 transition-all transform hover:scale-105 animate-float"
+              className="absolute w-80 rounded-2xl bg-slate-900 border border-slate-700 p-6 shadow-2xl shadow-black/30 transition hover:-translate-y-1"
               style={{
                 top: "0%",
                 left: "10%",
@@ -133,7 +133,7 @@ const PremiumHeroSection = () => {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-xs text-gray-400 font-medium">NEXT RIDE</p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  <p className="text-2xl font-bold text-indigo-300">
                     Premium
                   </p>
                 </div>
@@ -141,7 +141,7 @@ const PremiumHeroSection = () => {
               </div>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center">
                     <FaMapMarkerAlt className="text-white" />
                   </div>
                   <div>
@@ -150,7 +150,7 @@ const PremiumHeroSection = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
                     <FaMapMarkerAlt className="text-white" />
                   </div>
                   <div>
@@ -161,13 +161,13 @@ const PremiumHeroSection = () => {
               </div>
               <div className="mt-4 pt-4 border-t border-gray-700 flex justify-between text-sm">
                 <span className="text-gray-400">12 mins away</span>
-                <span className="text-cyan-400 font-bold">$24.50</span>
+                <span className="text-emerald-300 font-bold">$24.50</span>
               </div>
             </div>
 
             {/* Floating Ride Card 2 */}
             <div
-              className="absolute w-80 rounded-2xl bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700/50 backdrop-blur-xl p-6 shadow-2xl hover:shadow-purple-500/20 transition-all transform hover:scale-105 animate-float"
+              className="absolute w-80 rounded-2xl bg-slate-900 border border-slate-700 p-6 shadow-2xl shadow-black/30 transition hover:-translate-y-1"
               style={{
                 bottom: "10%",
                 right: "5%",
@@ -199,10 +199,10 @@ const PremiumHeroSection = () => {
                 </div>
               </div>
               <div className="mt-4 flex gap-2">
-                <button className="flex-1 py-2 rounded-lg bg-blue-500/20 text-blue-300 text-sm font-medium hover:bg-blue-500/40 transition-colors border border-blue-500/30">
+                <button className="flex-1 py-2 rounded-lg bg-indigo-500/15 text-indigo-200 text-sm font-medium hover:bg-indigo-500/25 transition-colors border border-indigo-500/30">
                   Message
                 </button>
-                <button className="flex-1 py-2 rounded-lg bg-purple-500/20 text-purple-300 text-sm font-medium hover:bg-purple-500/40 transition-colors border border-purple-500/30">
+                <button className="flex-1 py-2 rounded-lg bg-emerald-500/15 text-emerald-200 text-sm font-medium hover:bg-emerald-500/25 transition-colors border border-emerald-500/30">
                   Call
                 </button>
               </div>
@@ -224,7 +224,7 @@ const PremiumHeroSection = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
         <div className="flex flex-col items-center gap-2">
           <p className="text-xs text-gray-400">Scroll to explore</p>
-          <i className="ri-arrow-down-line text-lg text-cyan-400"></i>
+          <i className="ri-arrow-down-line text-lg text-indigo-300"></i>
         </div>
       </div>
     </div>

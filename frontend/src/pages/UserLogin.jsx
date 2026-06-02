@@ -57,30 +57,30 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950">
+    <div className="min-h-screen bg-slate-950 text-white">
       <PremiumNavbar userType="user" />
 
-      <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 safe-area-bottom">
+      <div className="flex items-center justify-center min-h-screen px-4 py-20 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl text-white font-bold mb-2">
-              Ride<span className="text-gradient-animated">X</span>
+              Ride<span className="text-indigo-300">X</span>
             </h1>
-            <p className="text-text-muted text-white">
+            <p className="text-slate-400">
               Premium ridesharing experience
             </p>
           </div>
 
           {/* Login Card */}
           <PremiumCard className="space-y-6">
-            <h2 className="text-2xl font-bold text-gradient-animated text-center">
+            <h2 className="text-2xl font-bold text-white text-center">
               Welcome Back
             </h2>
 
             {/* Error Toast */}
             {error && (
-              <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 flex items-start gap-3 animate-slide-up">
+              <div className="bg-red-950/40 border border-red-500/30 rounded-xl p-4 flex items-start gap-3">
                 <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
                 <p className="text-red-400 text-sm">{error}</p>
               </div>
@@ -121,7 +121,7 @@ const UserLogin = () => {
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-sm primary hover:text-gradient-animated transition-colors"
+                  className="text-sm text-indigo-300 hover:text-indigo-200 transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -131,7 +131,7 @@ const UserLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -148,17 +148,17 @@ const UserLogin = () => {
             </form>
 
             <div className="relative flex items-center gap-4 py-4">
-              <div className="flex-1 h-px bg-dark-500"></div>
+              <div className="flex-1 h-px bg-slate-700"></div>
               <span className="text-xs text-white/60 uppercase font-semibold">
                 Or
               </span>
-              <div className="flex-1 h-px bg-dark-500"></div>
+              <div className="flex-1 h-px bg-slate-700"></div>
             </div>
 
             {/* Google Login */}
             <button
               type="button"
-              className="w-full py-3 rounded-lg glass-sm hover-lift font-medium transition-all flex items-center justify-center gap-3"
+              className="w-full py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800 flex items-center justify-center gap-3"
             >
               <FcGoogle className="text-xl" />
               <span className="text-white/80">Continue with Google</span>
@@ -169,7 +169,7 @@ const UserLogin = () => {
               Don't have an account?{" "}
               <Link
                 to="/user-signup"
-                className="text-gradient-animated hover:underline font-medium"
+                className="text-indigo-300 hover:text-indigo-200 hover:underline font-medium"
               >
                 Sign up
               </Link>
@@ -179,11 +179,11 @@ const UserLogin = () => {
           {/* Footer */}
           <p className="text-center text-white/80 text-xs mt-6">
             By signing in, you agree to our{" "}
-            <a href="#" className="text-gradient-animated hover:underline">
+            <a href="#" className="text-indigo-300 hover:underline">
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="text-gradient-animated hover:underline">
+            <a href="#" className="text-indigo-300 hover:underline">
               Privacy Policy
             </a>
           </p>

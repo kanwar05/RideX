@@ -14,7 +14,7 @@ import CaptainLogout from "./pages/CaptainLogout";
 import Riding from "./pages/Riding";
 import CaptainRiding from "./pages/CaptainRiding";
 import Splash from "./pages/Splash";
-import IntroSlide from "./pages/IntroSlide";
+
 import Profile from "./pages/Profile";
 import CaptainProfile from "./pages/CaptainProfile";
 
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Splash />} />
-      <Route path="/intro-slide" element={<IntroSlide />} />
+
       <Route path="/start" element={<Start />} />
       <Route path="/user-login" element={<UserLogin />} />
       <Route path="/user-signup" element={<UserSignup />} />

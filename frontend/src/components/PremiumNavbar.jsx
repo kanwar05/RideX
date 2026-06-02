@@ -50,7 +50,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
     <>
       {/* Premium Navbar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 p-2 ${isScrolled ? "glass-sm shadow-sm backdrop-blur-sm" : "bg-transparent"} transition-all duration-300`}
+        className={`fixed top-0 left-0 right-0 z-50 p-2 ${isScrolled ? "bg-slate-950/90 shadow-lg shadow-black/20 backdrop-blur-md border-b border-slate-800" : "bg-slate-900 backdrop-blur-sm"} transition-all duration-300`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-10">
@@ -60,8 +60,8 @@ const PremiumNavbar = ({ userType = "user" }) => {
               onClick={() => navigate("/")}
             >
               <div className="block">
-                <h1 className="text-2xl font-bold text-gradient-animated">
-                  RideX
+                <h1 className="text-2xl font-bold text-white">
+                  Ride <span className="text-indigo-600">X</span>
                 </h1>
               </div>
             </div>
@@ -74,8 +74,8 @@ const PremiumNavbar = ({ userType = "user" }) => {
                   onClick={() => navigate(item.path)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 relative group ${
                     isActive(item.path)
-                      ? "text-primary"
-                      : "text-text-muted hover:text-text-main"
+                      ? "bg-indigo-500/15 text-indigo-200"
+                      : "text-slate-300 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <i className={item.icon}></i>
@@ -83,11 +83,11 @@ const PremiumNavbar = ({ userType = "user" }) => {
 
                   {/* Animated Active Indicator */}
                   {isActive(item.path) && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse-soft"></div>
+                    <div className="absolute bottom-0 left-2 right-2 h-0.5 bg-indigo-400 rounded-full"></div>
                   )}
 
                   {/* Hover Effect */}
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 rounded-lg bg-white opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
                 </button>
               ))}
             </div>
@@ -96,12 +96,12 @@ const PremiumNavbar = ({ userType = "user" }) => {
             <div className="hidden md:flex items-center gap-3">
               {isLoggedIn ? (
                 <>
-                  <button className="p-2.5 rounded-lg hover-lift text-text-muted hover:text-text-main transition-colors">
+                  <button className="p-2.5 rounded-lg text-slate-300 transition-colors hover:bg-white/10 hover:text-white">
                     <i className="ri-notification-line text-lg"></i>
                   </button>
                   <button
                     onClick={() => navigate(profilePath)}
-                    className="p-2.5 rounded-lg glass-sm hover-lift text-text-muted hover:text-text-main transition-colors"
+                    className="p-2.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
                   >
                     <FaUser className="text-lg" />
                   </button>
@@ -109,7 +109,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
               ) : (
                 <button
                   onClick={() => navigate("/user-login")}
-                  className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover-lift shadow-glow-md transition-all duration-300"
+                  className="px-6 py-2.5 rounded-lg bg-indigo-600 text-white font-medium shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500"
                 >
                   Sign In
                 </button>
@@ -119,7 +119,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg glass-sm hover-lift text-text-main transition-all"
+              className="md:hidden p-2 rounded-lg border border-indigo-700 bg-indigo-600 text-white transition-all hover:bg-indigo-400"
             >
               {mobileMenuOpen ? (
                 <FaTimes className="text-xl" />
@@ -131,8 +131,8 @@ const PremiumNavbar = ({ userType = "user" }) => {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 animate-slide-up bg-blur-lg rounded-lg glass-lg text-black">
-              <div className="space-y-2 py-4 border-t border-border">
+            <div className="md:hidden mt-2 rounded-2xl border border-slate-800 bg-slate-950 p-2 text-white shadow-2xl shadow-black/30">
+              <div className="space-y-2 py-2">
                 {navItems.map((item) => (
                   <button
                     key={item.path}
@@ -142,8 +142,8 @@ const PremiumNavbar = ({ userType = "user" }) => {
                     }}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                       isActive(item.path)
-                        ? "bg-gradient-to-r from-primary/10 to-secondary/10 text-primary font-medium"
-                        : "text-text-muted hover:text-text-main hover:bg-surface-hover"
+                        ? "bg-indigo-500/15 text-indigo-200 font-medium"
+                        : "text-slate-300 hover:text-white hover:bg-slate-800"
                     }`}
                   >
                     <i className={`${item.icon} text-lg`}></i>

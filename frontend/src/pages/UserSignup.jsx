@@ -65,17 +65,17 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950">
+    <div className="min-h-screen bg-slate-950 text-white">
       <PremiumNavbar userType="user" />
 
-      <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 safe-area-bottom">
+      <div className="flex items-center justify-center min-h-screen px-4 py-20 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold mb-2">
-              Ride<span className="text-gradient-animated">X</span>
+              Ride<span className="text-indigo-300">X</span>
             </h1>
-            <p className="text-text-muted">Join millions of riders</p>
+            <p className="text-slate-400">Join millions of riders</p>
           </div>
 
           {/* Signup Card */}
@@ -84,7 +84,7 @@ const UserSignup = () => {
 
             {/* Error Toast */}
             {error && (
-              <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 flex items-start gap-3 animate-slide-up">
+              <div className="bg-red-950/40 border border-red-500/30 rounded-xl p-4 flex items-start gap-3">
                 <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
                 <p className="text-red-400 text-sm">{error}</p>
               </div>
@@ -94,7 +94,7 @@ const UserSignup = () => {
               {/* Name Fields */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-muted mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     First Name
                   </label>
                   <PremiumInput
@@ -108,7 +108,7 @@ const UserSignup = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-text-muted mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Last Name
                   </label>
                   <PremiumInput
@@ -124,7 +124,7 @@ const UserSignup = () => {
 
               {/* Email Field */}
               <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Email
                 </label>
                 <PremiumInput
@@ -139,7 +139,7 @@ const UserSignup = () => {
 
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Password
                 </label>
                 <PremiumInput
@@ -150,7 +150,7 @@ const UserSignup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <p className="text-xs text-text-muted mt-2">
+                <p className="text-xs text-slate-400 mt-2">
                   Must be at least 6 characters
                 </p>
               </div>
@@ -161,18 +161,18 @@ const UserSignup = () => {
                   type="checkbox"
                   id="agreement"
                   required
-                  className="w-4 h-4 mt-1 accent-primary rounded cursor-pointer"
+                  className="w-4 h-4 mt-1 accent-indigo-500 rounded cursor-pointer"
                 />
                 <label
                   htmlFor="agreement"
-                  className="text-xs sm:text-sm text-text-muted"
+                  className="text-xs sm:text-sm text-slate-400"
                 >
                   I agree to the{" "}
-                  <a href="#" className="text-primary hover:underline">
+                  <a href="#" className="text-indigo-300 hover:underline">
                     Terms of Service
                   </a>{" "}
                   and{" "}
-                  <a href="#" className="text-primary hover:underline">
+                  <a href="#" className="text-indigo-300 hover:underline">
                     Privacy Policy
                   </a>
                 </label>
@@ -182,7 +182,7 @@ const UserSignup = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -198,23 +198,23 @@ const UserSignup = () => {
               </button>
             </form>
 
-            <div className="divider-subtle"></div>
+            <div className="h-px bg-slate-700"></div>
 
             {/* Google Signup */}
             <button
               type="button"
-              className="w-full py-3 rounded-lg glass-lg hover-lift font-medium transition-all flex items-center justify-center gap-3"
+              className="w-full py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800 flex items-center justify-center gap-3"
             >
               <FcGoogle className="text-xl" />
               <span>Sign up with Google</span>
             </button>
 
             {/* Login Link */}
-            <p className="text-center text-text-muted text-sm">
+            <p className="text-center text-slate-400 text-sm">
               Already have an account?{" "}
               <Link
                 to="/user-login"
-                className="text-primary hover:underline font-medium"
+                className="text-indigo-300 hover:underline font-medium"
               >
                 Sign in
               </Link>
@@ -222,7 +222,7 @@ const UserSignup = () => {
           </PremiumCard>
 
           {/* Footer */}
-          <p className="text-center text-text-muted text-xs mt-6">
+          <p className="text-center text-slate-500 text-xs mt-6">
             By signing up, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>

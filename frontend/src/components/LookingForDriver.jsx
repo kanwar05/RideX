@@ -9,17 +9,17 @@ const LookingForDriver = (props) => {
   };
 
   return (
-    <div className="bg-dark-900 rounded-t-3xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="bg-slate-950 text-white rounded-t-3xl overflow-hidden flex flex-col max-h-[90vh]">
       {/* Handle Bar */}
       <div className="flex items-center justify-center pt-3 pb-2">
-        <div className="w-12 h-1 bg-dark-600 rounded-full"></div>
+        <div className="w-12 h-1 bg-slate-700 rounded-full"></div>
       </div>
 
       {/* Header */}
-      <div className="px-4 sm:px-6 pb-4 border-b border-dark-700">
+      <div className="px-4 sm:px-6 pb-4 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-800 rounded-full animate-pulse"></div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-gradient-animated">
+          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">
             Finding a driver
           </h2>
         </div>
@@ -42,15 +42,15 @@ const LookingForDriver = (props) => {
           <div className="space-y-4 text-center">
             <div className="flex gap-2 justify-center">
               <div
-                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
+                className="w-3 h-3 bg-indigo-400 rounded-full animate-bounce"
                 style={{ animationDelay: "0s" }}
               />
               <div
-                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
+                className="w-3 h-3 bg-indigo-400 rounded-full animate-bounce"
                 style={{ animationDelay: "0.3s" }}
               />
               <div
-                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
+                className="w-3 h-3 bg-indigo-400 rounded-full animate-bounce"
                 style={{ animationDelay: "0.6s" }}
               />
             </div>
@@ -61,12 +61,12 @@ const LookingForDriver = (props) => {
         </div>
 
         <div className="space-y-4">
-          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
+          <div className="flex gap-4 items-start rounded-xl justify-center p-3 bg-slate-900 border border-slate-800">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-indigo-300">
               <i className="ri-map-pin-user-line text-xl"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-gradient-animated text-lg ">Pickup</p>
+              <p className="text-indigo-200 text-lg ">Pickup</p>
               <p className="text-white font-semibold truncate">
                 {props.pickup || "Select pickup location"}
               </p>
@@ -74,15 +74,15 @@ const LookingForDriver = (props) => {
           </div>
 
           <div className="pl-4 ml-0">
-            <div className="w-0.5 h-6 bg-dark-700"></div>
+            <div className="w-0.5 h-6 bg-slate-700"></div>
           </div>
 
-          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
+          <div className="flex gap-4 items-start rounded-xl justify-center p-3 bg-slate-900 border border-slate-800">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-emerald-300">
               <i className="ri-map-pin-fill text-lg"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-gradient-animated text-lg">Destination</p>
+              <p className="text-emerald-200 text-lg">Destination</p>
               <p className="text-white font-semibold truncate">
                 {props.destination || "Select destination"}
               </p>
@@ -93,14 +93,14 @@ const LookingForDriver = (props) => {
         <PremiumCard className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-white">Fare estimate</span>
-            <span className="text-2xl sm:text-3xl font-bold text-white/80">
+            <span className="text-2xl sm:text-3xl font-bold text-emerald-300">
               ₹{props.fare[props.vehicleType]}
             </span>
           </div>
-          <div className="pt-3 border-t border-dark-700">
+          <div className="pt-3 border-t border-slate-800">
             <span className="text-white text-sm">Payment method</span>
             <div className="flex items-center gap-2 mt-2">
-              <i className="ri-cash-line text-lg text-gradient-animated"></i>
+              <i className="ri-cash-line text-lg text-emerald-300"></i>
               <span className="text-white font-medium">Cash</span>
             </div>
           </div>
@@ -108,10 +108,10 @@ const LookingForDriver = (props) => {
       </div>
 
       {/* Footer */}
-      <div className="px-4 sm:px-6 py-4 bg-dark-800 border-t border-dark-700">
+      <div className="px-4 sm:px-6 py-4 bg-slate-900 border-t border-slate-800">
         <button
           onClick={() => props.setVehicleFound(false)}
-          className="w-full rounded-full py-3 bg-red-800 text-white font-semibold"
+          className="w-full rounded-xl py-3 bg-red-600 text-white font-semibold transition hover:bg-red-500"
         >
           Cancel Search
         </button>

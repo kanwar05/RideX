@@ -30,7 +30,7 @@ const PickupInput = ({
         type="button"
         onClick={onUseCurrentLocation}
         disabled={loading}
-        className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center bg-blur-sm glass-sm text-gradient-animated rounded-lg transition-smooth active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-lg border border-slate-700 bg-slate-900 text-indigo-300 transition hover:bg-slate-800 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
         title={loading ? "Getting your location..." : "Use current location"}
       >
         {loading ? (

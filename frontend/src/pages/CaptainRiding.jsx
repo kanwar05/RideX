@@ -41,7 +41,7 @@ const CaptainRiding = () => {
     }
   }, [finishRidePanel]);
   return (
-    <div className="h-screen  relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)]   ">
+    <div className="h-screen relative bg-slate-950 text-white">
       <div className="">
         <PremiumNavbar userType="captain" />
       </div>
@@ -52,40 +52,40 @@ const CaptainRiding = () => {
 
       <div
         onClick={() => setFinishRidePanel(true)}
-        className="h-[40%] w-full flex flex-col items-center p-4  "
+        className="h-[40%] w-full flex flex-col items-center p-4 bg-slate-950 border-t border-slate-800"
       >
-        <h5 className="w-full flex  items-center justify-center text-3xl  text-gradient-animated mb-2 cursor-pointer">
+        <h5 className="w-full flex  items-center justify-center text-3xl  text-slate-300 mb-2 cursor-pointer">
           <i className="ri-arrow-up-wide-line"></i>
         </h5>
-        <div className="flex w-full flex-col gap-5 px-8 pb-4">
-          <div className="mb-3 bg-blur-lg glass-lg p-3 rounded-lg w-full">
+        <div className="flex w-full flex-col gap-2 pb-4">
+          <div className="mb-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl w-full shadow-lg">
             <div className="flex flex-row items-center justify-start gap-2">
-              <h3 className="text-lg text-gradient-animated ">Passenger: </h3>
+              <h3 className="text-lg text-indigo-200 ">Passenger: </h3>
               <span className="text-white text-sm">{userName}</span>
             </div>
             <div className="flex flex-row items-center justify-start gap-2">
-              <p className="text-lg text-gradient-animated">Pickup:</p>
-              <span className="text-white/80">{pickup}</span>
+              <p className="text-lg text-indigo-200">Pickup:</p>
+              <span className="text-white/80 text-xs">{pickup}</span>
             </div>
             <div className="flex flex-row items-center justify-start gap-2">
               {" "}
-              <p className="text-lg text-gradient-animated">Destination:</p>
-              <span className="text-white/80">{destination}</span>
+              <p className="text-lg text-emerald-200">Destination:</p>
+              <span className="text-xs text-white/80 ">{destination}</span>
             </div>
           </div>
 
           <div className="flex flex-row justify-between items-center p-3">
             <h1 className="text-lg text-white/80 font-semibold">₹ {fare}</h1>
-            <button className="btn-premium ">
+            <button className="rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 active:scale-[0.99]">
               Complete Ride
             </button>
           </div>
-        </div> 
+        </div>
       </div>
 
       <div
         ref={finishRidePanelRef}
-        className="fixed z-10 w-full h-[80%] bottom-0 bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] p-4"
+        className="fixed z-10 w-full h-[80%] bottom-0 bg-slate-950 p-4 rounded-t-3xl"
       >
         <FinishRide
           setFinishRidePanel={setFinishRidePanel}

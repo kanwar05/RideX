@@ -53,9 +53,9 @@ const CaptainLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950 flex flex-col">
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col">
       {/* Navbar */}
-      <div className="safe-area-inset sticky top-0 z-40 ">
+      <div className="sticky top-0 z-40">
         <PremiumNavbar userType="captain" />
       </div>
 
@@ -64,10 +64,10 @@ const CaptainLogin = () => {
         {/* Left Side - Desktop Hero */}
         <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center pr-8">
           <div className="text-center space-y-4 mb-8">
-            <h1 className="text-5xl font-bold text-gradient-animated">
+            <h1 className="text-5xl font-bold text-white">
               Drive with RideX
             </h1>
-            <p className="text-xl text-white/80">
+            <p className="text-xl text-slate-400">
               Earn money by driving on your own schedule
             </p>
           </div>
@@ -77,14 +77,14 @@ const CaptainLogin = () => {
         <div className="w-full md:w-1/2 max-w-md">
           <PremiumCard className="space-y-6">
             <div className="md:hidden text-center mb-2">
-              <h2 className="text-3xl sm:text-4xl font-normal text-gradient-animated mb-2">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
                 Captain Sign In
               </h2>
               <p className="text-white/80">Start earning with RideX</p>
             </div>
 
             {error && (
-              <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 flex items-start gap-3">
+              <div className="bg-red-950/40 border border-red-500/50 rounded-xl p-4 flex items-start gap-3">
                 <i className="ri-error-warning-line text-xl text-red-500 flex-shrink-0 mt-0.5"></i>
                 <p className="text-red-400 text-sm">{error}</p>
               </div>
@@ -123,7 +123,7 @@ const CaptainLogin = () => {
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-sm primary hover:text-gradient-animated transition-smooth"
+                  className="text-sm text-indigo-300 hover:text-indigo-200 transition"
                 >
                   Forgot password?
                 </button>
@@ -132,7 +132,7 @@ const CaptainLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-lg shadow-indigo-950/30 transition hover:bg-indigo-500 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <LoadingSpinner size="sm" />
@@ -142,16 +142,16 @@ const CaptainLogin = () => {
               </button>
 
               <div className="relative flex items-center gap-4 py-4">
-                <div className="flex-1 h-px bg-dark-500"></div>
+                <div className="flex-1 h-px bg-slate-700"></div>
                 <span className="text-xs text-white/60 uppercase font-semibold">
                   Or
                 </span>
-                <div className="flex-1 h-px bg-dark-500"></div>
+                <div className="flex-1 h-px bg-slate-700"></div>
               </div>
 
               <button
                 type="button"
-                className="w-full py-3 rounded-lg glass-sm hover-lift font-medium transition-all flex items-center justify-center gap-3"
+                className="w-full py-3 rounded-xl border border-slate-700 bg-slate-900 font-medium transition hover:bg-slate-800 flex items-center justify-center gap-3"
               >
                 <FcGoogle className="text-2xl" />
                 <span className="text-white/80">Continue with Google</span>
@@ -161,7 +161,7 @@ const CaptainLogin = () => {
                 Don't have an account?{" "}
                 <Link
                   to="/captain-signup"
-                  className="text-gradient-animated  font-semibold transition-smooth"
+                  className="text-indigo-300 font-semibold transition hover:text-indigo-200"
                 >
                   Sign up
                 </Link>
@@ -170,11 +170,11 @@ const CaptainLogin = () => {
 
             <p className="text-center text-white/80 text-xs mt-2 md:mt-6">
               By signing in, you agree to our{" "}
-              <a href="#" className="text-gradient-animated ">
+              <a href="#" className="text-indigo-300">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-gradient-animated">
+              <a href="#" className="text-indigo-300">
                 Privacy Policy
               </a>
             </p>
