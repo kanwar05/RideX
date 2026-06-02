@@ -34,20 +34,15 @@ const PremiumNavbar = ({ userType = "user" }) => {
 
   const isActive = (path) => location.pathname === path;
 
+  const profilePath = userType === "captain" ? "/captain-profile" : "/profile";
   const navItems =
     userType === "captain"
       ? [
           { label: "Home", path: "/captain-home", icon: "ri-home-line" },
           { label: "Profile", path: "/captain-profile", icon: "ri-user-line" },
-          {
-            label: "Earnings",
-            path: "/captain-earnings",
-            icon: "ri-wallet-line",
-          },
         ]
       : [
-          { label: "Home", path: "/", icon: "ri-home-line" },
-          { label: "Rides", path: "/rides", icon: "ri-ride-sharing-2-line" },
+          { label: "Home", path: "/home", icon: "ri-home-line" },
           { label: "Profile", path: "/profile", icon: "ri-user-line" },
         ];
 
@@ -86,13 +81,13 @@ const PremiumNavbar = ({ userType = "user" }) => {
                   <i className={item.icon}></i>
                   <span className="text-sm font-medium">{item.label}</span>
 
-            {/* Animated Active Indicator */}
-            {isActive(item.path) && (
+                  {/* Animated Active Indicator */}
+                  {isActive(item.path) && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse-soft"></div>
                   )}
 
-            {/* Hover Effect */}
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+                  {/* Hover Effect */}
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
                 </button>
               ))}
             </div>
@@ -105,7 +100,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
                     <i className="ri-notification-line text-lg"></i>
                   </button>
                   <button
-                    onClick={() => navigate("/profile")}
+                    onClick={() => navigate(profilePath)}
                     className="p-2.5 rounded-lg glass-sm hover-lift text-text-muted hover:text-text-main transition-colors"
                   >
                     <FaUser className="text-lg" />
@@ -156,7 +151,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
                   </button>
                 ))}
 
-                <div className="pt-2 border-t border-border">
+                {/* <div className="pt-2 border-t border-border">
                   {isLoggedIn ? (
                     <>
                       <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-text-muted hover:text-text-main hover:bg-surface-hover transition-all">
@@ -185,7 +180,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
                       Sign In
                     </button>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           )}

@@ -15,6 +15,8 @@ import Riding from "./pages/Riding";
 import CaptainRiding from "./pages/CaptainRiding";
 import Splash from "./pages/Splash";
 import IntroSlide from "./pages/IntroSlide";
+import Profile from "./pages/Profile";
+import CaptainProfile from "./pages/CaptainProfile";
 
 const App = () => {
   return (
@@ -25,11 +27,27 @@ const App = () => {
       <Route path="/user-login" element={<UserLogin />} />
       <Route path="/user-signup" element={<UserSignup />} />
       <Route path="/user-logout" element={<UserLogout />} />
+      <Route
+        path="/profile"
+        element={
+          <UserProtectWrap>
+            <Profile />
+          </UserProtectWrap>
+        }
+      />
       <Route path="/riding" element={<Riding />} />
       <Route path="/captain-riding" element={<CaptainRiding />} />
       <Route path="/captain-login" element={<CaptainLogin />} />
       <Route path="/captain-signup" element={<CaptainSignup />} />
       <Route path="/captain-logout" element={<CaptainLogout />} />
+      <Route
+        path="/captain-profile"
+        element={
+          <CaptainProtectWrap>
+            <CaptainProfile />
+          </CaptainProtectWrap>
+        }
+      />
       <Route
         path="/home"
         element={
