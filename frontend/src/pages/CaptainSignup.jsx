@@ -60,9 +60,17 @@ const CaptainSignup = () => {
         navigate("/captain-home");
       }
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Signup failed. Please try again.",
-      );
+        console.log("Signup error:", err.response?.data);
+
+      const apiErrors = err.response?.data?.errors;
+
+      if (apiErrors && apiErrors.length > 0) {
+        setError(apiErrors[0].msg);
+      } else {
+        setError(
+          err.response?.data?.message || "Signup failed. Please try again.",
+        );
+      }
     } finally {
       setLoading(false);
 
@@ -166,7 +174,7 @@ const CaptainSignup = () => {
                   >
                     <option value="">Select vehicle type</option>
                     <option value="car">Car</option>
-                    <option value="moto">Motorcycle</option>
+                    <option value="motorcycle">Motorcycle</option>
                     <option value="auto">Auto Rickshaw</option>
                   </select>
                 </div>
