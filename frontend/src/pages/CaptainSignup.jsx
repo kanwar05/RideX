@@ -33,16 +33,16 @@ const CaptainSignup = () => {
     try {
       const captainData = {
         fullName: {
-          firstName,
-          lastName,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
         },
-        email,
+        email: email.trim(),
         password,
         vehicle: {
           vehicleType,
-          color: vehicleColor,
-          plate: vehiclePlate,
-          capacity: vehicleCapacity,
+          color: vehicleColor.trim(),
+          plate: vehiclePlate.trim(),
+          capacity: Number(vehicleCapacity),
         },
       };
 
