@@ -29,7 +29,7 @@ module.exports.registerCaptain = async (req, res, next) => {
     vehicleType: vehicle.vehicleType,
   });
 
-  const token = captainModel.generateToken;
+  const token = captainModel.generateToken(captain);
 
   res.status(201).json({ token, captain });
 };
