@@ -30,7 +30,7 @@ module.exports.registerCaptain = async (req, res, next) => {
       vehicleType: vehicle.vehicleType,
     });
 
-    const token = captain.generateAuthToken();
+    const token = await captain.generateAuthToken();
 
     res.status(201).json({ token, captain });
   } catch (error) {
