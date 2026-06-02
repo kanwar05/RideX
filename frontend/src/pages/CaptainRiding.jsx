@@ -41,41 +41,46 @@ const CaptainRiding = () => {
     }
   }, [finishRidePanel]);
   return (
-    <div className="h-screen w-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
-      <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+    <div className="h-screen  relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)]   ">
+      <div className="">
         <PremiumNavbar userType="captain" />
       </div>
 
       <div className="h-[60%] w-full">
-        <CaptainMap ride={ride} destinationMode className="h-full" />
+        <CaptainMap ride={ride} destinationMode className="h-[70%]" />
       </div>
 
       <div
         onClick={() => setFinishRidePanel(true)}
         className="h-[40%] w-full flex flex-col items-center p-4  "
       >
-        <h5 className="w-full flex  items-center justify-center text-3xl  text-lime-500">
+        <h5 className="w-full flex  items-center justify-center text-3xl  text-gradient-animated mb-2 cursor-pointer">
           <i className="ri-arrow-up-wide-line"></i>
         </h5>
-        <div className="flex w-full flex-col px-8 pb-4">
-          <div className="mb-3 bg-slate-800/50  p-3 rounded-lg w-full">
-            <h3 className="text-lg text-lime-500 ">
-              Passenger: <span className="text-white/80">{userName}</span>{" "}
-            </h3>
-            <p className="text-lg text-lime-500">
-              Pickup: <span className="text-white/80">{pickup}</span>
-            </p>
-            <p className="text-lg text-lime-500">
-              Destination: <span className="text-white/80">{destination}</span>
-            </p>
+        <div className="flex w-full flex-col gap-5 px-8 pb-4">
+          <div className="mb-3 bg-blur-lg glass-lg p-3 rounded-lg w-full">
+            <div className="flex flex-row items-center justify-start gap-2">
+              <h3 className="text-lg text-gradient-animated ">Passenger: </h3>
+              <span className="text-white text-sm">{userName}</span>
+            </div>
+            <div className="flex flex-row items-center justify-start gap-2">
+              <p className="text-lg text-gradient-animated">Pickup:</p>
+              <span className="text-white/80">{pickup}</span>
+            </div>
+            <div className="flex flex-row items-center justify-start gap-2">
+              {" "}
+              <p className="text-lg text-gradient-animated">Destination:</p>
+              <span className="text-white/80">{destination}</span>
+            </div>
           </div>
-          <div className="flex flex-row justify-between items-center">
-            <h1 className="text-lg text-white/80 font-semibold">₹{fare}</h1>
-            <button className="bg-lime-500  text-black text-lg py-3 px-6  rounded-full ">
+
+          <div className="flex flex-row justify-between items-center p-3">
+            <h1 className="text-lg text-white/80 font-semibold">₹ {fare}</h1>
+            <button className="btn-premium ">
               Complete Ride
             </button>
           </div>
-        </div>
+        </div> 
       </div>
 
       <div

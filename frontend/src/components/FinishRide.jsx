@@ -33,14 +33,14 @@ const FinishRide = (props) => {
   return (
     <div>
       <h5
-        className="w-full flex  items-center justify-center text-3xl mb-2 text-lime-500"
+        className="w-full flex  items-center justify-center text-3xl mb-2 text-gradient-animated "
         onClick={() => {
           props.setFinishRidePanel(false);
         }}
       >
         <i className="ri-arrow-down-wide-line"></i>
       </h5>
-      <h2 className="text-xl mb-2 text-lime-500 font-medium px-3">
+      <h2 className="text-xl mb-2 text-gradient-animated font-medium px-3">
         Finish this Ride
       </h2>
 
@@ -54,7 +54,7 @@ const FinishRide = (props) => {
             <h1 className="text-lg text-white/80 font-semibold">{userName}</h1>
           </div>
           <div>
-            <h1 className="text-lg text-lime-500 font-semibold">
+            <h1 className="text-lg text-gradient-animated font-semibold">
               2.2<span className="text-sm text-white/80"> KM</span>
             </h1>
           </div>
@@ -62,32 +62,32 @@ const FinishRide = (props) => {
 
         <div className="flex flex-col items-start w-full">
           <div className="flex gap-5 items-center mb-4 w-full">
-            <h3 className="text-xl text-lime-500 font-semibold ">
+            <h3 className="text-xl text-gradient-animated font-semibold ">
               <i className="ri-map-pin-user-line"></i>
             </h3>
-            <div className="w-full border-b border-lime-500 p-2">
-              <p className="text-base text-lime-500">Pickup</p>
+            <div className="w-full border-b border-gradient-animated p-2">
+              <p className="text-xl text-gradient-animated">Pickup</p>
               <h4 className="text-lg font-normal text-white/80">{pickup}</h4>
             </div>
           </div>
           <div className="flex gap-5 items-center mb-4 w-full">
-            <h3 className="text-2xl text-lime-500 font-semibold ">
+            <h3 className="text-2xl text-gradient-animated font-semibold ">
               <i className="ri-map-pin-fill"></i>
             </h3>
-            <div className="w-full border-b border-lime-500 p-2">
-              <p className="text-base text-lime-500">Destination</p>
+            <div className="w-full border-b border-gradient-animated p-2">
+              <p className="text-xl text-gradient-animated">Destination</p>
               <h4 className="text-lg font-normal text-white/80">
                 {destination}
               </h4>
             </div>
           </div>
           <div className="flex w-full gap-5 items-center mb-8 ">
-            <h3 className="text-2xl text-lime-500 font-semibold ">
+            <h3 className="text-2xl text-gradient-animated font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
-            <div className=" w-full border-b border-lime-500 p-2 ">
-              <h4 className="text-lg text-white/80 font-medium">₹{fare}</h4>
-              <p className="text-base text-lime-500">Cash Cash</p>
+            <div className=" w-full border-b border-gradient-animated p-2 ">
+              <h4 className="text-lg text-white/80 font-medium">₹ {fare}</h4>
+              <p className="text-base text-gradient-animated">Cash Cash</p>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const FinishRide = (props) => {
         <div className="w-full flex items-center justify-center">
           <button
             onClick={finishRide}
-            className="w-3/4 rounded-lg py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold"
+            className="btn-premium "
           >
             Finish Ride
           </button>

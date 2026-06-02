@@ -9,6 +9,49 @@ const ConfirmRidePopUp = (props) => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (!otp || otp.length !== 4) {
+        alert("Please enter a valid 4-digit OTP");
+        return;
+      }
+
+      const rideId = rideData?.ride?._id || rideData?._id;
+      if (!rideId) {
+        console.error("No ride ID found:", rideData);
+        alert("Error: Ride ID not found");
+        return;
+      }
+
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/rides/start-ride`,
+        {
+          params: {
+            rideId: rideId,
+            otp: otp,
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+
+      if (response.data) {
+        console.log("Ride started successfully:", response.data);
+        // Close the popup
+        props.setConfirmRidePopUpPanel(false);
+        // Navigation will be handled by socket event listener
+      }
+    } catch (error) {
+      console.error("Error starting ride:", error);
+      const errorMessage =
+        error.response?.data?.message || "Invalid OTP or ride not found";
+      alert(`Failed to start ride: ${errorMessage}`);
+      setOtp("");
+    }
+  };
+
   return (
     <div>
       <h5
@@ -79,7 +122,7 @@ const ConfirmRidePopUp = (props) => {
         </div>
 
         <div className="w-full">
-          <form>
+          <form onSubmit={submitHandler}>
             <PremiumInput
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
@@ -88,11 +131,6 @@ const ConfirmRidePopUp = (props) => {
             <div className="w-full flex items-center justify-center flex-row gap-2 mt-4">
               <button
                 type="submit"
-                onClick={() => {
-                  navigate("/captain-riding");
-                  props.setConfirmRidePopUpPanel(false);
-                  props.confirmRide();
-                }}
                 className="w-1/2 rounded-lg py-3 btn-premium text-white font-semibold"
               >
                 Confirm

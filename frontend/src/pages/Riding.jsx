@@ -38,15 +38,10 @@ const Riding = () => {
 
   return (
     <div className="h-screen overflow-hidden relative bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] ">
-      <div className=" bg-[radial-gradient(circle_at_top_left,#0f172a,#020617)] text-white p-4">
+      <div className="">
         <PremiumNavbar />
       </div>
-      {/* <Link
-        to="/home"
-        className="fixed h-10 w-10 bg-white text-center p-1 rounded-full  right-2 top-2 cursor-pointer "
-      >
-        <i className="text-lg font-medium ri-home-5-line"></i>
-      </Link> */}
+      
       <div className="h-[50%] w-full">
         <UserMap
           pickup={ride?.pickup}
@@ -55,7 +50,7 @@ const Riding = () => {
           className="h-full"
         />
       </div>
-      <div className="h-[50%] w-full flex flex-col gap-2 items-center p-4   ">
+      <div className="h-[50%] w-full flex flex-col items-center justify-center gap-2 items-center p-4   ">
         <div className="flex flex-row items-center justify-between p-4 w-full bg-slate-800 border-white/10 rounded-xl">
           <div className="flex flex-row items-center space-x-3">
             <img
@@ -64,7 +59,7 @@ const Riding = () => {
             />
           </div>
           <div className="flex flex-col text-white/80 justify-end items-end">
-            <h1 className="text-lg text-lime-500 font-semibold">
+            <h1 className="text-lg text-gradient-animated font-semibold">
               {captainName}
             </h1>
             <h1 className="text-sm font-semibold">{captain?.vehicle?.plate}</h1>
@@ -72,30 +67,30 @@ const Riding = () => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-4 w-full mt-4 mb-2">
-          <div className="flex gap-3 items-center mb-2 w-1/2">
-            <h3 className="text-xl text-lime-500 font-semibold ">
+        <div className="flex flex-col gap-4 w-full mt-4 mb-2 p-4">
+          <div className="flex gap-3 items-center mb-2 w-full">
+            <h3 className="text-xl text-gradient-animated font-semibold ">
               <i className="ri-map-pin-fill"></i>
             </h3>
-            <div className="w-full border-b border-lime-500  p-2">
-              <h4 className="text-sm text-lime-500 font-medium">
+            <div className="w-full border-b border-gradient-animated  p-2">
+              <h4 className="text-sm text-gradient-animated font-medium">
                 {destination}
               </h4>
               <p className="text-base text-gray-200">Destination</p>
             </div>
           </div>
-          <div className="flex w-1/2 gap-3 items-center mb-2 ">
-            <h3 className="text-xl text-lime-500 font-semibold ">
+          <div className="flex w-full gap-3 items-center mb-2 ">
+            <h3 className="text-xl text-gradient-animated font-semibold ">
               <i className="ri-hand-coin-line"></i>
             </h3>
-            <div className=" w-full border-b border-lime-500  p-2 ">
-              <h4 className="text-sm text-lime-500 font-medium">₹{fare}</h4>
+            <div className=" w-full border-b border-gradient-animated  p-2 ">
+              <h4 className="text-sm text-gradient-animated font-medium">₹{fare}</h4>
               <p className="text-base text-gray-200">Cash Cash</p>
             </div>
           </div>
         </div>
 
-        <button className="bg-lime-500 w-3/4 text-black text-xl py-3 px-6 rounded-full hover:bg-lime-600 ">
+        <button className="btn-premium">
           Make a Payment
         </button>
       </div>

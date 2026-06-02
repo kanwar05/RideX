@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import CaptainDetails from "../components/CaptainDetails";
 import RidePopUp from "../components/RidePopUp";
 import { useGSAP } from "@gsap/react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketDataContext } from "../context/SocketContext";
@@ -20,6 +21,7 @@ const CaptainHome = () => {
 
   const { captain } = useContext(CaptainDataContext);
   const { socket, sendMessage, isConnected } = useContext(SocketDataContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isConnected && captain?._id) {
@@ -57,6 +59,21 @@ const CaptainHome = () => {
       socket?.off("new-ride");
     };
   }, [socket]);
+
+  useEffect(() => {
+    socket?.on("ride-started", (data) => {
+      console.log("✅ Ride started:", data);
+      setRidePopUpPanel(false);
+      setConfirmRidePopUpPanel(false);
+      navigate("/captain-riding", {
+        state: { rideData: data },
+      });
+    });
+
+    return () => {
+      socket?.off("ride-started");
+    };
+  }, [socket, navigate]);
 
   async function confirmRide() {
     try {
