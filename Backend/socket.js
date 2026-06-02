@@ -45,7 +45,13 @@ const initializeSocket = (server) => {
       const lng = location?.lng;
 
       // Validate location data
-      if (!location || typeof lat !== "number" || typeof lng !== "number") {
+      if (
+        !location ||
+        typeof lat !== "number" ||
+        typeof lng !== "number" ||
+        Number.isNaN(lat) ||
+        Number.isNaN(lng)
+      ) {
         console.error("Invalid location data received:", data);
         socket.emit("error", { message: "Invalid location data" });
         return;
