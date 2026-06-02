@@ -55,7 +55,7 @@ const CaptainLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950 flex flex-col">
       {/* Navbar */}
-      <div className="safe-area-inset sticky top-0 z-40 bg-dark-950/80 backdrop-blur-sm border-b border-dark-700">
+      <div className="safe-area-inset sticky top-0 z-40 ">
         <PremiumNavbar userType="captain" />
       </div>
 
@@ -64,8 +64,10 @@ const CaptainLogin = () => {
         {/* Left Side - Desktop Hero */}
         <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center pr-8">
           <div className="text-center space-y-4 mb-8">
-            <h1 className="text-5xl font-bold text-white">Drive with RideX</h1>
-            <p className="text-xl text-text-secondary">
+            <h1 className="text-5xl font-bold text-gradient-animated">
+              Drive with RideX
+            </h1>
+            <p className="text-xl text-white/80">
               Earn money by driving on your own schedule
             </p>
           </div>
@@ -75,10 +77,10 @@ const CaptainLogin = () => {
         <div className="w-full md:w-1/2 max-w-md">
           <PremiumCard className="space-y-6">
             <div className="md:hidden text-center mb-2">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+              <h2 className="text-3xl sm:text-4xl font-normal text-gradient-animated mb-2">
                 Captain Sign In
               </h2>
-              <p className="text-text-secondary">Start earning with RideX</p>
+              <p className="text-white/80">Start earning with RideX</p>
             </div>
 
             {error && (
@@ -89,30 +91,39 @@ const CaptainLogin = () => {
             )}
 
             <form onSubmit={submitHandler} className="space-y-4">
-              <PremiumInput
-                label="Email Address"
-                placeholder="you@example.com"
-                icon={FaEnvelope}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                required
-              />
+              <div>
+                <label className="block text-sm font-medium text-white/80 mb-2">
+                  Email
+                </label>
+                <PremiumInput
+                  placeholder="you@example.com"
+                  icon={FaEnvelope}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  required
+                />
+              </div>
 
-              <PremiumInput
-                label="Password"
-                placeholder="••••••••"
-                icon={FaLock}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                required
-              />
+              <div>
+                <label className="block text-sm font-medium text-white/80 mb-2">
+                  Password
+                </label>
+
+                <PremiumInput
+                  placeholder="••••••••"
+                  icon={FaLock}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  required
+                />
+              </div>
 
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-sm text-primary hover:text-primary-dark transition-smooth"
+                  className="text-sm primary hover:text-gradient-animated transition-smooth"
                 >
                   Forgot password?
                 </button>
@@ -121,7 +132,7 @@ const CaptainLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-lg py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <LoadingSpinner size="sm" />
@@ -131,39 +142,39 @@ const CaptainLogin = () => {
               </button>
 
               <div className="relative flex items-center gap-4 py-4">
-                <div className="flex-1 h-px bg-dark-700"></div>
-                <span className="text-xs text-text-muted uppercase font-semibold">
+                <div className="flex-1 h-px bg-dark-500"></div>
+                <span className="text-xs text-white/60 uppercase font-semibold">
                   Or
                 </span>
-                <div className="flex-1 h-px bg-dark-700"></div>
+                <div className="flex-1 h-px bg-dark-500"></div>
               </div>
 
               <button
                 type="button"
-                className="w-full rounded-lg py-3 bg-slate-800 text-white flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-lg glass-sm hover-lift font-medium transition-all flex items-center justify-center gap-3"
               >
                 <FcGoogle className="text-2xl" />
-                <span>Continue with Google</span>
+                <span className="text-white/80">Continue with Google</span>
               </button>
 
-              <p className="text-center text-text-secondary text-sm">
+              <p className="text-center text-white/80 text-sm">
                 Don't have an account?{" "}
                 <Link
                   to="/captain-signup"
-                  className="text-primary hover:text-primary-dark font-semibold transition-smooth"
+                  className="text-gradient-animated  font-semibold transition-smooth"
                 >
                   Sign up
                 </Link>
               </p>
             </form>
 
-            <p className="text-center text-text-muted text-xs mt-2 md:mt-6">
+            <p className="text-center text-white/80 text-xs mt-2 md:mt-6">
               By signing in, you agree to our{" "}
-              <a href="#" className="text-primary hover:text-primary-dark">
+              <a href="#" className="text-gradient-animated ">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-primary hover:text-primary-dark">
+              <a href="#" className="text-gradient-animated">
                 Privacy Policy
               </a>
             </p>

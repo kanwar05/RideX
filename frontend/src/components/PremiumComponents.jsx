@@ -89,9 +89,9 @@ export const DriverInfoCard = ({ driver, onMessage, onCall }) => (
           className="w-20 h-20 rounded-full object-cover border-2 border-primary"
         />
         <div>
-          <h3 className="font-bold text-xl">{driver.name}</h3>
+          <h3 className="font-bold text-white/80 text-xl">{driver.name}</h3>
           <div className="flex items-center gap-2 mt-1">
-            <div className="flex items-center gap-1 text-accent">
+            <div className="flex items-center text-yellow-500 gap-1 text-accent">
               {[...Array(5)].map((_, i) => (
                 <i
                   key={i}
@@ -99,7 +99,7 @@ export const DriverInfoCard = ({ driver, onMessage, onCall }) => (
                 ></i>
               ))}
             </div>
-            <span className="text-sm text-text-muted">
+            <span className="text-sm text-gradient-animated text-text-muted">
               ({driver.trips} trips)
             </span>
           </div>
@@ -110,29 +110,29 @@ export const DriverInfoCard = ({ driver, onMessage, onCall }) => (
 
     <div className="grid grid-cols-2 gap-3 mb-6">
       <div className="p-3 rounded-lg bg-surface-hover">
-        <p className="text-xs text-text-muted mb-1">Vehicle</p>
-        <p className="font-medium text-sm">{driver.vehicle}</p>
+        <p className="text-xs text-white mb-1">Vehicle</p>
+        <p className="font-medium text-gradient-animated text-sm">{driver.vehicle}</p>
       </div>
       <div className="p-3 rounded-lg bg-surface-hover">
-        <p className="text-xs text-text-muted mb-1">Plate</p>
-        <p className="font-medium text-sm">{driver.plate}</p>
+        <p className="text-xs text-white mb-1">Plate</p>
+        <p className="font-medium text-gradient-animated text-sm">{driver.plate}</p>
       </div>
     </div>
 
-    <div className="flex gap-3">
+    {/* <div className="flex gap-3">
       <button
         onClick={onMessage}
-        className="flex-1 py-2.5 rounded-lg bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors"
+        className="flex-1 py-2.5 rounded-lg bg-green-500/80 text-white font-medium"
       >
         <i className="ri-message-line mr-2"></i>Message
       </button>
       <button
         onClick={onCall}
-        className="flex-1 py-2.5 rounded-lg bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors"
+        className="flex-1 py-2.5 rounded-lg bg-red-500/80 text-white font-medium "
       >
         <i className="ri-phone-line mr-2"></i>Call
       </button>
-    </div>
+    </div> */}
   </PremiumCard>
 );
 
@@ -214,9 +214,9 @@ export const PremiumInput = React.forwardRef(
     const [filled, setFilled] = useState(false);
 
     return (
-      <div className="relative w-full group">
+      <div className="relative premium-input  w-full group flex flex-row gap-4 items-center">
         {Icon && (
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
+          <div className="primary ">
             <Icon size={18} />
           </div>
         )}
@@ -224,7 +224,7 @@ export const PremiumInput = React.forwardRef(
           ref={ref}
           type="text"
           placeholder={placeholder}
-          className={`premium-input w-full ${Icon ? "pl-12" : "pl-4"} pr-4 ${
+          className={`bg-transparent outline-none text-white/70 text-start w-full   ${
             error ? "border-red-500 focus:border-red-400" : ""
           } ${success ? "border-green-500 focus:border-green-400" : ""}`}
           onFocus={() => setFocused(true)}

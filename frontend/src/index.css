@@ -181,7 +181,7 @@
 }
 :root:not(.dark) ::-webkit-scrollbar {
   width: 5px;
-} */
+} 
 
 .dark {
   --primary: #818CF8;
@@ -200,6 +200,10 @@
   --nav-bg: rgba(11, 15, 25, 0.82);
   --shadow-soft: 0 22px 60px -28px rgba(0, 0, 0, 0.72);
   --hero-grid: rgba(129, 140, 248, 0.14);
+}
+
+.primary { 
+  color: var(--primary);
 }
 
 @layer utilities {
@@ -326,9 +330,9 @@
     pointer-events: none;
   }
 
-  .text-gradient {
+  /* .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
-  }
+  } */
 
   /* ───────────────────────────────────────────────────────────────── */
   /* PREMIUM GLASSMORPHISM EFFECTS */
@@ -368,7 +372,7 @@
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    /* border: 1px solid rgba(255, 255, 255, 0.12); */
   }
 
   .glass-lg {
@@ -696,6 +700,12 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradientShift 8s ease-in-out infinite;
+  }
+
+  .bg-gradient-animated {
+    background-color: #4F46E5 ;
+   
+   
   }
 
   @keyframes iconSpin {

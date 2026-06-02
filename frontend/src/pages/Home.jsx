@@ -16,7 +16,12 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCurrentLocation } from "../services/mapService";
 import PremiumNavbar from "../components/PremiumNavbar";
-import { Toast, PremiumCard } from "../components/PremiumComponents";
+import {
+  Toast,
+  PremiumCard,
+  PremiumInput,
+} from "../components/PremiumComponents";
+import { FaMapPin } from "react-icons/fa";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -305,6 +310,7 @@ const Home = () => {
 
   async function createTrip() {
     console.log(pickup, destination, vehicleType);
+    console.log(localStorage.getItem("token"));
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}/rides/create-ride`,
       {
@@ -325,20 +331,22 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <PremiumNavbar userType="user" />
+    <div className="min-h-screen ">
+      <div className="">
+        <PremiumNavbar userType="user" />
+      </div>
 
-      <div className="h-screen relative bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950">
+      <div className="h-screen bg-dark-950 relative  ">
         {/* Logout Button */}
-        <button
+        {/* <button
           onClick={() => navigate("/user-logout")}
-          className="fixed top-24 right-4 z-30 p-3 rounded-lg glass-lg hover-lift text-red-400 hover:text-red-300 transition-all"
+          className="fixed top-2 right-4 z-30 p-2 glass-lg text-gradient-animated hover:text-red-300 transition-all"
           title="Logout"
         >
           <i className="ri-logout-circle-line text-xl"></i>
-        </button>
+        </button> */}
 
-        <div className=" h-[60%] w-full">
+        <div className=" h-[60%] w-full ">
           <UserMap
             pickup={pickup}
             pickupCoordinates={pickupCoordinates}
@@ -348,25 +356,25 @@ const Home = () => {
           />
         </div>
 
-        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0  ">
-          <div className=" p-4 bg-slate-900 text-white relative  ">
+        <div className="w-full z-10 flex flex-col justify-end  absolute bottom-0 bg-dark-950 transition-all duration-300  ">
+          <div className=" p-4  relative  transition-all duration-300">
             <h5
               ref={panelCloseRef}
               onClick={() => {
                 setPanelOpen(false);
               }}
-              className="absolute opacity-0 right-6 top-6 text-lime-500 text-2xl"
+              className="absolute opacity-0 right-6 top-6 text-gradient-animated text-2xl"
             >
               <i className="ri-arrow-down-wide-line"></i>
             </h5>
-            <h1 className="text-2xl font-semibold text-lime-500">
+            <h1 className="text-2xl font-semibold text-gradient-animated mb-6">
               Let's make a Trip
             </h1>
             <form
               onSubmit={(e) => {
                 submitHandler(e);
               }}
-              className="flex flex-col w-full gap-6"
+              className="flex flex-col w-full gap-6 transition-all duration-300"
             >
               <PickupInput
                 value={pickup}
@@ -377,31 +385,30 @@ const Home = () => {
                 onUseCurrentLocation={handleUseCurrentLocation}
                 loading={currentLocationLoading}
               />
-              <div className="flex flex-row gap-4 items-center w-full border border-white/10  px-4 py-3 rounded-xl bg-slate-800 backdrop-blur shadow-[0_0_40px_rgba(0,0,0,0.6)]">
-                <i className="pointer-events-none  text-lg text-lime-500 ri-map-pin-line"></i>
-                <input
-                  value={destination}
-                  onChange={handleDestinationChange}
-                  onClick={() => {
-                    setPanelOpen(true);
-                  }}
-                  className="outline-none w-full placeholder:text-base"
-                  type="text"
-                  placeholder="Enter your destination"
-                />
-              </div>
+
+              <PremiumInput
+                type="text"
+                placeholder="Enter your destination"
+                icon={FaMapPin}
+                value={destination}
+                onChange={handleDestinationChange}
+                onClick={() => {
+                  setPanelOpen(true);
+                }}
+                required
+              />
             </form>
             <div className="flex w-full items-center justify-center mt-4">
               <button
                 onClick={findTrip}
-                className="w-full bg-lime-500 text-black font-semibold backdrop-blur py-3 px-4 rounded-xl "
+                className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 Find Trip
               </button>
             </div>
           </div>
 
-          <div ref={panelRef} className=" p-4 bg-slate-900 text-white">
+          <div ref={panelRef} className=" p-4 text-white">
             <LocationSearchPanel
               setPanelOpen={setPanelOpen}
               setVehiclePanelOpen={setVehiclePanelOpen}
@@ -419,7 +426,7 @@ const Home = () => {
 
         <div
           ref={vehiclePanelRef}
-          className="fixed z-10 w-full bottom-0 bg-slate-900 text-white/80 p-3 rounded-t-xl"
+          className="fixed z-10 w-full bottom-0  text-white/80 rounded-t-xl"
         >
           <VehiclePanel
             selectVehicleType={setVehicleType}
@@ -431,7 +438,7 @@ const Home = () => {
 
         <div
           ref={confirmRidePanelRef}
-          className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl "
+          className="fixed z-10 w-full bottom-0  rounded-t-xl "
         >
           <ConfirmedRide
             pickup={pickup}
@@ -446,7 +453,7 @@ const Home = () => {
 
         <div
           ref={vehicleFoundRef}
-          className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl p-4"
+          className="fixed z-10 w-full bottom-0  rounded-t-xl "
         >
           <LookingForDriver
             pickup={pickup}
@@ -457,17 +464,17 @@ const Home = () => {
             setVehicleFound={setVehicleFound}
           />
         </div>
-      </div>
 
-      <div
-        ref={waitingForDriverRef}
-        className="fixed z-10 w-full bottom-0 bg-slate-900 rounded-t-xl "
-      >
-        <WaitingForDriver
-          ride={ride}
-          vehicleType={vehicleType}
-          setWaitingForDriver={setWaitingForDriver}
-        />
+        <div
+          ref={waitingForDriverRef}
+          className="fixed z-10 w-full bottom-0 bg-black rounded-t-xl "
+        >
+          <WaitingForDriver
+            ride={ride}
+            vehicleType={vehicleType}
+            setWaitingForDriver={setWaitingForDriver}
+          />
+        </div>
       </div>
     </div>
   );

@@ -8,23 +8,24 @@ const LocationSearchPanel = (props) => {
     <div className="space-y-2">
       {locations.length > 0 ? (
         locations.map((location, index) => (
-          <PremiumCard
-            key={index}
-            className="cursor-pointer p-3"
-            onClick={() => props.onSuggestionSelect(location)}
-            role="button"
-            tabIndex={0}
-          >
-            <div className="flex items-center gap-3">
-              <i className="ri-map-pin-fill text-lg text-primary flex-shrink-0"></i>
-              <div className="flex-1 min-w-0">
-                <p className="text-text-primary font-medium truncate">
-                  {location}
-                </p>
+          <div onClick={() => props.onSuggestionSelect(location)}>
+            <PremiumCard
+              key={index}
+              className="cursor-pointer p-3"
+              role="button"
+              tabIndex={0}
+            >
+              <div className="flex items-center gap-3">
+                <i className="ri-map-pin-fill text-lg text-primary flex-shrink-0"></i>
+                <div className="flex-1 min-w-0">
+                  <p className="text-text-primary font-medium truncate">
+                    {location}
+                  </p>
+                </div>
+                <i className="ri-arrow-right-s-line text-lg text-text-muted flex-shrink-0"></i>
               </div>
-              <i className="ri-arrow-right-s-line text-lg text-text-muted flex-shrink-0"></i>
-            </div>
-          </PremiumCard>
+            </PremiumCard>
+          </div>
         ))
       ) : (
         <div className="p-8 text-center">

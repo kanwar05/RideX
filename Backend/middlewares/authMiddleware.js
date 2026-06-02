@@ -7,11 +7,11 @@ const captainModel = require("../models/captainModel.js");
 module.exports.authUser = async (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
-  if (!token) {
+  if (!token || token === "null") {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const isBlacklisted = await blacklistModel.findOne({ token: token });
+  const isBlacklisted = await blacklistModel.findOne({ token });
 
   if (isBlacklisted) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -19,12 +19,19 @@ module.exports.authUser = async (req, res, next) => {
 
   try {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findById(decode._id);
+
+    console.log("Decoded token:", decode);
+
+    const user = await userModel.findById(decode._id || decode.id);
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
 
     req.user = user;
-
     return next();
   } catch (error) {
+    console.log("AUTH ERROR:", error.message);
     return res.status(401).json({ message: "Unauthorized" });
   }
 };

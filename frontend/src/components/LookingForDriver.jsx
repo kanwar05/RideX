@@ -18,12 +18,12 @@ const LookingForDriver = (props) => {
       {/* Header */}
       <div className="px-4 sm:px-6 pb-4 border-b border-dark-700">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">
+          <div className="w-2 h-2 bg-green-800 rounded-full animate-pulse"></div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gradient-animated">
             Finding a driver
           </h2>
         </div>
-        <p className="text-text-muted text-sm mt-1">
+        <p className="text-white/80 text-sm mt-1">
           Searching nearby drivers...
         </p>
       </div>
@@ -42,31 +42,31 @@ const LookingForDriver = (props) => {
           <div className="space-y-4 text-center">
             <div className="flex gap-2 justify-center">
               <div
-                className="w-3 h-3 bg-primary rounded-full animate-bounce"
+                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
                 style={{ animationDelay: "0s" }}
               />
               <div
-                className="w-3 h-3 bg-primary rounded-full animate-bounce"
-                style={{ animationDelay: "0.2s" }}
+                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
+                style={{ animationDelay: "0.3s" }}
               />
               <div
-                className="w-3 h-3 bg-primary rounded-full animate-bounce"
-                style={{ animationDelay: "0.4s" }}
+                className="w-3 h-3 bg-red-900 rounded-full animate-bounce"
+                style={{ animationDelay: "0.6s" }}
               />
             </div>
-            <p className="text-text-muted text-sm">
+            <p className="text-white/80 text-sm">
               Driver will arrive in 2-3 minutes
             </p>
           </div>
         </div>
 
         <div className="space-y-4">
-          <div className="flex gap-4 items-start">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
-              <i className="ri-map-pin-user-line text-lg"></i>
+          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
+              <i className="ri-map-pin-user-line text-xl"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-muted text-sm mb-1">Pickup</p>
+              <p className="text-gradient-animated text-lg ">Pickup</p>
               <p className="text-white font-semibold truncate">
                 {props.pickup || "Select pickup location"}
               </p>
@@ -77,12 +77,12 @@ const LookingForDriver = (props) => {
             <div className="w-0.5 h-6 bg-dark-700"></div>
           </div>
 
-          <div className="flex gap-4 items-start">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
+          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
               <i className="ri-map-pin-fill text-lg"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-muted text-sm mb-1">Destination</p>
+              <p className="text-gradient-animated text-lg">Destination</p>
               <p className="text-white font-semibold truncate">
                 {props.destination || "Select destination"}
               </p>
@@ -92,10 +92,17 @@ const LookingForDriver = (props) => {
 
         <PremiumCard className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-text-muted">Fare estimate</span>
-            <span className="text-2xl sm:text-3xl font-bold text-primary">
+            <span className="text-white">Fare estimate</span>
+            <span className="text-2xl sm:text-3xl font-bold text-white/80">
               ₹{props.fare[props.vehicleType]}
             </span>
+          </div>
+          <div className="pt-3 border-t border-dark-700">
+            <span className="text-white text-sm">Payment method</span>
+            <div className="flex items-center gap-2 mt-2">
+              <i className="ri-cash-line text-lg text-gradient-animated"></i>
+              <span className="text-white font-medium">Cash</span>
+            </div>
           </div>
         </PremiumCard>
       </div>
@@ -104,7 +111,7 @@ const LookingForDriver = (props) => {
       <div className="px-4 sm:px-6 py-4 bg-dark-800 border-t border-dark-700">
         <button
           onClick={() => props.setVehicleFound(false)}
-          className="w-full rounded-lg py-3 bg-slate-800 text-white font-semibold"
+          className="w-full rounded-full py-3 bg-red-800 text-white font-semibold"
         >
           Cancel Search
         </button>

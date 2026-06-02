@@ -15,10 +15,10 @@ const ConfirmedRide = (props) => {
       </div>
 
       <div className="px-4 sm:px-6 pb-4 border-b border-dark-700">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gradient-animated">
           Confirm your ride
         </h2>
-        <p className="text-text-muted text-sm mt-1">
+        <p className="text-white/80 text-sm mt-1">
           Review details before booking
         </p>
       </div>
@@ -33,12 +33,12 @@ const ConfirmedRide = (props) => {
         </PremiumCard>
 
         <div className="space-y-4">
-          <div className="flex gap-4 items-start">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
-              <i className="ri-map-pin-user-line text-lg"></i>
+          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
+              <i className="ri-map-pin-user-line text-xl"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-muted text-sm mb-1">Pickup</p>
+              <p className="text-gradient-animated text-lg ">Pickup</p>
               <p className="text-white font-semibold truncate">
                 {props.pickup || "Select pickup location"}
               </p>
@@ -49,12 +49,12 @@ const ConfirmedRide = (props) => {
             <div className="w-0.5 h-6 bg-dark-700"></div>
           </div>
 
-          <div className="flex gap-4 items-start">
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary text-dark-950 rounded-full">
+          <div className="flex gap-4 items-start bg-blur glass-sm rounded-xl justify-center p-2">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gradient-animated">
               <i className="ri-map-pin-fill text-lg"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-muted text-sm mb-1">Destination</p>
+              <p className="text-gradient-animated text-lg">Destination</p>
               <p className="text-white font-semibold truncate">
                 {props.destination || "Select destination"}
               </p>
@@ -64,29 +64,29 @@ const ConfirmedRide = (props) => {
 
         <PremiumCard className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-text-muted">Fare estimate</span>
-            <span className="text-2xl sm:text-3xl font-bold text-primary">
+            <span className="text-white">Fare estimate</span>
+            <span className="text-2xl sm:text-3xl font-bold text-white/80">
               ₹{props.fare[props.vehicleType]}
             </span>
           </div>
           <div className="pt-3 border-t border-dark-700">
-            <span className="text-text-muted text-sm">Payment method</span>
+            <span className="text-white text-sm">Payment method</span>
             <div className="flex items-center gap-2 mt-2">
-              <i className="ri-cash-line text-lg text-primary"></i>
+              <i className="ri-cash-line text-lg text-gradient-animated"></i>
               <span className="text-white font-medium">Cash</span>
             </div>
           </div>
         </PremiumCard>
       </div>
 
-      <div className="px-4 sm:px-6 py-4 bg-dark-800 border-t border-dark-700 space-y-3">
+      <div className="px-4 sm:px-6 py-6 bg-dark-800 border-t border-dark-700 space-y-4">
         <button
           onClick={() => {
             props.setVehicleFound(true);
             props.setConfirmedRidePanel(false);
             props.createTrip();
           }}
-          className="w-full rounded-lg py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold"
+          className="w-full btn-premium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           Confirm Ride
         </button>
@@ -94,7 +94,7 @@ const ConfirmedRide = (props) => {
           onClick={() => {
             props.setConfirmedRidePanel(false);
           }}
-          className="w-full rounded-lg py-3 bg-slate-800 text-white font-semibold"
+          className="w-full py-3 rounded-lg glass-sm hover-lift font-medium transition-all flex items-center justify-center gap-3 text-white"
         >
           Cancel
         </button>

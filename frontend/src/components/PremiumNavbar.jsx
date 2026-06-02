@@ -55,22 +55,17 @@ const PremiumNavbar = ({ userType = "user" }) => {
     <>
       {/* Premium Navbar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-area-top ${
-          isScrolled ? "glass-lg shadow-lg backdrop-blur-xl" : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 p-2 ${isScrolled ? "glass-sm shadow-sm backdrop-blur-sm" : "bg-transparent"} transition-all duration-300`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-10">
             {/* Logo */}
             <div
               className="flex items-center gap-2 cursor-pointer group transition-all duration-300 hover:scale-105"
               onClick={() => navigate("/")}
             >
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold shadow-glow-md">
-                RX
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <div className="block">
+                <h1 className="text-2xl font-bold text-gradient-animated">
                   RideX
                 </h1>
               </div>
@@ -91,13 +86,13 @@ const PremiumNavbar = ({ userType = "user" }) => {
                   <i className={item.icon}></i>
                   <span className="text-sm font-medium">{item.label}</span>
 
-                  {/* Animated Active Indicator */}
-                  {isActive(item.path) && (
+            {/* Animated Active Indicator */}
+            {isActive(item.path) && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse-soft"></div>
                   )}
 
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+            {/* Hover Effect */}
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
                 </button>
               ))}
             </div>
@@ -141,7 +136,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 animate-slide-up">
+            <div className="md:hidden pb-4 animate-slide-up bg-blur-lg rounded-lg glass-lg text-black">
               <div className="space-y-2 py-4 border-t border-border">
                 {navItems.map((item) => (
                   <button
@@ -198,7 +193,7 @@ const PremiumNavbar = ({ userType = "user" }) => {
       </nav>
 
       {/* Spacer */}
-      <div className="h-20 safe-area-top"></div>
+      {/* <div className="h-20 safe-area-top"></div> */}
     </>
   );
 };

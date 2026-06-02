@@ -64,15 +64,19 @@ const UserLogin = () => {
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-4xl text-white font-bold mb-2">
               Ride<span className="text-gradient-animated">X</span>
             </h1>
-            <p className="text-text-muted">Premium ridesharing experience</p>
+            <p className="text-text-muted text-white">
+              Premium ridesharing experience
+            </p>
           </div>
 
           {/* Login Card */}
           <PremiumCard className="space-y-6">
-            <h2 className="text-2xl font-bold text-center">Welcome Back</h2>
+            <h2 className="text-2xl font-bold text-gradient-animated text-center">
+              Welcome Back
+            </h2>
 
             {/* Error Toast */}
             {error && (
@@ -85,7 +89,7 @@ const UserLogin = () => {
             <form onSubmit={submitHandler} className="space-y-4">
               {/* Email Field */}
               <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">
+                <label className="block text-sm font-medium text-white/80 mb-2">
                   Email
                 </label>
                 <PremiumInput
@@ -100,7 +104,7 @@ const UserLogin = () => {
 
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">
+                <label className="block text-sm font-medium text-white/80 mb-2">
                   Password
                 </label>
                 <PremiumInput
@@ -117,7 +121,7 @@ const UserLogin = () => {
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-sm text-primary hover:text-primary-hover transition-colors"
+                  className="text-sm primary hover:text-gradient-animated transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -143,23 +147,29 @@ const UserLogin = () => {
               </button>
             </form>
 
-            <div className="divider-subtle"></div>
+            <div className="relative flex items-center gap-4 py-4">
+              <div className="flex-1 h-px bg-dark-500"></div>
+              <span className="text-xs text-white/60 uppercase font-semibold">
+                Or
+              </span>
+              <div className="flex-1 h-px bg-dark-500"></div>
+            </div>
 
             {/* Google Login */}
             <button
               type="button"
-              className="w-full py-3 rounded-lg glass-lg hover-lift font-medium transition-all flex items-center justify-center gap-3"
+              className="w-full py-3 rounded-lg glass-sm hover-lift font-medium transition-all flex items-center justify-center gap-3"
             >
               <FcGoogle className="text-xl" />
-              <span>Continue with Google</span>
+              <span className="text-white/80">Continue with Google</span>
             </button>
 
             {/* Signup Link */}
-            <p className="text-center text-text-muted text-sm">
+            <p className="text-center text-white/80 text-sm">
               Don't have an account?{" "}
               <Link
                 to="/user-signup"
-                className="text-primary hover:underline font-medium"
+                className="text-gradient-animated hover:underline font-medium"
               >
                 Sign up
               </Link>
@@ -167,13 +177,13 @@ const UserLogin = () => {
           </PremiumCard>
 
           {/* Footer */}
-          <p className="text-center text-text-muted text-xs mt-6">
+          <p className="text-center text-white/80 text-xs mt-6">
             By signing in, you agree to our{" "}
-            <a href="#" className="text-primary hover:underline">
+            <a href="#" className="text-gradient-animated hover:underline">
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="text-primary hover:underline">
+            <a href="#" className="text-gradient-animated hover:underline">
               Privacy Policy
             </a>
           </p>
